@@ -24,7 +24,7 @@ export default function Footer() {
         <h3>Contact us.</h3>
         <p>Address: Lô E2a-7, Đường D1, Đ. D1, Long Thạnh Mỹ, Thành Phố Thủ Đức, Thành phố Hồ Chí Minh 700000</p>
         <p>Phone No: +84 123 456789</p>
-        <p>Email: kietuctse161952@fpt.edu.vn</p>
+        <p>Email: baokk254952@fpt.edu.vn</p>
       </div>
     </div>
   )
