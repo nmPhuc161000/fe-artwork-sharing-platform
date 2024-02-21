@@ -27,7 +27,7 @@ export default function Login() {
               <input type="text" placeholder="Password" />
             </div>
             <div className='recovery'>
-            <button type="submit">Recovery password ?</button>
+            <button type="submit">Recovery password ??</button>
             </div>
             <div className="signIn">
               <button type="submit">Login</button>
