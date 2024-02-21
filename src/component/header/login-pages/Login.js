@@ -35,7 +35,7 @@ export default function Login() {
             <img src="./assets/image/logo.png" alt=""></img>
           </div>
           <div className="title">Welcome to Artwork!</div>
-          <h4>please login to your accout</h4>
+          <h6>please login to your accout</h6>
           <form action="mainController">
             <div className="group">
               <input type="text" placeholder="Usename" />
@@ -68,7 +68,7 @@ export default function Login() {
               cookiePolicy={'single_host_origin'}
             />
             <div className='signUp'>
-            <h4>Don't have an account?</h4>
+            <h7>Don't have an account?</h7>
             <button type="submit">Sign UP</button>
             </div>
           </form>
