@@ -1,69 +1,38 @@
 import React from "react";
+import "./Register.css";
 
 export default function Register() {
   return (
-    <div style="margin-left: 10px">
-      <h1>Create New Account</h1>
-      <div>
-        <form action="mainController">
-          <div>
-            <input
-              type="text"
-              name="txtUsername"
-              value=""
-              placeholder="New Username"
-            />{" "}
-            (4 - 20 chars)
+    <>
+      <div className="regisPage">
+      <div class="overlay"></div>
+        <div class="register">
+          <div className="logoLogin">
+            <img src="./assets/image/logo.png" alt=""></img>
           </div>
-
-          <div>
-            <input
-              type="password"
-              name="txtPassword"
-              value=""
-              placeholder="New Password"
-            />{" "}
-            (3 - 20 chars)
-          </div>
-
-          <div>
-            <input
-              type="password"
-              name="txtConfirm"
-              value=""
-              placeholder="Confirm Password"
-            />
-          </div>
-
-          <div>
-            <input
-              type="text"
-              name="txtLastname"
-              value=""
-              placeholder="Full Name"
-            />{" "}
-            (6 - 50 chars)
-          </div>
-
-          <div>
-            <input
-              type="txt"
-              name="txtPhone"
-              value=""
-              placeholder="Your phone"
-            />{" "}
-            (3 - 9 number)
-          </div>
-          <div>
-            <button type="submit" value="signUp" name="btAction">
-              Create New Account
-            </button>
-            <button type="reset" value="reset">
-              Reset
-            </button>
-          </div>
-        </form>
+          <div className="title">Register Now</div>
+          <form action="mainController">
+            <div className="group">
+              <input type="text" placeholder="Fullname" />
+            </div>
+            <div className="group">
+              <input type="text" placeholder="Email" />
+            </div>
+            <div className="group">
+              <input type="text" placeholder="Username" />
+            </div>
+            <div className="group">
+              <input type="password" placeholder="Password" />
+            </div>
+            <div className="group">
+              <input type="password" placeholder="Retype Password" />
+            </div>
+            <div className="signUp">
+              <button type="submit">Create</button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
