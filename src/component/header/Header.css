@@ -1,0 +1,14 @@
+.navbar{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: white;
+}
+.navbar .search{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.navbar .logo img{
+    width: 100px;
+}
