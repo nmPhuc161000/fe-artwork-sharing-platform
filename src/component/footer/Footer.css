@@ -1,0 +1,26 @@
+.footer-content {
+    background-color: #f1b6b6;
+    color: #141313;
+    display: flex;
+    justify-content: space-between;
+  }
+.footer-content img {
+    width: 20%;
+}
+.footer-info,
+.footer-about,
+.footer-contact {
+  margin: auto;
+}
+
+.footer-info h3,
+.footer-about h3,
+.footer-contact h3 {
+  color: black;
+  font-size: 18px;
+  font-weight: bold;
+}
+.footer-info ul li,
+.footer-about ul li {
+  margin-bottom: 5px;
+}
