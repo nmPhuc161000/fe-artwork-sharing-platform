@@ -5,7 +5,8 @@
     justify-content: space-between;
   }
 .footer-content img {
-    width: 20%;
+    width: 12%;
+    height: 200px; 
 }
 .footer-info,
 .footer-about,
