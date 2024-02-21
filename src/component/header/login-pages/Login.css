@@ -4,7 +4,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 990px;
+  height: 100vh;
   background-size: 50% 100%;
   background-repeat: no-repeat;
 }
@@ -27,7 +27,6 @@ a {
 }
 .recovery button{ 
   margin-bottom: 20px;
-  border-radius: 10px;
   border: none;
   color: rgba(16, 106, 185, 0.99);
   transition: 0.5s;
@@ -102,4 +101,11 @@ a {
   margin-bottom: 40px;
   transition: 0.5s;
   cursor: pointer;
+}
+.login .group button {
+  color: #777;
+  margin-right: 15px;
+  cursor: pointer;
+  border: none;
+  transition: 0.5s;
 }

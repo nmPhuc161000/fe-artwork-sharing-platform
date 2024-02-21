@@ -1,13 +1,30 @@
-import React from 'react'
+import React,{useState} from 'react'
 import './Login.css'
 import GoogleLogin from 'react-google-login'
 export default function Login() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleUsernameChange = (event) => {
+    setUsername(event.target.value);
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   const responseGoogle = (response) => {
     console.log(response);
   };
 
-  const responseFacebook = (response) => {
-    console.log(response);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Handle form submission
   };
   return (
     <>
@@ -24,8 +41,16 @@ export default function Login() {
               <input type="text" placeholder="Usename" />
             </div>
             <div className="group">
-              <input type="text" placeholder="Password" />
-            </div>
+            <input
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Password"
+              value={password}
+              onChange={handlePasswordChange}
+            />
+            <button type="button" onClick={togglePasswordVisibility}>
+              {showPassword ? 'Hide' : 'Show'}
+            </button>
+          </div>
             <div className='recovery'>
             <button type="submit">Recovery password ???</button>
             </div>
