@@ -1,9 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 import "./Home.css";
+import axios from "axios";
 import {
   Icon,
-  Link,
-  Button,
   Col,
   Card,
   Row,
@@ -11,12 +10,14 @@ import {
 } from "react-materialize";
 
 export default function Home() {
+
   return (
     <>
       <div className="container-fluid">
         <Row  style={{
             width: "95%",
           }}>
+            
           <Col m={3}>
             <Card
               closeIcon={<Icon>close</Icon>}
