@@ -1,14 +1,47 @@
+.nav{
+    background-color: white;
+}
 .navbar{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     background-color: white;
+    margin: 0 40px;
 }
 .navbar .search{
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
+.navbar .search input{
+    margin-left: 5px;
+}
+
 .navbar .logo img{
     width: 100px;
+}
+
+.navbar .regisLogin{
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar .regisLogin button{
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+    cursor: pointer;
+    font-size: 17px;
+}
+
+.navbar .regisLogin button:hover{
+    color: blue;
+}
+
+.navbar .regisLogin img{
+    width: 30px;
+    height: 30px;
+    margin-left: 20px;
 }

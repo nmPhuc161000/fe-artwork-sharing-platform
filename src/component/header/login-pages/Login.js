@@ -1,6 +1,8 @@
 import React,{useState} from 'react'
 import './Login.css'
 import GoogleLogin from 'react-google-login'
+import { Link } from 'react-router-dom';
+
 export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -68,8 +70,8 @@ export default function Login() {
               cookiePolicy={'single_host_origin'}
             />
             <div className='signUp'>
-            <h7>Don't have an account?</h7>
-            <button type="submit">Sign UP</button>
+            <h6>Don't have an account?</h6>
+            <Link to={`regis`}><button>Sign UP</button></Link>
             </div>
           </form>
         </div>
