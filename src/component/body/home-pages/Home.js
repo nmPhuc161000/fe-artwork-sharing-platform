@@ -37,7 +37,6 @@ export default function Home() {
               title="Card Title"
             >
               <p>
-                <Link to={`/`}>Detail</Link>
               </p>
             </Card>
           </Col>
