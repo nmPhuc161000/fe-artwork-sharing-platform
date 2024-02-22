@@ -9,6 +9,22 @@
     justify-content: center;
     align-items: center;
 }
+
+.navbar .search input{
+    margin-left: 5px;
+}
+
 .navbar .logo img{
     width: 100px;
+}
+
+.navbar .regisLogin button{
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+    cursor: pointer;
+    font-size: 17px;
+}
+
+.navbar .regisLogin button:hover{
+    color: blue;
 }
