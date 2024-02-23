@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import "./Home.css";
 import axios from "axios";
@@ -10,7 +11,6 @@ import {
   Row,
   CardTitle,
 } from "react-materialize";
-
 export default function Home() {
 
   return (
