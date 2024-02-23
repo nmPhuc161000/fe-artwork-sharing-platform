@@ -1,22 +1,21 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Home.css";
 import {
   Icon,
-  Link,
   Button,
   Col,
   Card,
   Row,
   CardTitle,
 } from "react-materialize";
-
 export default function Home() {
   return (
     <>
       <div className="container-fluid">
-        <Row  style={{
-            width: "95%",
-          }}>
+        <Row style={{
+          width: "95%",
+        }}>
           <Col m={3}>
             <Card
               closeIcon={<Icon>close</Icon>}
@@ -36,8 +35,9 @@ export default function Home() {
               revealIcon={<Icon>more_vert</Icon>}
               title="Card Title"
             >
-              <p>
-              </p>
+              <Link to={'/detail'}>
+                <button className='waves-effect waves-light btn'>Detail</button>
+              </Link>
             </Card>
           </Col>
         </Row>
