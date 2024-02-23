@@ -1,11 +1,8 @@
-import React, {useState} from "react";
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Home.css";
-import axios from "axios";
 import {
   Icon,
-  Button,
   Col,
   Card,
   Row,
@@ -20,6 +17,7 @@ export default function Home() {
           width: "95%",
         }}>
           <Col m={3}>
+
             <Card
               closeIcon={<Icon>close</Icon>}
               header={
@@ -42,6 +40,7 @@ export default function Home() {
                 <button className='waves-effect waves-light btn'>Detail</button>
               </Link>
             </Card>
+
           </Col>
         </Row>
       </div>

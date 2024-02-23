@@ -1,9 +1,10 @@
 import React from "react";
-import { Icon, Button } from "react-materialize";
+import { Icon } from "react-materialize";
 import { Link } from "react-router-dom";
 import "./Header.css";
 
 export default function Header() {
+  
   return (
     <>
       <div className="nav">

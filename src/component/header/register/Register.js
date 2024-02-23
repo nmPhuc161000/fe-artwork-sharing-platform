@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Register.css";
 import axios from "axios";
 
@@ -34,6 +35,8 @@ export default function Register() {
     setAddress(value);
   };
 
+  const navigate = useNavigate();
+
   const handleSave = async () => {
     if (!fullName || !email || !userName || !password || !address || !phoneNo) {
       alert("Vui lòng điền đầy đủ thông tin.");
@@ -56,8 +59,12 @@ export default function Register() {
         data
       );
 
-      // Xử lý kết quả từ API nếu cần
       console.log(response.data);
+
+      navigate("/login");
+
+      console.log("Đăng ký thành công! Vui lòng đăng nhập.");
+      alert("Đăng ký thành công! Vui lòng đăng nhập.");
     } catch (error) {
       // Xử lý lỗi
       console.error("Đã có lỗi xảy ra khi gửi yêu cầu API:", error.message);
