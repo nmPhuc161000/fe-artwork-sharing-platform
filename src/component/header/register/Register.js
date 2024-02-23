@@ -3,11 +3,11 @@ import "./Register.css";
 import axios from "axios";
 
 export default function Register() {
-  const [username, setUserName] = useState("");
-  const [fullname, setFullName] = useState("");
+  const [userName, setUserName] = useState("");
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [phone, setPhone] = useState("");
+  const [phoneNo, setPhone] = useState("");
   const [address, setAddress] = useState("");
 
   const handleFullNameChange = (value) => {
@@ -34,62 +34,35 @@ export default function Register() {
     setAddress(value);
   };
 
-  const handleSave = () => {
-    if (!fullname || !email || !username || !password || !address || !phone) {
+  const handleSave = async () => {
+    if (!fullName || !email || !userName || !password || !address || !phoneNo) {
       alert("Vui lòng điền đầy đủ thông tin.");
       return;
     }
 
-    // const data = {
-    //   FullName: fullname,
-    //   Email: email,
-    //   UserName: username,
-    //   Password: password,
-    //   Address: address,
-    //   PhoneNo: phone
-    // };
-
-    axios({
-      method: 'post',
-      url: 'http://localhost:5188/api/Auth/register',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      data: {
-      FullName: fullname,
+    const data = {
+      UserName: userName,
+      FullName: fullName,
       Email: email,
-      UserName: username,
       Password: password,
+      PhoneNo: phoneNo,
       Address: address,
-      PhoneNo: phone
-      }
-    });
+    };
 
-    // const url = 'https://localhost:44306/api/Auth/register';
+    try {
+      // Gửi yêu cầu POST đến API
+      const response = await axios.post(
+        "https://localhost:44306/api/Auth/register",
+        data
+      );
 
-    // fetch(url, {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(data),
-    // })
-    //   .then(response => {
-    //     // Kiểm tra mã trạng thái của phản hồi từ máy chủ
-    //     if (response.ok) {
-    //       return response.json(); // Trả về dữ liệu JSON nếu có
-    //     } else {
-    //       throw new Error("Đã xảy ra lỗi.");
-    //     }
-    //   })
-    //   .then(data => {
-    //     alert("Đăng ký thành công!");
-    //     console.log(data); // Dữ liệu trả về từ máy chủ
-    //   })
-    //   .catch(error => {
-    //     console.error("Lỗi trong quá trình đăng ký:", error);
-    //     alert("Đã xảy ra lỗi trong quá trình đăng ký. Vui lòng thử lại sau.");
-    //   });
+      // Xử lý kết quả từ API nếu cần
+      console.log(response.data);
+    } catch (error) {
+      // Xử lý lỗi
+      console.error("Đã có lỗi xảy ra khi gửi yêu cầu API:", error.message);
+      console.log(data);
+    }
   };
 
   return (
@@ -100,7 +73,7 @@ export default function Register() {
           <div className="logoLogin">
             <img src="./assets/image/logo.png" alt=""></img>
           </div>
-          <div className="title">Register Now</div>
+          <div className="title">Register Now!</div>
           <div className="group">
             <input
               type="text"
@@ -144,7 +117,9 @@ export default function Register() {
             />
           </div>
           <div className="signUp">
-            <button type="submit" onClick={() => handleSave()}>Create</button>
+            <button type="submit" onClick={() => handleSave()}>
+              Create
+            </button>
           </div>
         </div>
       </div>
