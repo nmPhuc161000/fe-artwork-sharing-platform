@@ -49,6 +49,15 @@ export default function Detail({ authorAvatar, isLoggedIn }) {
             window.location.href = '/login';
         }
     };
+    const handleAuthorClick = () => {
+        // Nếu người dùng đã đăng nhập, chuyển hướng đến trang thông tin cá nhân
+        if (isLoggedIn) {
+            window.location.href = '/profile';
+        } else {
+            // Nếu chưa đăng nhập, chuyển hướng đến trang đăng nhập
+            window.location.href = '/login';
+        }
+    };
 
 
     return (
@@ -109,8 +118,10 @@ export default function Detail({ authorAvatar, isLoggedIn }) {
                 </div>
             </div>
             <div className='product-info'>
-                <img src={authorAvatar} alt='Author Avatar' className='author-avatar' />
-                <div className='name'>
+            <a onClick={handleAuthorClick} href={isLoggedIn ? '/profile' : '/login'} className='author'>
+                    <img src='./assets/image/avatar.png' alt='Author Avatar' />
+                </a>
+                <div className='artist'>
                     <p><strong>Artist:</strong> Ngoc Bao</p> {/* Thông tin về tác giả */}
                 </div>
                 <p><strong>Published:</strong> January 1, 2023</p>

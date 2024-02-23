@@ -87,12 +87,12 @@
   align-items: center;
   justify-content: space-between;
 }
-.author-avatar {
+.author {
   width: 40px; /* Độ rộng của ảnh đại diện */
   height: 40px; /* Độ cao của ảnh đại diện */
   border-radius: 50%; /* Bo tròn các góc để tạo hình tròn */
   margin-right: 10px; /* Khoảng cách giữa ảnh đại diện và thông tin tác giả */
 }
-.product-info .name {
+.product-info .artist {
   margin-right: auto;
 }

@@ -37,7 +37,7 @@ export default function Login() {
             <img src="./assets/image/logo.png" alt=""></img>
           </div>
           <div className="title">Welcome to Artwork!</div>
-          <h6>please login to your accout</h6>
+          <h6>please login to your account</h6>
           <form action="mainController">
             <div className="group">
               <input type="text" placeholder="Usename" />
