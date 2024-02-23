@@ -1,36 +1,126 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Register.css";
+import axios from "axios";
 
 export default function Register() {
+  const [userName, setUserName] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [phoneNo, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+
+  const handleFullNameChange = (value) => {
+    setFullName(value);
+  };
+
+  const handleEmailChange = (value) => {
+    setEmail(value);
+  };
+
+  const handleUserNameChange = (value) => {
+    setUserName(value);
+  };
+
+  const handlePasswordChange = (value) => {
+    setPassword(value);
+  };
+
+  const handlePhoneNoChange = (value) => {
+    setPhone(value);
+  };
+
+  const handleAddressChange = (value) => {
+    setAddress(value);
+  };
+
+  const handleSave = async () => {
+    if (!fullName || !email || !userName || !password || !address || !phoneNo) {
+      alert("Vui lòng điền đầy đủ thông tin.");
+      return;
+    }
+
+    const data = {
+      UserName: userName,
+      FullName: fullName,
+      Email: email,
+      Password: password,
+      PhoneNo: phoneNo,
+      Address: address,
+    };
+
+    try {
+      // Gửi yêu cầu POST đến API
+      const response = await axios.post(
+        "https://localhost:44306/api/Auth/register",
+        data
+      );
+
+      // Xử lý kết quả từ API nếu cần
+      console.log(response.data);
+    } catch (error) {
+      // Xử lý lỗi
+      console.error("Đã có lỗi xảy ra khi gửi yêu cầu API:", error.message);
+      console.log(data);
+    }
+  };
+
   return (
     <>
       <div className="regisPage">
-      <div class="overlay"></div>
-        <div class="register">
+        <div className="overlay"></div>
+        <div className="register">
           <div className="logoLogin">
             <img src="./assets/image/logo.png" alt=""></img>
           </div>
-          <div className="title">Register Now</div>
-          <form action="mainController">
-            <div className="group">
-              <input type="text" placeholder="Fullname" />
-            </div>
-            <div className="group">
-              <input type="text" placeholder="Email" />
-            </div>
-            <div className="group">
-              <input type="text" placeholder="Username" />
-            </div>
-            <div className="group">
-              <input type="password" placeholder="Password" />
-            </div>
-            <div className="group">
-              <input type="password" placeholder="Retype Password" />
-            </div>
-            <div className="signUp">
-              <button type="submit">Create</button>
-            </div>
-          </form>
+          <div className="title">Register Now!</div>
+          <div className="group">
+            <input
+              type="text"
+              placeholder="Fullname"
+              onChange={(e) => handleFullNameChange(e.target.value)}
+            />
+          </div>
+          <div className="group">
+            <input
+              type="text"
+              placeholder="Email"
+              onChange={(e) => handleEmailChange(e.target.value)}
+            />
+          </div>
+          <div className="group">
+            <input
+              type="text"
+              placeholder="Username"
+              onChange={(e) => handleUserNameChange(e.target.value)}
+            />
+          </div>
+          <div className="group">
+            <input
+              type="password"
+              placeholder="Password"
+              onChange={(e) => handlePasswordChange(e.target.value)}
+            />
+          </div>
+          <div className="group">
+            <input
+              type="text"
+              placeholder="address"
+              onChange={(e) => handleAddressChange(e.target.value)}
+            />
+          </div>
+          <div className="group">
+            <input
+              type="text"
+              placeholder="phone"
+              onChange={(e) => handlePhoneNoChange(e.target.value)}
+            />
+          </div>
+          <div className="signUp">
+            <button type="submit" onClick={() => handleSave()}>
+              Create
+            </button>
+          </div>
         </div>
       </div>
     </>

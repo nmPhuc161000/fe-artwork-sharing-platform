@@ -1,6 +1,8 @@
+import React, {useState} from "react";
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Home.css";
+import axios from "axios";
 import {
   Icon,
   Button,
@@ -10,6 +12,7 @@ import {
   CardTitle,
 } from "react-materialize";
 export default function Home() {
+
   return (
     <>
       <div className="container-fluid">
