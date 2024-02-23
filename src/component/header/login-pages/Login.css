@@ -23,11 +23,9 @@ a {
   background-color: rgba(0, 0, 0, 0.5); /* Màu đen với độ trong suốt 0.5 */
   z-index: 1; /* Lớp mờ đen ở trên cùng */
 }
-.recovery {
+.recovery{ 
   text-align: right;
-}
-.recovery button{ 
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   border: none;
   color: rgba(16, 106, 185, 0.99);
   transition: 0.5s;

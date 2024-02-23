@@ -6,7 +6,8 @@ import Login from './component/header/login-pages/Login';
 import Register from './component/header/register/Register';
 import Home from './component/body/home-pages/Home'
 import Cart from './component/cart/Cart';
-import Detail from './component/Details/Detail'
+import Detail from './component/Details/Detail';
+import RecoveryPassword from './component/header/recovery-password/RecoveryPassword';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home/>}></Route>
         <Route path="/login" element={<Login/>}></Route>
+        <Route path="/recovery-password" element={<RecoveryPassword/>}></Route>
         <Route path="/regis" element={<Register/>}></Route>
         <Route path="/detail" element={<Detail/>}></Route>
         <Route path="/cart" element={<Cart/>}></Route>
