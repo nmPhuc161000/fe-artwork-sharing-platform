@@ -73,6 +73,7 @@ export default function Login() {
             <div className='Or'>
               <a>Or continue with</a>
             </div>
+
             <GoogleLogin
               clientId="YOUR_GOOGLE_CLIENT_ID"
               buttonText="Login with Google"
@@ -80,6 +81,7 @@ export default function Login() {
               onFailure={responseGoogle}
               cookiePolicy={'single_host_origin'}
             />
+            
             <div className='signUp'>
             <h6>Don't have an account?</h6>
             <Link to={`/regis`}><button>Sign UP</button></Link>
