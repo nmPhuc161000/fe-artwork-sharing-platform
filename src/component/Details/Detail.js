@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Icon, Modal, Button, Textarea } from 'react-materialize';
 import './Detail.css';
-export default function Detail({ authorAvatar, isLoggedIn }) {
+export default function Detail({isLoggedIn }) {
     const [isFavorite, setIsFavorite] = useState(false);
     const [comment, setComment] = useState('');
     const [isCommentModalOpen, setIsCommentModalOpen] = useState(false); // State để điều khiển việc hiển thị modal comment
@@ -41,20 +41,21 @@ export default function Detail({ authorAvatar, isLoggedIn }) {
         }
     };
     const handleDownloadClick = () => {
-        // Nếu người dùng đã đăng nhập, chuyển hướng đến trang thanh toán
         if (isLoggedIn) {
             window.location.href = '/payment';
         } else {
-            // Nếu chưa đăng nhập, chuyển hướng đến trang đăng nhập
+            // Lưu địa chỉ URL của trang chi tiết trước khi chuyển hướng đến trang đăng nhập
+            localStorage.setItem('redirectPath', window.location.pathname);
             window.location.href = '/login';
         }
     };
+
     const handleAuthorClick = () => {
-        // Nếu người dùng đã đăng nhập, chuyển hướng đến trang thông tin cá nhân
         if (isLoggedIn) {
             window.location.href = '/profile';
         } else {
-            // Nếu chưa đăng nhập, chuyển hướng đến trang đăng nhập
+            // Lưu địa chỉ URL của trang chi tiết trước khi chuyển hướng đến trang đăng nhập
+            localStorage.setItem('redirectPath', window.location.pathname);
             window.location.href = '/login';
         }
     };
@@ -118,7 +119,7 @@ export default function Detail({ authorAvatar, isLoggedIn }) {
                 </div>
             </div>
             <div className='product-info'>
-            <a onClick={handleAuthorClick} href={isLoggedIn ? '/profile' : '/login'} className='author'>
+                <a onClick={handleAuthorClick} href={isLoggedIn ? '/profile' : '/login'} className='author'>
                     <img src='./assets/image/avatar.png' alt='Author Avatar' />
                 </a>
                 <div className='artist'>
