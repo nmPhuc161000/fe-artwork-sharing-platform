@@ -32,7 +32,7 @@ export default function Login() {
     try {
       const response = await axios.post(
         "https://localhost:44306/api/Auth/login",
-        { username, password } // Send the username and password in the request body
+        data // Send the username and password in the request body
       );
       console.log(response.data);
       // If login is successful, redirect to the main page
