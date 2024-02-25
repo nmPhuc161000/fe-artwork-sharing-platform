@@ -14,12 +14,10 @@ import Profile from './component/profile/Profile';
 function App() {
   const location = useLocation();
   const [isLoginPage, setIsLoginPage] = useState(location.pathname === '/login');
-  const [isRegisterPage, setIsRegisterPage] = useState(location.pathname === '/register');
 
   // Khi đường dẫn thay đổi, kiểm tra xem trang hiện tại có phải là trang Login hay không
   React.useEffect(() => {
     setIsLoginPage(location.pathname === '/login');
-    setIsRegisterPage(location.pathname === '/regis');
   }, [location]);
   return (
     <div className="App">
@@ -33,7 +31,7 @@ function App() {
         <Route path="/cart" element={<Cart/>}></Route>
         <Route path="/profile" element={<Profile/>}></Route>
       </Routes>
-      <Footer isLoginPage={isLoginPage} isRegisterPage={isRegisterPage}/>
+      <Footer isLoginPage={isLoginPage}/>
     </div>
   );
 }
