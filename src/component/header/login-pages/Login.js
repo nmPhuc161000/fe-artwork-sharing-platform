@@ -37,7 +37,7 @@ export default function Login() {
       alert("Login successful");
       window.location.href = "/";
     } catch (error) {
-      alert("Login fail");
+      alert("Login fail! Please re-enter!!!");
       console.error("An error occurred while sending the API request:", error.message);
       setLoginError(true);
     }
