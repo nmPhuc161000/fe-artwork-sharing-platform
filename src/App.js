@@ -1,5 +1,6 @@
 import './App.css';
-import { Routes, Route } from "react-router-dom";
+import React, { useState } from 'react';
+import { Routes, Route, useLocation  } from "react-router-dom";
 import Footer from './component/footer/Footer';
 import Header from './component/header/Header';
 import Login from './component/header/login-pages/Login';
@@ -10,6 +11,13 @@ import Detail from './component/Details/Detail';
 import RecoveryPassword from './component/header/recovery-password/RecoveryPassword';
 
 function App() {
+  const location = useLocation();
+  const [isLoginPage, setIsLoginPage] = useState(location.pathname === '/login');
+
+  // Khi đường dẫn thay đổi, kiểm tra xem trang hiện tại có phải là trang Login hay không
+  React.useEffect(() => {
+    setIsLoginPage(location.pathname === '/login');
+  }, [location]);
   return (
     <div className="App">
       <Header/>
@@ -22,7 +30,7 @@ function App() {
         <Route path="/cart" element={<Cart/>}></Route>
         <Route path="/login/regis" element={<Register/>}></Route>
       </Routes>
-      <Footer/>
+      <Footer isLoginPage={isLoginPage}/>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import './Footer.css'
-export default function Footer() {
-  return (
+function Footer({ isLoginPage }) {
+  return isLoginPage ? null : ( // Ẩn footer nếu là trang Login
     <div className='footer-content'>
       <img src='./assets/image/logo.png' alt='logo' className='footer-logo' />
       <div className="footer-info">
@@ -27,5 +27,7 @@ export default function Footer() {
         <p>Email: baokk254952@fpt.edu.vn</p>
       </div>
     </div>
-  )
+  );
 }
+
+export default Footer;
