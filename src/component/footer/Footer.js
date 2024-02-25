@@ -1,7 +1,11 @@
 import React from 'react'
 import './Footer.css'
-function Footer({ isLoginPage }) {
-  return isLoginPage ? null : ( // Ẩn footer nếu là trang Login
+function Footer({ isLoginPage, isRegisterPage }) { // Thêm isRegisterPage vào props
+  if (isLoginPage || isRegisterPage) { // Ẩn footer nếu là trang Login hoặc Register
+    return null;
+  }
+
+  return (
     <div className='footer-content'>
       <img src='./assets/image/logo.png' alt='logo' className='footer-logo' />
       <div className="footer-info">
