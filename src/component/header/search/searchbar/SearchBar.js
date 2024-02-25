@@ -9,7 +9,8 @@ export const SearchBar = ({ setResults }) => {
   const axiosData = (value) => {
     axios("https://localhost:44306/api/Auth/users")
       .then((response) => {
-        const users = response.data; // Assuming response.data is an array of users
+        console.log("API Response:", response.data);
+        const users = response.data; // Sử dụng mảng mặc định nếu không có dữ liệu trả về
         const result = users.filter((user) => {
           return (
             value &&
@@ -18,6 +19,7 @@ export const SearchBar = ({ setResults }) => {
             user.userName.toLowerCase().includes(value)
           );
         });
+        console.log(result);
         setResults(result);
       })
       .catch((error) => {
