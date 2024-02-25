@@ -9,6 +9,7 @@ import Home from './component/body/home-pages/Home'
 import Cart from './component/cart/Cart';
 import Detail from './component/Details/Detail';
 import RecoveryPassword from './component/header/recovery-password/RecoveryPassword';
+import Profile from './component/profile/Profile';
 
 function App() {
   const location = useLocation();
@@ -28,7 +29,7 @@ function App() {
         <Route path="/regis" element={<Register/>}></Route>
         <Route path="/detail" element={<Detail/>}></Route>
         <Route path="/cart" element={<Cart/>}></Route>
-        <Route path="/login/regis" element={<Register/>}></Route>
+        <Route path="/profile" element={<Profile/>}></Route>
       </Routes>
       <Footer isLoginPage={isLoginPage}/>
     </div>

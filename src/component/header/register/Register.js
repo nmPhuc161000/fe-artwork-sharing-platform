@@ -38,7 +38,7 @@ export default function Register() {
   const navigate = useNavigate();
 
   const handleSave = async () => {
-    if (!fullName || !email || !userName || !password || !address || !phoneNo) {
+    if (!fullName || !email || !userName || !password) {
       alert("Vui lòng điền đầy đủ thông tin.");
       return;
     }

@@ -31,16 +31,13 @@ export default function Login() {
         { username, password }
       );
       console.log(response.data);
-      if (response.data.success) {
-        const { newToken } = response.data;
-        localStorage.setItem('token', newToken);
-        axios.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
-        alert("Login successful");
-        navigate("/");
-      } else {
-        setLoginError(true);
-      }
+      const { newToken } = response.data;
+      localStorage.setItem('token', newToken);
+      axios.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
+      alert("Login successful");
+      window.location.href = "/";
     } catch (error) {
+      alert("Login fail");
       console.error("An error occurred while sending the API request:", error.message);
       setLoginError(true);
     }

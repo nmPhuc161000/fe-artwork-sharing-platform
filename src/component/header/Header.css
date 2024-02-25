@@ -12,14 +12,10 @@
     background-color: white;
     margin: 0 40px;
 }
-.navbar .search{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
-.navbar .search input{
-    margin-left: 5px;
+.navbar .search{
+    height: 40px;
+    position: relative;
 }
 
 .navbar .logo img{
@@ -27,6 +23,7 @@
 }
 
 .navbar .regisLogin{
+    width: 250px;
     height: 40px;
     display: flex;
     justify-content: center;
