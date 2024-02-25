@@ -1,17 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { Icon } from "react-materialize";
 import { Link } from "react-router-dom";
 import "./Header.css";
+import { SearchBar } from "./search/searchbar/SearchBar";
+import { SearchList } from "./search/searchlist/SearchList";
 
 export default function Header() {
-  
+  const [results, setResults] = useState([]);
+
   return (
     <>
       <div className="nav">
         <div className="navbar">
           <div className="search">
-            <Icon>search</Icon>
-            <input placeholder="Search" type="text" />
+            <SearchBar setResults={setResults}/>
+            <SearchList results={results}/>
           </div>
           <div className="logo">
             <Link to={`/`}>
