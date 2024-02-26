@@ -7,7 +7,7 @@ export const SearchBar = ({ setResults }) => {
   const [input, setInput] = useState("");
 
   const axiosData = (value) => {
-    axios("https://3fb5-115-72-30-52.ngrok-free.app/api/Auth/users")
+    axios("https://localhost:44306/api/Auth/users")
       .then((response) => {
         console.log("API Response:", response.data);
         const users = response.data; // Sử dụng mảng mặc định nếu không có dữ liệu trả về
