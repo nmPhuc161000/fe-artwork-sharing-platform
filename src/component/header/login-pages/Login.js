@@ -27,7 +27,7 @@ export default function Login() {
     event.preventDefault();
     try {
       const response = await axios.post(
-        "https://3fb5-115-72-30-52.ngrok-free.app/api/Auth/login",
+        "https://4948-115-72-30-52.ngrok-free.app/api/Auth/login",
         { username, password }
       );
       console.log(response.data);
@@ -41,11 +41,6 @@ export default function Login() {
       console.error("An error occurred while sending the API request:", error.message);
       setLoginError(true);
     }
-  };
-
-
-  const responseGoogle = (response) => {
-    console.log(response);
   };
 
   return (
@@ -78,16 +73,6 @@ export default function Login() {
           <div className="signIn">
             <button type="submit">Login</button>
           </div>
-          <div className='Or'>
-            <a>Or continue with</a>
-          </div>
-          <GoogleLogin
-            clientId="YOUR_GOOGLE_CLIENT_ID"
-            buttonText="Login with Google"
-            onSuccess={responseGoogle}
-            onFailure={responseGoogle}
-            cookiePolicy={'single_host_origin'}
-          />
           <div className='signUp'>
             <h6>Don't have an account?</h6>
             <Link to={`regis`}><button>Sign UP</button></Link>
