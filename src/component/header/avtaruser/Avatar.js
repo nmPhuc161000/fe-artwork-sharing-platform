@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 const Avatar = () => {
   const [open, setOpen] = useState(false);
+  
   const handleLogout = () => {
     localStorage.removeItem("token");
     setOpen(false);

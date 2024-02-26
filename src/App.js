@@ -6,10 +6,10 @@ import Header from './component/header/Header';
 import Login from './component/header/login-pages/Login';
 import Register from './component/header/register/Register';
 import Home from './component/body/home-pages/Home'
-import Cart from './component/cart/Cart';
 import Detail from './component/Details/Detail';
 import RecoveryPassword from './component/header/recovery-password/RecoveryPassword';
 import Profile from './component/profile/Profile';
+import Payment from './component/payment/Payment';
 
 function App() {
   const location = useLocation();
@@ -29,8 +29,8 @@ function App() {
         <Route path="/recovery-password" element={<RecoveryPassword/>}></Route>
         <Route path="/regis" element={<Register/>}></Route>
         <Route path="/detail" element={<Detail/>}></Route>
-        <Route path="/cart" element={<Cart/>}></Route>
         <Route path="/profile" element={<Profile/>}></Route>
+        <Route path="/payment" element={<Payment/>}></Route>
       </Routes>
       <Footer isLoginPage={isLoginPage} isRegisterPage={isRegisterPage}/>
     </div>
