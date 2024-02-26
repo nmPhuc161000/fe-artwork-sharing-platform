@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
-import './Login.css'
-import GoogleLogin from 'react-google-login'
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import './Login.css';
+import GoogleLogin from 'react-google-login';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 export default function Login() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loginError, setLoginError] = useState(false);
   const navigate = useNavigate();
@@ -24,79 +24,76 @@ export default function Login() {
   };
 
   const handleSubmit = async (event) => {
-    const data = {
-      UserName: username,
-      Password: password,
-    };
     event.preventDefault();
     try {
       const response = await axios.post(
         "https://localhost:44306/api/Auth/login",
-        data // Send the username and password in the request body
+        { username, password }
       );
       console.log(response.data);
-      // If login is successful, redirect to the main page
-      window.location.href = "/mainController";
+      const { newToken } = response.data;
+      localStorage.setItem('token', newToken);
+      axios.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
+      alert("Login successful");
+      window.location.href = "/";
     } catch (error) {
-      // Handle errors
+      alert("Login fail! Please re-enter!!!");
       console.error("An error occurred while sending the API request:", error.message);
+      setLoginError(true);
     }
   };
+
+
   const responseGoogle = (response) => {
     console.log(response);
   };
 
   return (
-    <>
-      <div className="regisPage">
-        <div class="overlay"></div>
-        <div class="login">
-          <div className="logoLogin">
-            <img src="./assets/image/logo.png" alt=""></img>
-          </div>
-          <div className="title">Welcome to Artwork!</div>
-          <h6>please login to your account</h6>
-          <form action="mainController">
-            <div className="group">
-              <input type="text" placeholder="Usename" />
-            </div>
-            <div className="group">
-              <input
-                type={showPassword ? 'text' : 'password'}
-                placeholder="Password"
-                value={password}
-                onChange={handlePasswordChange}
-              />
-              <button type="button" onClick={togglePasswordVisibility}>
-                {showPassword ? 'Hide' : 'Show'}
-              </button>
-            </div>
-            <div className='recovery'>
-              <Link to="/recovery-password">Recover Password?</Link>
-            </div>
-            <div className="signIn">
-              <button type="submit">Login</button>
-            </div>
-            <div className='Or'>
-              <a>Or continue with</a>
-            </div>
-
-            <GoogleLogin
-              clientId="YOUR_GOOGLE_CLIENT_ID"
-              buttonText="Login with Google"
-              onSuccess={responseGoogle}
-              onFailure={responseGoogle}
-              cookiePolicy={'single_host_origin'}
-            />
-            
-            <div className='signUp'>
-            <h6>Don't have an account?</h6>
-            <Link to={`/regis`}><button>Sign UP</button></Link>
-            </div>
-          </form>
+    <div className="loginPage">
+      <div className="overlay"></div>
+      <div className="login">
+        <div className="logoLogin">
+          <img src="./assets/image/logo.png" alt="" />
         </div>
+        <div className="title">Welcome to Artwork!</div>
+        <h6>please login to your account</h6>
+        <form onSubmit={handleSubmit}>
+          <div className="group">
+            <input type="text" placeholder="Username" value={username} onChange={handleUsernameChange} />
+          </div>
+          <div className="group">
+            <input
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Password"
+              value={password}
+              onChange={handlePasswordChange}
+            />
+            <button type="button" onClick={togglePasswordVisibility}>
+              {showPassword ? 'Hide' : 'Show'}
+            </button>
+          </div>
+          <div className='recovery'>
+            <Link to="/recovery-password">Recover Password?</Link>
+          </div>
+          <div className="signIn">
+            <button type="submit">Login</button>
+          </div>
+          <div className='Or'>
+            <a>Or continue with</a>
+          </div>
+          <GoogleLogin
+            clientId="YOUR_GOOGLE_CLIENT_ID"
+            buttonText="Login with Google"
+            onSuccess={responseGoogle}
+            onFailure={responseGoogle}
+            cookiePolicy={'single_host_origin'}
+          />
+          <div className='signUp'>
+            <h6>Don't have an account?</h6>
+            <Link to={`regis`}><button>Sign UP</button></Link>
+          </div>
+        </form>
       </div>
-    </>
-
-  )
+    </div>
+  );
 }
