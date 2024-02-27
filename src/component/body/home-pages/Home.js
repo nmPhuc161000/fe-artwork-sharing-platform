@@ -8,17 +8,26 @@ export default function Home() {
   // const [itemData, setItemData] = useState([]);
 
   // useEffect(() => {
-  //   const fetchData = async () => {
+  //   const artData = async () => {
+  //     const token = localStorage.getItem("token");
   //     try {
-  //       const response = await axios.get("https://localhost:44306/api/Artwork/get-all");
+  //       const response = await axios.get("https://localhost:44306/api/Artwork/get-all", {
+  //         headers: {
+  //             'Authorization': `Bearer ${token}`
+  //         }
+  //     });
   //       setItemData(response.data);
   //     } catch (error) {
   //       console.error("Error fetching data:", error);
   //     }
   //   };
 
-  //   fetchData();
+  //   artData();
   // }, []);
+
+  // const handleConsoleLog = () => {
+  //   console.log("Current itemData:", itemData);
+  // };
 
   const itemData = [
     {
@@ -95,6 +104,9 @@ export default function Home() {
           </div>
         ))}
       </div>
+      {/* <button onClick={handleConsoleLog}>
+        Log itemData to console
+      </button> */}
     </div>
   );
 }
