@@ -1,8 +1,16 @@
-import React from 'react'
-import './Profile.css'
+// Trong Profile.js
+import React from 'react';
+import { Routes, Route} from 'react-router-dom';
+import ProfileNav from './profile-Nav/ProfileNav';
+import About from './profile-Nav/about/About';
 
-export default function Profile() {
+function Profile() {
+
   return (
-    <div>Profile</div>
-  )
+    <div className="profile">
+      <ProfileNav />
+    </div>
+  );
 }
+
+export default Profile;

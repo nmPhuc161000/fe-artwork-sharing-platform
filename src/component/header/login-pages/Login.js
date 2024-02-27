@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './Login.css';
-import GoogleLogin from 'react-google-login';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 export default function Login() {
@@ -9,7 +8,6 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loginError, setLoginError] = useState(false);
-  const navigate = useNavigate();
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -27,7 +25,11 @@ export default function Login() {
     event.preventDefault();
     try {
       const response = await axios.post(
+<<<<<<<<< Temporary merge branch 1
+        "https://4948-115-72-30-52.ngrok-free.app/api/Auth/login",
+=========
         "https://localhost:44306/api/Auth/login",
+>>>>>>>>> Temporary merge branch 2
         { username, password }
       );
       console.log(response.data);
@@ -41,11 +43,6 @@ export default function Login() {
       console.error("An error occurred while sending the API request:", error.message);
       setLoginError(true);
     }
-  };
-
-
-  const responseGoogle = (response) => {
-    console.log(response);
   };
 
   return (
@@ -78,16 +75,6 @@ export default function Login() {
           <div className="signIn">
             <button type="submit">Login</button>
           </div>
-          <div className='Or'>
-            <a>Or continue with</a>
-          </div>
-          <GoogleLogin
-            clientId="YOUR_GOOGLE_CLIENT_ID"
-            buttonText="Login with Google"
-            onSuccess={responseGoogle}
-            onFailure={responseGoogle}
-            cookiePolicy={'single_host_origin'}
-          />
           <div className='signUp'>
             <h6>Don't have an account?</h6>
             <Link to={`/regis`}><button>Sign UP</button></Link>
