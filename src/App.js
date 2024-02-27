@@ -28,7 +28,7 @@ function App() {
         <Route path="/login" element={<Login/>}></Route>
         <Route path="/recovery-password" element={<RecoveryPassword/>}></Route>
         <Route path="/regis" element={<Register/>}></Route>
-        <Route path="/detail" element={<Detail/>}></Route>
+        <Route path="/detail/:ID" element={<Detail/>}></Route>
         <Route path="/profile" element={<Profile/>}></Route>
         <Route path="/payment" element={<Payment/>}></Route>
       </Routes>

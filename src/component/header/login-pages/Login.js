@@ -90,7 +90,7 @@ export default function Login() {
           />
           <div className='signUp'>
             <h6>Don't have an account?</h6>
-            <Link to={`regis`}><button>Sign UP</button></Link>
+            <Link to={`/regis`}><button>Sign UP</button></Link>
           </div>
         </form>
       </div>
