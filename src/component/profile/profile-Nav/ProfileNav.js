@@ -7,8 +7,7 @@ function ProfileNav() {
       <ul>
         <li><Link to="/favorites">Favorites</Link></li>
         <li><Link to="/shop">Shop</Link></li>
-        <li><Link to="/profile">Profile</Link></li>
-        <li><Link to="/profile/about">About</Link></li>
+        <li><Link to="/about">About</Link></li>
       </ul>
     </nav>
   );

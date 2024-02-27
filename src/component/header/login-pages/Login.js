@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './Login.css';
-import GoogleLogin from 'react-google-login';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 export default function Login() {
@@ -9,7 +8,6 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loginError, setLoginError] = useState(false);
-  const navigate = useNavigate();
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -27,7 +25,7 @@ export default function Login() {
     event.preventDefault();
     try {
       const response = await axios.post(
-        "https://4948-115-72-30-52.ngrok-free.app/api/Auth/login",
+        "https://085f-115-72-30-52.ngrok-free.app/api/Auth/login",
         { username, password }
       );
       console.log(response.data);
