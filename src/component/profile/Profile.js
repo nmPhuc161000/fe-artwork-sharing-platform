@@ -1,10 +1,9 @@
-// Trong Profile.js
-import React from 'react';
+import React, { useState } from 'react';
 import { Routes, Route} from 'react-router-dom';
 import ProfileNav from './profile-Nav/ProfileNav';
 import About from './profile-Nav/about/About';
 
-function Profile() {
+function Profile({ showAboutInfo, editMode, userInfo, handleEdit, handleSave, setUserInfo }) {
 
   return (
     <div className="profile">

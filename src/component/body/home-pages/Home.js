@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Home.css";
-import { Icon, Col, Card, Row, CardTitle } from "react-materialize";
-import axios from "axios";
+import { Icon, Card, CardTitle } from "react-materialize";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css"
 
 export default function Home() {
   // const [itemData, setItemData] = useState([]);
@@ -80,8 +82,26 @@ export default function Home() {
     },
   ];
 
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 1000,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
+  };
+
   return (
     <div className="container-fluid">
+      <Slider {...settings}>
+        {itemData.map((item, index) => (
+          <div key={index} className="slider-item">
+            <img className="slider-image" src={item.img} alt={item.title} />
+          </div>
+        ))}
+      </Slider>
+
       <div
         style={{
           display: "grid",
