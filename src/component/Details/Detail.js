@@ -120,8 +120,8 @@ export default function Detail() {
             onClick={handleDownloadClick}
             href={isLoggedIn ? "/payment" : "/login"}
           >
-            <Icon>download</Icon>
-            <span>Download</span>
+            <Icon>paid</Icon>
+            <span>Payment</span>
           </button>
         </div>
         <div className="product-fullscreen">
