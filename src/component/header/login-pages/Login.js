@@ -25,11 +25,7 @@ export default function Login() {
     event.preventDefault();
     try {
       const response = await axios.post(
-<<<<<<<<< Temporary merge branch 1
-        "https://4948-115-72-30-52.ngrok-free.app/api/Auth/login",
-=========
         "https://localhost:44306/api/Auth/login",
->>>>>>>>> Temporary merge branch 2
         { username, password }
       );
       console.log(response.data);
