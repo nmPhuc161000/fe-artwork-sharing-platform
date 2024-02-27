@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-export default function Payment() {
+import './Payment.css'
+export default function Cart() {
     const [paymentMethod, setPaymentMethod] = useState('');
     const [formData, setFormData] = useState({
         cardNumber: '',
