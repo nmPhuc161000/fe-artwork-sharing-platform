@@ -10,6 +10,7 @@ import Detail from './component/Details/Detail';
 import RecoveryPassword from './component/header/recovery-password/RecoveryPassword';
 import Profile from './component/profile/Profile';
 import Payment from './component/payment/Payment';
+import ProfileNav from './component/profile/profile-Nav/ProfileNav';
 
 function App() {
   const location = useLocation();
@@ -33,7 +34,6 @@ function App() {
         <Route path="/recovery-password" element={<RecoveryPassword/>}></Route>
         <Route path="/regis" element={<Register/>}></Route>
         <Route path="/detail" element={<Detail/>}></Route>
-        <Route path="/cart" element={<Cart/>}></Route>
         <Route path="/profile" element={<Profile />}>
             {/* Sử dụng đường dẫn tương đối cho ProfileNav */}
             <Route path="nav" element={<ProfileNav />}></Route>
