@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "./Home.css";
 import { Icon, Card, CardTitle } from "react-materialize";
 import axios from "axios";
+import { CardHome } from "../cardhome/CardHome";
 
 export default function Home() {
   const [itemData, setItemData] = useState([]);
@@ -31,17 +32,12 @@ export default function Home() {
           justifyContent: "center", // Để căn giữa
           width: "90%",
           margin: "0 auto", // Để thẻ div nằm giữa trang
-          
         }}
       >
         {itemData.map((item) => (
           <div key={item.id}>
-            <Link to={item && item.id ? `/detail/${item.id}` : '/fallback-path'}>
-              <Card
-                closeIcon={<Icon>close</Icon>}
-                header={<CardTitle image={item.url_Image} reveal waves="light" />}
-                title={item.name}
-              ></Card>
+            <Link to={item && item.id ? `/detail/${item.id}` : '/fallback-path'} style={{color:'black'}}>
+              <CardHome item={item}/>
             </Link>
           </div>
         ))}
