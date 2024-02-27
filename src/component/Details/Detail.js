@@ -121,7 +121,7 @@ export default function Detail() {
             href={isLoggedIn ? "/payment" : "/login"}
           >
             <Icon>paid</Icon>
-            <span>Payment</span>
+            <span>Download</span>
           </button>
         </div>
         <div className="product-fullscreen">
