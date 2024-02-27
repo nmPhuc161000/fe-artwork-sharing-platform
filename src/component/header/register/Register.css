@@ -64,6 +64,7 @@ a {
   outline: none;
   padding: 20px;
   font-size: 17px;
+  border: none;
 }
 
 .register .signUp button {

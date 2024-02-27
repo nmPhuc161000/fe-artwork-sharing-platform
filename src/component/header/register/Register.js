@@ -55,18 +55,16 @@ export default function Register() {
     try {
       // Gửi yêu cầu POST đến API
       const response = await axios.post(
-        "https://4948-115-72-30-52.ngrok-free.app/api/Auth/register",
+        "https://0c1a-45-122-246-83.ngrok-free.app/api/Auth/register",
         data
       );
 
       console.log(response.data);
-
       navigate("/login");
-
-      console.log("Đăng ký thành công! Vui lòng đăng nhập.");
       alert("Đăng ký thành công! Vui lòng đăng nhập.");
     } catch (error) {
       // Xử lý lỗi
+      alert("Hãy kiểm tra lại thông tin nhập vào!");
       console.error("Đã có lỗi xảy ra khi gửi yêu cầu API:", error.message);
       console.log(data);
     }

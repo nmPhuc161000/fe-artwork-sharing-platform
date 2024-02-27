@@ -27,7 +27,7 @@ export default function Login() {
     event.preventDefault();
     try {
       const response = await axios.post(
-        "https://4948-115-72-30-52.ngrok-free.app/api/Auth/login",
+        "https://3fb5-115-72-30-52.ngrok-free.app/api/Auth/login",
         { username, password }
       );
       console.log(response.data);
