@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { Icon, Modal, Button, Textarea } from "react-materialize";
 import "./Detail.css";
+import axios from "axios";
+
 export default function Detail() {
   const [isFavorite, setIsFavorite] = useState(false);
   const [comment, setComment] = useState("");
@@ -56,6 +59,34 @@ export default function Detail() {
       window.location.href = "/login";
     }
   };
+
+  const [itemData, setItemData] = useState([]);
+  const { ID } = useParams();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const token = localStorage.getItem("token");
+      try {
+        const response = await axios.get(
+          `https://localhost:44306/api/Artwork/${String(ID)}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setItemData(response.data);
+        console.log("Data from API: ", response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, [ID]); // Thêm ID vào dependency array để useEffect chạy lại khi ID thay đổi
+
+  console.log("ID: ", ID);
+  console.log("itemData: ", itemData);
 
   const handleAuthorClick = () => {
     if (isLoggedIn) {
@@ -141,8 +172,11 @@ export default function Detail() {
         </a>
         <div className="artist">
           <p>
-            <strong>Artist:</strong> Ngoc Bao
-          </p>{" "}
+            <strong>{itemData.name}</strong>
+          </p>
+          <p>
+            <strong>Artist:</strong> {itemData.user_Name}
+          </p>
           {/* Thông tin về tác giả */}
         </div>
         <p>
