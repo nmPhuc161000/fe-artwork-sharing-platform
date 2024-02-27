@@ -27,7 +27,7 @@
             <p>Email: {userInfo.email}</p>
             <p>Số điện thoại: {userInfo.phone}</p>
             <p>Địa chỉ: {userInfo.address}</p>
-            <button onClick={handleEdit}>Thay đổi thông tin</button>
+            <button onClick={handleEdit}>Thay đổi thông tin!!!</button>
           </div>
           {editMode && (
             <div className="edit-form">
