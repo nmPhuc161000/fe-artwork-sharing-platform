@@ -4,6 +4,7 @@ import "./Home.css";
 import { Icon, Card, CardTitle } from "react-materialize";
 import axios from "axios";
 import { CardHome } from "../cardhome/CardHome";
+import Slider from "react-slick";
 
 export default function Home() {
   const [itemData, setItemData] = useState([]);
