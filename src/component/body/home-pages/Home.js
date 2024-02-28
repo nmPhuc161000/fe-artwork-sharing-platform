@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Home.css";
 import { Icon, Card, CardTitle } from "react-materialize";
+import Slider from "react-slick";
 import axios from "axios";
 import { CardHome } from "../cardhome/CardHome";
 
@@ -21,9 +22,24 @@ export default function Home() {
 
     artData();
   }, []);
-
-  return (
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 1000,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
+  };
+ return (
     <div className="container-fluid">
+      <Slider {...settings}>
+          {itemData.map((item, index) => (
+            <div key={index} className="slider-item">
+              <img className="slider-image" src={item.img} alt={item.title} />
+            </div>
+          ))}
+        </Slider>
       <div
         style={{
           display: "grid",

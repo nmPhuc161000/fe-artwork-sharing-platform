@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './Login.css';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
+import { Icon } from 'react-materialize';
 import axios from 'axios';
 
 export default function Login() {
@@ -62,7 +63,7 @@ export default function Login() {
               onChange={handlePasswordChange}
             />
             <button type="button" onClick={togglePasswordVisibility}>
-              {showPassword ? 'Hide' : 'Show'}
+              <Icon className="toggle-password-icon">{showPassword ? 'visibility_off' : 'visibility'}</Icon>
             </button>
           </div>
           <div className='recovery'>

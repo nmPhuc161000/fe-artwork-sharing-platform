@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import './RecoveryPassword.css'
+import './RecoveryPassword.css'; // Import CSS file
+
 const RecoveryPassword = () => {
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
@@ -19,8 +20,8 @@ const RecoveryPassword = () => {
 
     return (
         <div className="recovery-password-container"> {/* Thêm class cho container của trang RecoveryPassword */}
-            <h2>Reset your password</h2>
-            <p className='recovery-password-remind'>Enter your Email and we’ll send a link to reset your password.</p>
+            <h2>Recover Your Password</h2>
+            <p className='recovery-password-remind'>Enter your email and we’ll send a link to reset your password.</p>
             <div className='recovery-password-card'>
                 <form onSubmit={handleSubmit}>
                     <label>

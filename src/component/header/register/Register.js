@@ -55,7 +55,7 @@ export default function Register() {
     try {
       // Gửi yêu cầu POST đến API
       const response = await axios.post(
-        "https://4948-115-72-30-52.ngrok-free.app/api/Auth/register",
+        "https://localhost:44306/api/Auth/register",
         data
       );
 
