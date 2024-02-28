@@ -4,11 +4,11 @@ import CreateArt from "./createart/CreateArt";
 import axios from "axios";
 
 export const Shop = () => {
-  const [name, setName] = useState([]);
-  const [categoryName, setCategoryName] = useState([]);
-  const [description, setDescription] = useState([]);
-  const [price, setPrice] = useState([]);
-  const [imageFile, setImageFile] = useState([]);
+  const [name, setName] = useState("");
+  const [categoryName, setCategoryName] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [imageFile, setImageFile] = useState(null);
 
   const handleName = (value) => {
     setName(value);
@@ -26,10 +26,11 @@ export const Shop = () => {
     setPrice(value);
   };
 
-  const handleImageFile = (value) => {
-
-      setImageFile(value);
-
+  const handleImageFile = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImageFile(file);
+    }
   };
 
   const token = localStorage.getItem("token");
@@ -39,19 +40,19 @@ export const Shop = () => {
       alert("Vui lòng điền đầy đủ thông tin.");
       return;
     }
-    const dataCreate = {
-      Name: name,
-      Category_Name: categoryName,
-      Description: description,
-      Price: price,
-      Url_Image: imageFile,
-    };
+
+    const formData = new FormData();
+    formData.append("Name", name);
+    formData.append("Category_Name", categoryName);
+    formData.append("Description", description);
+    formData.append("Price", price);
+    formData.append("ImageFile", imageFile); // Không cần thêm file và fileName
 
     try {
       // Gửi yêu cầu POST đến API
       const response = await axios.post(
         "https://localhost:44306/api/Artwork/create",
-        dataCreate,
+        formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -66,12 +67,13 @@ export const Shop = () => {
       // Xử lý lỗi
       alert("Hãy kiểm tra lại thông tin nhập vào!");
       console.error("Đã có lỗi xảy ra khi gửi yêu cầu API:", error.message);
-      console.log(dataCreate);
+      console.log(formData);
     }
   };
 
   return (
     <div className="shopUser">
+      {/* hàm tạo ảnh và thêm thông tin */}
       <div className="content">
         <div className="commissions">
           <span>Commissions</span>
@@ -127,7 +129,8 @@ export const Shop = () => {
             <div className="popupInput">
               <input
                 type="file"
-                onChange={(e) => handleImageFile(e.target.value)}
+                onChange={(e) => handleImageFile(e)}
+                accept="image/*"
               />
             </div>
             <div className="popupButton">
@@ -136,6 +139,8 @@ export const Shop = () => {
           </div>
         </div>
       </div>
+
+
     </div>
   );
 };
