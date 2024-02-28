@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Routes, Route} from 'react-router-dom';
 import ProfileNav from './profile-Nav/ProfileNav';
 import About from './profile-Nav/about/About';
-import Shop from './profile-Nav/shop/Shop';
+import { Shop } from './profile-Nav/shop/Shop';
 
 function Profile({ showAboutInfo, editMode, userInfo, handleEdit, handleSave, setUserInfo }) {
 

@@ -2,6 +2,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    border: 0.5px solid #c9cacf;
+    background-color: #fafafa;
 }
 
 .searchBar input{

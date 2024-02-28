@@ -34,7 +34,7 @@ export const SearchBar = ({ setResults }) => {
 
   return (
     <div className="searchBar">
-      <Icon>search</Icon>
+      <Icon style={{marginLeft:'10x'}}>search</Icon>
       <input
         placeholder="Search"
         value={input}
