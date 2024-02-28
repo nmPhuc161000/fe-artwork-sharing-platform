@@ -5,9 +5,9 @@ function ProfileNav() {
   return (
     <nav className="profile-nav">
       <ul>
-        <li><Link to="/favorites">Favorites</Link></li>
-        <li><Link to="/shop">Shop</Link></li>
-        <li><Link to="/about">About</Link></li>
+        <li><Link to="/profile/favorites">Favorites</Link></li>
+        <li><Link to="/profile/shop">Shop</Link></li>
+        <li><Link to="/profile/about">About</Link></li>
       </ul>
     </nav>
   );

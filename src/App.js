@@ -9,8 +9,8 @@ import Home from "./component/body/home-pages/Home";
 import Detail from "./component/Details/Detail";
 import RecoveryPassword from "./component/header/recovery-password/RecoveryPassword";
 import Profile from "./component/profile/Profile";
-import ProfileNav from "./component/profile/profile-Nav/ProfileNav";
 import Payment from "./component/payment/Payment";
+
 
 function App() {
   const location = useLocation();
@@ -20,8 +20,6 @@ function App() {
   const [isRegisterPage, setIsRegisterPage] = useState(
     location.pathname === "/regis"
   );
-
-  // Khi đường dẫn thay đổi, kiểm tra xem trang hiện tại có phải là trang Login hoặc Register không
   React.useEffect(() => {
     setIsLoginPage(location.pathname === "/login");
     setIsRegisterPage(location.pathname === "/regis");
@@ -37,9 +35,11 @@ function App() {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/recovery-password" element={<RecoveryPassword />}></Route>
         <Route path="/regis" element={<Register />}></Route>
+        {/* detail */}
         <Route path="/detail/:ID" element={<Detail />}></Route>
-        <Route path="/profile" element={<Profile />}></Route>
         <Route path="/payment" element={<Payment />}></Route>
+        {/* profile */}
+        <Route path="/profile/*" element={<Profile />}></Route> 
       </Routes>
       <Footer isLoginPage={isLoginPage} isRegisterPage={isRegisterPage} />
     </div>
