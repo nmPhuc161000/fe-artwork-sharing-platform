@@ -1,0 +1,12 @@
+.createart .cartcreate{
+    text-align: center;
+}
+
+.createart .cartcreate span{
+    font-weight: bold;
+}
+
+.createart .cartcreate p{
+    width: 195px;
+    font-size: 14px;
+}

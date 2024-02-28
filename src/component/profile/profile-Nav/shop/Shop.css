@@ -1,0 +1,79 @@
+.shopUser {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.shopUser .content {
+  width: 90%;
+}
+
+.shopUser .content .commissions {
+  margin: 20px 0;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.shopUser .content .commissions span {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.shopUser .content .createArt {
+  height: 326px;
+  width: 320px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.shopUser .overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.shopUser .overlay:target {
+  visibility: visible;
+  opacity: 1;
+}
+.shopUser .popup {
+  margin: 70px auto;
+  padding: 5px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.shopUser .popup .iconclose {
+  text-align: right;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  margin-right: 15px;
+}
+
+.shopUser .popup .popupInput {
+  border: 0.5px solid #c9cacf;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+}
+
+.shopUser .popup .popupInput input {
+  border: none;
+  width: 90%;
+  margin: 5px 0;
+  box-shadow: none;
+  outline: none;
+}
