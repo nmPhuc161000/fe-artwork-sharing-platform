@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Shop.css";
 import CreateArt from "./createart/CreateArt";
 import axios from "axios";
+import ArtOfUser from "./artofuser/ArtOfUser";
 
 export const Shop = () => {
   const [name, setName] = useState("");
@@ -78,11 +79,15 @@ export const Shop = () => {
         <div className="commissions">
           <span>Commissions</span>
         </div>
-        <a href="#popup1" style={{ color: "black", textDecoration: "none" }}>
+        <div className="createOfUser">
           <div className="createArt">
-            <CreateArt />
+            <a href="#popup1"><CreateArt /></a>
           </div>
-        </a>
+
+          <div className="forUser">
+            <ArtOfUser/>
+          </div>
+        </div>
       </div>
 
       <div id="popup1" className="overlay">

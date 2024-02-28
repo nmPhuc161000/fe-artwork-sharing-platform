@@ -1,26 +1,37 @@
 import React, { useState } from "react";
+import { useNavigate  } from "react-router-dom";
+import './SearchBar.css';
 import { Icon } from "react-materialize";
-import "./SearchBar.css";
 import axios from "axios";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
-export const SearchBar = ({ setResults }) => {
-  const [input, setInput] = useState("");
+const SearchBar = () => {
+  const [inputValue, setInput] = useState("");
+  const [option, setOption] = useState("");
+  const [responseData, setResponseData] = useState(null);
+  const navigate  = useNavigate ();
 
-  const axiosData = (value) => {
-    axios("https://localhost:44306/api/Artwork/get-all")
+
+  const token = localStorage.getItem('token');
+  const axiosData = (inputValue, option) => {
+    axios.post(`https://localhost:44306/api/Artwork/search?search=${inputValue}&saerchBy=${option}`, {},
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((response) => {
+        // // window.location.href = "/searchlist";
         console.log("API Response:", response.data);
-        const users = response.data; // Sử dụng mảng mặc định nếu không có dữ liệu trả về
-        const result = users.filter((user) => {
-          return (
-            value &&
-            user &&
-            user.name &&
-            user.name.toLowerCase().includes(value)
-          );
-        });
-        console.log(result);
-        setResults(result);
+        // console.log("API URL:", apiUrl);
+        setResponseData(response.data);
+
+      // Redirect to SearchList with data
+      navigate(`/searchlist`, { state: { searchData: response.data } });
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -29,17 +40,48 @@ export const SearchBar = ({ setResults }) => {
 
   const handleChange = (value) => {
     setInput(value);
-    axiosData(value);
+    console.log(inputValue);
+  };
+
+  const handleOption = (event) => {
+    const selectedOption = event.target.value;
+    setOption(selectedOption);
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      axiosData(inputValue, option);
+    }
   };
 
   return (
     <div className="searchBar">
-      <Icon style={{marginLeft:'10x'}}>search</Icon>
+      <Icon style={{ marginLeft: "10px" }}>search</Icon>
       <input
-        placeholder="Search"
-        value={input}
+        placeholder="TSearch"
+        value={inputValue}
         onChange={(e) => handleChange(e.target.value)}
+        onKeyPress={handleKeyPress}
       />
+
+      <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+        <InputLabel id="demo-simple-select-standard-label">SearchBy</InputLabel>
+        <Select
+          labelId="demo-simple-select-standard-label"
+          id="demo-simple-select-standard"
+          value={option}
+          onChange={handleOption}
+          label="Age"
+        >
+          <MenuItem value="">
+            <em>NameArt</em>
+          </MenuItem>
+          <MenuItem value={"category_name"}>Category</MenuItem>
+          <MenuItem value={"user_name"}>CreatorName</MenuItem>
+        </Select>
+      </FormControl>
     </div>
   );
 };
+
+export default SearchBar;

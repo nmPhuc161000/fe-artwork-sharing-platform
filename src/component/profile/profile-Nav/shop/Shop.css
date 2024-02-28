@@ -27,6 +27,16 @@
   align-items: center;
 }
 
+.shopUser .content .createArt a{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  color: black;
+  text-decoration: none;
+}
+
 .shopUser .overlay {
   position: fixed;
   top: 0;

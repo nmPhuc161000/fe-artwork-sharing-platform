@@ -163,25 +163,27 @@ export default function Detail() {
         </div>
       </div>
       <div className="product-info">
-        <a
-          onClick={handleAuthorClick}
-          href={isLoggedIn ? "/profile" : "/login"}
-          className="author"
-        >
-          <img src="./assets/image/avatar.png" alt="Author Avatar" />
-        </a>
-        <div className="artist">
+        <div style={{width:'90%', display:'flex', justifyContent:'center', alignItems:'center'}}>
+          <a
+            onClick={handleAuthorClick}
+            href={isLoggedIn ? "/profile" : "/login"}
+            className="author"
+          >
+            <img src={itemData.url_Name} alt="Author Avatar" />
+          </a>
+          <div className="artist">
+            <p>
+              <strong>{itemData.name}</strong>
+            </p>
+            <p>
+              Artist: <strong>{itemData.user_Name}</strong>
+            </p>
+            {/* Thông tin về tác giả */}
+          </div>
           <p>
-            <strong>{itemData.name}</strong>
+            <strong>Published:</strong> {itemData.createdAt}
           </p>
-          <p>
-            <strong>Artist:</strong> {itemData.user_Name}
-          </p>
-          {/* Thông tin về tác giả */}
         </div>
-        <p>
-          <strong>Published:</strong> January 1, 2023
-        </p>
       </div>
     </div>
   );

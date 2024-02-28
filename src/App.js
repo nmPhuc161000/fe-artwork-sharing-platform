@@ -10,6 +10,7 @@ import Detail from "./component/Details/Detail";
 import RecoveryPassword from "./component/header/recovery-password/RecoveryPassword";
 import Profile from "./component/profile/Profile";
 import Payment from "./component/payment/Payment";
+import { SearchList } from "./component/header/search/searchlist/SearchList";
 
 
 function App() {
@@ -32,9 +33,11 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />}></Route>
+        {/* header */}
         <Route path="/login" element={<Login />}></Route>
         <Route path="/recovery-password" element={<RecoveryPassword />}></Route>
         <Route path="/regis" element={<Register />}></Route>
+        <Route path="/searchlist" element={<SearchList />}></Route>
         {/* detail */}
         <Route path="/detail/:ID" element={<Detail />}></Route>
         <Route path="/payment" element={<Payment />}></Route>

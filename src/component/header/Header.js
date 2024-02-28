@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Header.css";
-import { SearchBar } from "./search/searchbar/SearchBar";
-import { SearchDropdown } from "./search/searchdropdown/SearchDropdown";
+import  SearchBar  from "./search/searchbar/SearchBar";
 import Avatar from "./avtaruser/Avatar";
 
 export default function Header() {
-  const [results, setResults] = useState([]);
+  // const [results, setResults] = useState([]);
 
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   useEffect(() => {
@@ -21,8 +20,7 @@ export default function Header() {
       <div className="nav">
         <div className="navbar">
           <div className="search">
-            <SearchBar setResults={setResults} />
-            <SearchDropdown results={results} />
+            <SearchBar  />        
           </div>
           <div className="logo">
             <Link to={`/`}>

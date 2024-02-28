@@ -36,7 +36,7 @@ export default function Home() {
       <Slider {...settings}>
           {itemData.map((item, index) => (
             <div key={index} className="slider-item">
-              <img className="slider-image" src={item.img} alt={item.title} />
+              <img className="slider-image" src={item.url_Image} alt={item.title} />
             </div>
           ))}
         </Slider>
