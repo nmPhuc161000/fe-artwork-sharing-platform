@@ -7,7 +7,7 @@ export const SearchBar = ({ setResults }) => {
   const [input, setInput] = useState("");
 
   const axiosData = (value) => {
-    axios("https://localhost:44306/api/Auth/users")
+    axios("https://localhost:44306/api/Artwork/get-all")
       .then((response) => {
         console.log("API Response:", response.data);
         const users = response.data; // Sử dụng mảng mặc định nếu không có dữ liệu trả về
@@ -15,8 +15,8 @@ export const SearchBar = ({ setResults }) => {
           return (
             value &&
             user &&
-            user.userName &&
-            user.userName.toLowerCase().includes(value)
+            user.name &&
+            user.name.toLowerCase().includes(value)
           );
         });
         console.log(result);

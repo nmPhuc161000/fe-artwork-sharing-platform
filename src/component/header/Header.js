@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Header.css";
 import { SearchBar } from "./search/searchbar/SearchBar";
-import { SearchList } from "./search/searchlist/SearchList";
+import { SearchDropdown } from "./search/searchdropdown/SearchDropdown";
 import Avatar from "./avtaruser/Avatar";
 
 export default function Header() {
@@ -22,7 +22,7 @@ export default function Header() {
         <div className="navbar">
           <div className="search">
             <SearchBar setResults={setResults} />
-            <SearchList results={results} />
+            <SearchDropdown results={results} />
           </div>
           <div className="logo">
             <Link to={`/`}>

@@ -1,28 +1,68 @@
 // Trong component Avatar.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./Avatar.css"; // Đảm bảo import CSS
 import { Icon } from "react-materialize";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Avatar = () => {
   const [open, setOpen] = useState(false);
-  
+  const [username, setUsername] = useState([]);
+  const avatarRef = useRef(null);
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     setOpen(false);
     window.location.reload();
   };
 
+  const handleProfileClick = () => {
+    setOpen(false);
+    // Thực hiện chuyển hướng đến trang profile
+  };
+
+  const handleOutsideClick = (event) => {
+    if (avatarRef.current && !avatarRef.current.contains(event.target)) {
+      setOpen(false);
+    }
+  };
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {
     const token = localStorage.getItem("token");
+    const data = {
+      Token: token,
+    };
     if (token) {
       setIsLoggedIn(true);
+      axios
+        .post("https://localhost:44306/api/Auth/me", data, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          // Xử lý dữ liệu trả về từ API
+          const userInfo = response.data.userInfo;
+
+          // Lấy userName từ thông tin người dùng
+          setUsername(userInfo.fullName);
+
+          // Sử dụng userName theo nhu cầu của bạn
+        })
+        .catch((error) => {
+          // Xử lý lỗi nếu có
+          console.error("Lỗi khi gọi API:", error);
+        });
     }
+    document.addEventListener("click", handleOutsideClick);
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
   }, []);
-  
+
   return (
-    <div className="avatar-dropdown">
+    <div className="avatar-dropdown" ref={avatarRef}>
       <div className="avatar">
         <img
           src="./assets/image/no-avatar.webp"
@@ -34,8 +74,14 @@ const Avatar = () => {
         <>
           {open && (
             <div className="dropdown">
+              <strong>{username}</strong>
               <ul>
-                <Link to={`/profile`} style={{ color: "black" }}>
+                <li></li>
+                <Link
+                  to={`/profile`}
+                  style={{ color: "black" }}
+                  onClick={handleProfileClick}
+                >
                   <li>
                     <Icon>portrait</Icon>Profile
                   </li>

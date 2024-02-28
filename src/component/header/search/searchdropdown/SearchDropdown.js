@@ -1,12 +1,12 @@
 import React from "react";
-import "./SearchList.css";
+import "./SearchLisDropdown.css";
 
-export const SearchList = ({ results }) => {
+export const SearchDropdown = ({ results }) => {
   return (
-    <div className="searchlist">
+    <div className="searchdropdown">
       {results.map((result, id) => (
         <div className="results" key={id}>
-          {result.userName}
+          {result.name}
         </div>
       ))}
     </div>
