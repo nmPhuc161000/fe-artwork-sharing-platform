@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Shop.css";
 import CreateArt from "./createart/CreateArt";
 import axios from "axios";
 import ArtOfUser from "./artofuser/ArtOfUser";
+import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
+import { v4 } from 'uuid';
+import { imgDb } from "../../../../configFirebase/config";
 
 export const Shop = () => {
   const [name, setName] = useState("");
   const [categoryName, setCategoryName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
-  const [imageFile, setImageFile] = useState(null);
+  const [imageFile, setImageFile] = useState("");
+  const [imgUrl, setImgUrl] = useState([]);
 
   const handleName = (value) => {
     setName(value);
@@ -34,6 +38,19 @@ export const Shop = () => {
     }
   };
 
+  useEffect(() => {
+    listAll(ref(imgDb, "")).then(async (imgs) => {
+      const urls = await Promise.all(
+        imgs.items.map(async (val) => {
+          const url = await getDownloadURL(val);
+          return url;
+        })
+      );
+      setImgUrl(urls);
+    });
+  }, []);
+  const uniqueUrls = Array.from(imgUrl);
+
   const token = localStorage.getItem("token");
 
   const handleSave = async () => {
@@ -42,12 +59,17 @@ export const Shop = () => {
       return;
     }
 
+    const imgRef = ref(imgDb, `/${v4()}`);
+    const snapshot = await uploadBytes(imgRef, imageFile);
+    const url = await getDownloadURL(snapshot.ref);
+    uploadBytes(imgRef, imageFile);
+
     const formData = new FormData();
     formData.append("Name", name);
     formData.append("Category_Name", categoryName);
     formData.append("Description", description);
     formData.append("Price", price);
-    formData.append("ImageFile", imageFile); // Không cần thêm file và fileName
+    formData.append("Url_Image", url); // Không cần thêm file và fileName
 
     try {
       // Gửi yêu cầu POST đến API
@@ -56,13 +78,13 @@ export const Shop = () => {
         formData,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
+            "Content-Type": `application/json`,
             Authorization: `Bearer ${token}`,
           },
         }
       );
 
-      console.log(response.data);
+      console.log("url",response.data);
       alert("Tạo thành công");
       window.location.reload();
     } catch (error) {

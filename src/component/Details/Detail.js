@@ -102,7 +102,7 @@ export default function Detail() {
     <div className="container-card">
       <div className="product-card">
         <div className="product-tumb">
-          <img src="./assets/image/picLogin.png" alt="Product" />
+          <img src={itemData.url_Image} alt="Product" />
         </div>
       </div>
       <div className="product-icons">
@@ -169,7 +169,7 @@ export default function Detail() {
             href={isLoggedIn ? "/profile" : "/login"}
             className="author"
           >
-            <img src={itemData.url_Name} alt="Author Avatar" />
+            <img src="" alt="Author Avatar" />
           </a>
           <div className="artist">
             <p>
