@@ -49,7 +49,7 @@ export default function ArtOfUser() {
             >
               <div className="cardHome" style={{height:"326px", width:"auto"}}>
                 <div className="cardImg">
-                  <img src={item.url_Image} alt=""/>
+                  <img src={item.url_Image} alt="" style={{height:"auto", width:"100%"}}/>
                 </div>
                 <div className="cardInfor">
                   <div className="cardName">
