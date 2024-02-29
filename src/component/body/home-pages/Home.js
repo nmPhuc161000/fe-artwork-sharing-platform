@@ -4,7 +4,7 @@ import "./Home.css";
 import { Icon, Card, CardTitle } from "react-materialize";
 import axios from "axios";
 import { CardHome } from "../cardhome/CardHome";
-import Slider from "react-slick";
+// import Slider from "react-slick";
 
 export default function Home() {
   const [itemData, setItemData] = useState([]);
@@ -33,13 +33,13 @@ export default function Home() {
   };
  return (
     <div className="container-fluid">
-      <Slider {...settings}>
+      {/* <Slider {...settings}>
           {itemData.map((item, index) => (
             <div key={index} className="slider-item">
               <img className="slider-image" src={item.url_Image} alt={item.title} />
             </div>
           ))}
-        </Slider>
+        </Slider> */}
       <div
         style={{
           display: "grid",

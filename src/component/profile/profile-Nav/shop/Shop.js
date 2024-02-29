@@ -64,6 +64,7 @@ export const Shop = () => {
 
       console.log(response.data);
       alert("Tạo thành công");
+      window.location.reload();
     } catch (error) {
       // Xử lý lỗi
       alert("Hãy kiểm tra lại thông tin nhập vào!");

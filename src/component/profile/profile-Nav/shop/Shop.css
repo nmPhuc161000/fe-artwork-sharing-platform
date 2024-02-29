@@ -7,6 +7,16 @@
   width: 90%;
 }
 
+.shopUser .content .createOfUser{
+  display: grid;
+  grid-template-columns: 0fr 2fr; /* Chia layout thành 2 cột bằng nhau */
+  gap: 10px;
+}
+
+.shopUser .content .createOfUser .forUser{
+
+}
+
 .shopUser .content .commissions {
   margin: 20px 0;
   font-weight: bold;
