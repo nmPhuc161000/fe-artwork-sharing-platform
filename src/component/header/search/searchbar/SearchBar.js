@@ -74,10 +74,10 @@ const SearchBar = () => {
           label="Age"
         >
           <MenuItem value="">
-            <em>NameArt</em>
+            <em>Name Artwork</em>
           </MenuItem>
           <MenuItem value={"category_name"}>Category</MenuItem>
-          <MenuItem value={"user_name"}>CreatorName</MenuItem>
+          <MenuItem value={"user_name"}>Creator Name</MenuItem>
         </Select>
       </FormControl>
     </div>
