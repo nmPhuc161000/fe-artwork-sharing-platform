@@ -9,6 +9,7 @@ export default function Detail() {
   const [comment, setComment] = useState("");
   const [isCommentModalOpen, setIsCommentModalOpen] = useState(false); // State để điều khiển việc hiển thị modal comment
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const tokenUser = localStorage.getItem("token");
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -65,13 +66,12 @@ export default function Detail() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const token = localStorage.getItem("token");
       try {
         const response = await axios.get(
           `https://localhost:44306/api/Artwork/${String(ID)}`,
           {
             headers: {
-              Authorization: `Bearer ${token}`,
+              Authorization: `Bearer ${tokenUser}`,
             },
           }
         );
@@ -85,8 +85,9 @@ export default function Detail() {
     fetchData();
   }, [ID]); // Thêm ID vào dependency array để useEffect chạy lại khi ID thay đổi
 
-  console.log("ID: ", ID);
-  console.log("itemData: ", itemData);
+  // console.log("ID: ", ID);
+  // console.log("Token User name: ", userData.userInfo.fullName);
+  // console.log("itemData User name: ", itemData.user_Name);
 
   const handleAuthorClick = () => {
     if (isLoggedIn) {
@@ -97,6 +98,32 @@ export default function Detail() {
       window.location.href = "/login";
     }
   };
+  console.log("token: ", tokenUser);
+  //call api để xét tên người dùng
+  const [userData, setUserData] = useState({});
+  const fetchUserData = async () => {
+    try {
+      const response = await axios.post(
+        "https://localhost:44306/api/Auth/me",
+        {
+          token: tokenUser,
+        },
+        {
+          headers: {
+            accept: "text/plain",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      setUserData(response.data);
+      console.log("User data from API: ", response.data);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+  useEffect(() => {
+    fetchUserData();
+  }, []);
 
   return (
     <div className="container-card">
@@ -163,7 +190,14 @@ export default function Detail() {
         </div>
       </div>
       <div className="product-info">
-        <div style={{width:'90%', display:'flex', justifyContent:'center', alignItems:'center'}}>
+        <div
+          style={{
+            width: "90%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <a
             onClick={handleAuthorClick}
             href={isLoggedIn ? "/profile" : "/login"}
@@ -180,9 +214,14 @@ export default function Detail() {
             </p>
             {/* Thông tin về tác giả */}
           </div>
-          <p>
-            <strong>Published:</strong> {itemData.createdAt}
-          </p>
+          <div>
+            <p>
+              <strong>Published:</strong> {itemData.createdAt}
+            </p>
+            {userData.userInfo?.fullName === itemData.user_Name && (
+              <Icon>delete</Icon>
+            )}
+          </div>
         </div>
       </div>
     </div>

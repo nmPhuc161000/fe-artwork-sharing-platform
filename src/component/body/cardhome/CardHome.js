@@ -5,8 +5,8 @@ export const CardHome = (item) => {
   console.log(item);
   return (
     <div className="cardHome">
-      <div className="cardImg">
-        <img src={item.item.url_Image} style={{height:"auto", width:"100%"}} />
+      <div className="cardImg"  style={{height:"75%", width:"100%"}} >
+        <img src={item.item.url_Image} style={{height:"100%", width:"100%"}} />
       </div>
       <div className="cardInfor">
         <div className="cardName">

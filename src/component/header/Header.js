@@ -24,7 +24,7 @@ export default function Header() {
           </div>
           <div className="logo">
             <Link to={`/`}>
-              <img src="./assets/image/logo.png" alt="" />
+              <img src="./assets/image/logo.png" alt="Logo" />
             </Link>
           </div>
           <div className="regisLogin">

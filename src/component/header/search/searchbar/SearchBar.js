@@ -20,6 +20,7 @@ const SearchBar = () => {
     axios.post(`https://localhost:44306/api/Artwork/search?search=${inputValue}&saerchBy=${option}`, {},
     {
       headers: {
+        accept: '*/*',
         "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${token}`,
       },
@@ -29,6 +30,8 @@ const SearchBar = () => {
         console.log("API Response:", response.data);
         // console.log("API URL:", apiUrl);
         setResponseData(response.data);
+        console.log(inputValue);
+        console.log(option);
 
       // Redirect to SearchList with data
       navigate(`/searchlist`, { state: { searchData: response.data } });

@@ -86,7 +86,7 @@ export const Shop = () => {
 
       console.log("url",response.data);
       alert("Tạo thành công");
-      window.location.reload();
+      window.location.href = "/profile/shop";
     } catch (error) {
       // Xử lý lỗi
       alert("Hãy kiểm tra lại thông tin nhập vào!");
