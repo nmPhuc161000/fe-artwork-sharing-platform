@@ -9,8 +9,9 @@ export default function Detail() {
   const [comment, setComment] = useState("");
   const [isCommentModalOpen, setIsCommentModalOpen] = useState(false); // State để điều khiển việc hiển thị modal comment
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const tokenUser = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
   useEffect(() => {
-    const token = localStorage.getItem("token");
     if (token) {
       setIsLoggedIn(true);
     }
@@ -65,15 +66,9 @@ export default function Detail() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const token = localStorage.getItem("token");
       try {
         const response = await axios.get(
-          `https://localhost:44306/api/Artwork/${String(ID)}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
+          `https://localhost:44306/api/Artwork/${String(ID)}`
         );
         setItemData(response.data);
         console.log("Data from API: ", response.data);
@@ -85,8 +80,9 @@ export default function Detail() {
     fetchData();
   }, [ID]); // Thêm ID vào dependency array để useEffect chạy lại khi ID thay đổi
 
-  console.log("ID: ", ID);
-  console.log("itemData: ", itemData);
+  // console.log("ID: ", ID);
+  // console.log("Token User name: ", userData.userInfo.fullName);
+  // console.log("itemData User name: ", itemData.user_Name);
 
   const handleAuthorClick = () => {
     if (isLoggedIn) {
@@ -95,6 +91,50 @@ export default function Detail() {
       // Lưu địa chỉ URL của trang chi tiết trước khi chuyển hướng đến trang đăng nhập
       localStorage.setItem("redirectPath", window.location.pathname);
       window.location.href = "/login";
+    }
+  };
+  //call api để xét tên người dùng
+  const [userData, setUserData] = useState({});
+  const fetchUserData = async () => {
+    try {
+      const response = await axios.post(
+        "https://localhost:44306/api/Auth/me",
+        {
+          token: tokenUser,
+        },
+        {
+          headers: {
+            accept: "text/plain",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      setUserData(response.data);
+      console.log("User data from API: ", response.data);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+  useEffect(() => {
+    fetchUserData();
+  }, []);
+
+  const handleDelete = async () => { // Replace 'ID' with the actual ID
+    try {
+      // Make a DELETE request to the API endpoint
+      const response = await axios.delete(`https://localhost:44306/api/Artwork/delete/${String(ID)}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      // Handle the response as needed
+      console.log("Delete successful:", response.data);
+      alert("Delete successful!");
+      window.location.href = "/profile/shop";
+    } catch (error) {
+      // Handle errors
+      console.error("Error deleting:", error);
     }
   };
 
@@ -163,7 +203,14 @@ export default function Detail() {
         </div>
       </div>
       <div className="product-info">
-        <div style={{width:'90%', display:'flex', justifyContent:'center', alignItems:'center'}}>
+        <div
+          style={{
+            width: "90%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <a
             onClick={handleAuthorClick}
             href={isLoggedIn ? "/profile" : "/login"}
@@ -180,9 +227,59 @@ export default function Detail() {
             </p>
             {/* Thông tin về tác giả */}
           </div>
-          <p>
-            <strong>Published:</strong> {itemData.createdAt}
-          </p>
+          <div className="public">
+            <p>
+              <strong>Published:</strong> {itemData.createdAt}
+            </p>
+            {userData.userInfo?.fullName === itemData.user_Name && (
+              <a href="#popup1">
+                <Icon>delete</Icon>
+              </a>
+            )}
+          </div>
+          {/* popup delete */}
+          <div id="popup1" className="overlay">
+            <div className="popup">
+              <div className="iconclose">
+                <a
+                  className="close"
+                  href="#"
+                  style={{ color: "black", textDecoration: "none" }}
+                >
+                  &times;
+                </a>
+              </div>
+
+              <div className="popupDetail">
+                <div className="contentDelete">
+                  <div
+                    style={{
+                      display: "flex",
+                      width: "90%",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <div>
+                      <img
+                        src="https://st.deviantart.net/eclipse/global/svg/il05-delete.svg"
+                        alt=""
+                        style={{ width: "90px", height: "88px" }}
+                      />
+                    </div>
+                    <div style={{ marginLeft: "15px" }}>
+                      <div style={{ fontWeight: "bold", fontSize: "25px" }}>
+                        Delete this commission?
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="popupButton">
+                  <button onClick={() => handleDelete()}>Delete</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

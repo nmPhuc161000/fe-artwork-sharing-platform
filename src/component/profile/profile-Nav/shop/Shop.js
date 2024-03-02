@@ -86,7 +86,7 @@ export const Shop = () => {
 
       console.log("url",response.data);
       alert("Tạo thành công");
-      window.location.reload();
+      window.location.href = "/profile/shop";
     } catch (error) {
       // Xử lý lỗi
       console.log("URL", url);
@@ -114,6 +114,7 @@ export const Shop = () => {
         </div>
       </div>
 
+      {/* popup */}
       <div id="popup1" className="overlay">
         <div className="popup">
           <div className="iconclose">
@@ -125,7 +126,6 @@ export const Shop = () => {
               &times;
             </a>
           </div>
-
           <div className="popupCreate">
             <div className="popupInput">
               <input

@@ -47,11 +47,12 @@ export default function Home() {
           gap: "10px",
           justifyContent: "center", // Để căn giữa
           width: "90%",
+          height: "320px",
           margin: "0 auto", // Để thẻ div nằm giữa trang
         }}
       >
         {itemData.map((item) => (
-          <div key={item.id}>
+          <div key={item.id} style={{height:"320px"}}>
             <Link to={item && item.id ? `/detail/${item.id}` : '/fallback-path'} style={{color:'black'}}>
               <CardHome item={item}/>
             </Link>

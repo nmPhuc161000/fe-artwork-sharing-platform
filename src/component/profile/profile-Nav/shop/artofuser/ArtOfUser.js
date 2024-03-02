@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./ArtOfUser.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { Icon } from "react-materialize";
 
 export default function ArtOfUser() {
   const [itemData, setItemData] = useState([]);
@@ -49,7 +50,7 @@ export default function ArtOfUser() {
             >
               <div className="cardHome" style={{height:"326px", width:"auto"}}>
                 <div className="cardImg">
-                  <img src={item.url_Image} alt="" style={{height:"auto", width:"100%"}}/>
+                  <img src={item.url_Image} alt="" style={{height:"95%", width:"100%"}}/>
                 </div>
                 <div className="cardInfor">
                   <div className="cardName">
@@ -62,6 +63,7 @@ export default function ArtOfUser() {
                     <div>
                       <strong>{item.price}</strong>
                     </div>
+                    
                   </div>
                 </div>
               </div>

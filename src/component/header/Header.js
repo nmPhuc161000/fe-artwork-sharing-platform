@@ -25,7 +25,7 @@ export default function Header() {
           </div>
           <div className="logo">
             <Link to={`/`}>
-              <img src="./assets/image/logo.png" alt="" />
+              <img src="./assets/image/logo.png" alt="Logo" />
             </Link>
           </div>
           <SortButton /> {/* Đặt SortButton ở vị trí bạn muốn trong thanh header */}

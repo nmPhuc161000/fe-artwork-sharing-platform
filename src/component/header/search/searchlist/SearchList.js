@@ -17,10 +17,11 @@ export const SearchList = () => {
       gap: "10px",
       justifyContent: "center", // Để căn giữa
       width: "90%",
+      height: "320px",
       margin: "0 auto", // Để thẻ div nằm giữa trang
     }}>
       {responseDataArray.map((item) => (
-        <div key={item.id}>
+        <div key={item.id} style={{height:"320px"}}>
           <Link
             to={item && item.id ? `/detail/${item.id}` : "/fallback-path"}
             style={{ color: "black" }}
@@ -28,14 +29,14 @@ export const SearchList = () => {
             {/* <CardHome item={item}/> */}
             <div className="cardHome">
               <div className="cardImg">
-                <img src={item.url_Image} alt=""/>
+                <img src={item.url_Image} alt="" style={{height:"100%", width:"100%"}}/>
               </div>
               <div className="cardInfor">
                 <div className="cardName">
                   <div>
                     <strong>{item.name}</strong>
                   </div>
-                  <div>By {item.user_Name}</div>
+                  <div>By <strong>{item.user_Name}</strong></div>
                 </div>
                 <div className="cardPrice">
                   <div>

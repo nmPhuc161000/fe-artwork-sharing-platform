@@ -1,11 +1,12 @@
 .cardHome{
     background-color: white;
-    height: 288px;
+    height: 320px;
     width: 100%;
 }
 
 .cardHome .cardImg{
     height: 75%;
+    margin-bottom: 10px;
 }
 
 .cardHome .cardImg img{
