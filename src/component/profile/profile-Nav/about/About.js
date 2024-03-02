@@ -20,23 +20,6 @@ export default function About() {
     // Save the updated information here (e.g., send to backend)
     setIsEditing(false);
   };
-
-  const handleCancelPasswordChange = () => {
-    setIsChangingPassword(false);
-    setOldPassword('');
-    setNewPassword('');
-    setConfirmNewPassword('');
-  };
-
-  const handleSubmitPasswordChange = (event) => {
-    event.preventDefault(); // Prevent form submission
-    // Handle password change submission here
-    setIsChangingPassword(false);
-    setOldPassword('');
-    setNewPassword('');
-    setConfirmNewPassword('');
-  };
-
   return (
     <div>
       <div className="about-container">
@@ -66,15 +49,6 @@ export default function About() {
             <button className="edit-button" onClick={handleEditClick}>Edit</button>
           )}
         </div>
-      </div>
-      <div className="change-password-section">
-        <h4>Change Password</h4>
-        <form onSubmit={handleSubmitPasswordChange}>
-        <div className="password-input"> <input type="password" placeholder="Old Password" value={oldPassword} onChange={(e) => setOldPassword(e.target.value)} /></div>
-        <div className="password-input"><input type="password" placeholder="New Password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} /></div>
-        <div className="password-input"><input type="password" placeholder="Confirm New Password" value={confirmNewPassword} onChange={(e) => setConfirmNewPassword(e.target.value)} /></div>
-          <button className="save-button" type="submit">Submit</button>
-        </form>
       </div>
     </div>
   );

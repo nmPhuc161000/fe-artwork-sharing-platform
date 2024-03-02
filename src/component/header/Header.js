@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "./Header.css";
 import  SearchBar  from "./search/searchbar/SearchBar";
 import Avatar from "./avtaruser/Avatar";
+import SortButton from "./sortbutton/SortButton";
 
 export default function Header() {
   // const [results, setResults] = useState([]);
@@ -27,6 +28,7 @@ export default function Header() {
               <img src="./assets/image/logo.png" alt="" />
             </Link>
           </div>
+          <SortButton /> {/* Đặt SortButton ở vị trí bạn muốn trong thanh header */}
           <div className="regisLogin">
             {isLoggedIn && (
               <>

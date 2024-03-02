@@ -89,6 +89,7 @@ export const Shop = () => {
       window.location.reload();
     } catch (error) {
       // Xử lý lỗi
+      console.log("URL", url);
       alert("Hãy kiểm tra lại thông tin nhập vào!");
       console.error("Đã có lỗi xảy ra khi gửi yêu cầu API:", error.message);
       console.log(formData);
