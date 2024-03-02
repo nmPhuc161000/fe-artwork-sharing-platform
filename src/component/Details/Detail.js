@@ -10,8 +10,8 @@ export default function Detail() {
   const [isCommentModalOpen, setIsCommentModalOpen] = useState(false); // State để điều khiển việc hiển thị modal comment
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const tokenUser = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
   useEffect(() => {
-    const token = localStorage.getItem("token");
     if (token) {
       setIsLoggedIn(true);
     }
@@ -68,12 +68,7 @@ export default function Detail() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://localhost:44306/api/Artwork/${String(ID)}`,
-          {
-            headers: {
-              Authorization: `Bearer ${tokenUser}`,
-            },
-          }
+          `https://localhost:44306/api/Artwork/${String(ID)}`
         );
         setItemData(response.data);
         console.log("Data from API: ", response.data);
@@ -98,7 +93,6 @@ export default function Detail() {
       window.location.href = "/login";
     }
   };
-  console.log("token: ", tokenUser);
   //call api để xét tên người dùng
   const [userData, setUserData] = useState({});
   const fetchUserData = async () => {
@@ -124,6 +118,25 @@ export default function Detail() {
   useEffect(() => {
     fetchUserData();
   }, []);
+
+  const handleDelete = async () => { // Replace 'ID' with the actual ID
+    try {
+      // Make a DELETE request to the API endpoint
+      const response = await axios.delete(`https://localhost:44306/api/Artwork/delete/${String(ID)}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      // Handle the response as needed
+      console.log("Delete successful:", response.data);
+      alert("Delete successful!");
+      window.location.href = "/profile/shop";
+    } catch (error) {
+      // Handle errors
+      console.error("Error deleting:", error);
+    }
+  };
 
   return (
     <div className="container-card">
@@ -214,13 +227,58 @@ export default function Detail() {
             </p>
             {/* Thông tin về tác giả */}
           </div>
-          <div>
+          <div className="public">
             <p>
               <strong>Published:</strong> {itemData.createdAt}
             </p>
             {userData.userInfo?.fullName === itemData.user_Name && (
-              <Icon>delete</Icon>
+              <a href="#popup1">
+                <Icon>delete</Icon>
+              </a>
             )}
+          </div>
+          {/* popup delete */}
+          <div id="popup1" className="overlay">
+            <div className="popup">
+              <div className="iconclose">
+                <a
+                  className="close"
+                  href="#"
+                  style={{ color: "black", textDecoration: "none" }}
+                >
+                  &times;
+                </a>
+              </div>
+
+              <div className="popupDetail">
+                <div className="contentDelete">
+                  <div
+                    style={{
+                      display: "flex",
+                      width: "90%",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <div>
+                      <img
+                        src="https://st.deviantart.net/eclipse/global/svg/il05-delete.svg"
+                        alt=""
+                        style={{ width: "90px", height: "88px" }}
+                      />
+                    </div>
+                    <div style={{ marginLeft: "15px" }}>
+                      <div style={{ fontWeight: "bold", fontSize: "25px" }}>
+                        Delete this commission?
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="popupButton">
+                  <button onClick={() => handleDelete()}>Delete</button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

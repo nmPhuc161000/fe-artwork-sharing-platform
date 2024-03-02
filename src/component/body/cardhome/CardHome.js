@@ -13,7 +13,8 @@ export const CardHome = (item) => {
           <div>
             <strong>{item.item.name}</strong>
           </div>
-          <div>By {item.item.user_Name}</div>
+          {/* user_Name ben artwork se la full_name ben user */}
+          <div>By <strong>{item.item.user_Name}</strong></div>
         </div>
         <div className="cardPrice">
           <div>

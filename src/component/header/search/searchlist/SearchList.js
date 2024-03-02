@@ -36,7 +36,7 @@ export const SearchList = () => {
                   <div>
                     <strong>{item.name}</strong>
                   </div>
-                  <div>By {item.user_Name}</div>
+                  <div>By <strong>{item.user_Name}</strong></div>
                 </div>
                 <div className="cardPrice">
                   <div>
