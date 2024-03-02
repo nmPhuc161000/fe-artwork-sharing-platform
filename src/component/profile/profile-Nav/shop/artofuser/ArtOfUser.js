@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./ArtOfUser.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { Icon } from "react-materialize";
 
 export default function ArtOfUser() {
   const [itemData, setItemData] = useState([]);
@@ -37,9 +36,10 @@ export default function ArtOfUser() {
           gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
           gap: "10px",
           justifyContent: "center", // Để căn giữa
-          width: "90%",
+          width: "100%",
           height:"100%",
           margin: "0 auto", // Để thẻ div nằm giữa trang
+          marginLeft: "15px"
         }}
       >
         {itemData.map((item) => (
@@ -48,7 +48,7 @@ export default function ArtOfUser() {
               to={item && item.id ? `/detail/${item.id}` : "/fallback-path"}
               style={{ color: "black" }}
             >
-              <div className="cardHome" style={{height:"326px", width:"auto"}}>
+              <div className="cardHome" style={{height:"326px", width:"auto", boxShadow: "3px 4px 2px 2px rgba(0, 0, 0, 0.1), 3px 6px 3px 6px rgba(0, 0, 0, 0.06)"}}>
                 <div className="cardImg">
                   <img src={item.url_Image} alt="" style={{height:"95%", width:"100%"}}/>
                 </div>

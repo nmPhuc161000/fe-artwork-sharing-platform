@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Home.css";
-import { Icon, Card, CardTitle } from "react-materialize";
 import axios from "axios";
 import { CardHome } from "../cardhome/CardHome";
 // import Slider from "react-slick";
@@ -9,12 +8,14 @@ import { CardHome } from "../cardhome/CardHome";
 export default function Home() {
   const [itemData, setItemData] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const categories = ['Dragon', 'View', 'AI', 'Landscape', 'Fantasy'];
+  const categories = ["Dragon", "View", "AI", "Landscape", "Fantasy"];
 
   useEffect(() => {
     const artData = async () => {
       try {
-        const response = await axios.get("https://localhost:44306/api/Artwork/get-all");
+        const response = await axios.get(
+          "https://localhost:44306/api/Artwork/get-all"
+        );
         setItemData(response.data);
         console.log("Data from API: ", response.data);
       } catch (error) {
@@ -24,34 +25,46 @@ export default function Home() {
 
     artData();
   }, []);
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 1000,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 2000,
-  };
 
   const handleCategoryClick = (category) => {
-    setSelectedCategory((prevCategory) => (prevCategory === category ? null : category));
+    setSelectedCategory((prevCategory) =>
+      prevCategory === category ? null : category
+    );
   };
-  const filteredItems = itemData.filter((item) => selectedCategory ? item.category_Name === selectedCategory : true);
-  
- return (
+  const filteredItems = itemData.filter((item) =>
+    selectedCategory ? item.category_Name === selectedCategory : true
+  );
+
+  return (
     <div className="container-fluid">
-      <div className="category-bar">
-        <strong>Categories:</strong>
-        {categories.map((category, index) => (
-          <button
-            key={index}
-            onClick={() => handleCategoryClick(category)}
-            style={{ fontWeight: category === selectedCategory ? 'bold' : 'normal' }}
-          >
-            {category}
-          </button>
-        ))}
+      <div
+        className="category-bar"
+        style={{
+          marginBottom: "20px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <div style={{ width: "90%" }}>
+          {categories.map((category, index) => (
+            <button
+              key={index}
+              onClick={() => handleCategoryClick(category)}
+              style={{
+                fontWeight: category === selectedCategory ? "bold" : "normal",
+                marginRight: "10px",
+                border: "1px solid #b6b7be",
+                borderRadius: "4px",
+                backgroundColor: "white",
+                padding: "10px 15px",
+                cursor: "pointer",
+              }}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
       </div>
       {/* <Slider {...settings}>
           {itemData.map((item, index) => (
@@ -72,9 +85,12 @@ export default function Home() {
         }}
       >
         {filteredItems.map((item) => (
-          <div key={item.id} style={{height:"320px"}}>
-            <Link to={item && item.id ? `/detail/${item.id}` : '/fallback-path'} style={{color:'black'}}>
-              <CardHome item={item}/>
+          <div key={item.id} style={{ height: "320px" }}>
+            <Link
+              to={item && item.id ? `/detail/${item.id}` : "/fallback-path"}
+              style={{ color: "black" }}
+            >
+              <CardHome item={item} />
             </Link>
           </div>
         ))}
