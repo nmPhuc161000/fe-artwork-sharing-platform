@@ -8,6 +8,8 @@ import { CardHome } from "../cardhome/CardHome";
 
 export default function Home() {
   const [itemData, setItemData] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const categories = ['Dragon', 'View', 'AI', 'Landscape', 'Fantasy'];
 
   useEffect(() => {
     const artData = async () => {
@@ -31,8 +33,26 @@ export default function Home() {
     autoplay: true,
     autoplaySpeed: 2000,
   };
+
+  const handleCategoryClick = (category) => {
+    setSelectedCategory((prevCategory) => (prevCategory === category ? null : category));
+  };
+  const filteredItems = itemData.filter((item) => selectedCategory ? item.category_Name === selectedCategory : true);
+  
  return (
     <div className="container-fluid">
+      <div className="category-bar">
+        <strong>Categories:</strong>
+        {categories.map((category, index) => (
+          <button
+            key={index}
+            onClick={() => handleCategoryClick(category)}
+            style={{ fontWeight: category === selectedCategory ? 'bold' : 'normal' }}
+          >
+            {category}
+          </button>
+        ))}
+      </div>
       {/* <Slider {...settings}>
           {itemData.map((item, index) => (
             <div key={index} className="slider-item">
@@ -51,7 +71,7 @@ export default function Home() {
           margin: "0 auto", // Để thẻ div nằm giữa trang
         }}
       >
-        {itemData.map((item) => (
+        {filteredItems.map((item) => (
           <div key={item.id} style={{height:"320px"}}>
             <Link to={item && item.id ? `/detail/${item.id}` : '/fallback-path'} style={{color:'black'}}>
               <CardHome item={item}/>
