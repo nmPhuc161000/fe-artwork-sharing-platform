@@ -11,6 +11,7 @@ import RecoveryPassword from "./component/header/recovery-password/RecoveryPassw
 import Profile from "./component/profile/Profile";
 import Payment from "./component/payment/Payment";
 import { SearchList } from "./component/header/search/searchlist/SearchList";
+import ChangePassword from "./component/change-password/ChangePassword";
 
 
 function App() {
@@ -42,7 +43,8 @@ function App() {
         <Route path="/detail/:ID" element={<Detail />}></Route>
         <Route path="/payment" element={<Payment />}></Route>
         {/* profile */}
-        <Route path="/profile/*" element={<Profile />}></Route> 
+        <Route path="/profile/*" element={<Profile />}></Route>
+        <Route path="/changepassword" element={<ChangePassword/>}></Route>
       </Routes>
       <Footer isLoginPage={isLoginPage} isRegisterPage={isRegisterPage} />
     </div>

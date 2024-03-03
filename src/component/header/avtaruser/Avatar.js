@@ -1,6 +1,5 @@
-// Trong component Avatar.jsx
 import React, { useState, useEffect, useRef } from "react";
-import "./Avatar.css"; // Đảm bảo import CSS
+import "./Avatar.css";
 import { Icon } from "react-materialize";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -20,7 +19,10 @@ const Avatar = () => {
     setOpen(false);
     // Thực hiện chuyển hướng đến trang profile
   };
-
+  const handlePasswordChange = () => {
+    setOpen(false);
+    // Thực hiện chuyển hướng đến trang thay đổi mật khẩu
+  };
   const handleOutsideClick = (event) => {
     if (avatarRef.current && !avatarRef.current.contains(event.target)) {
       setOpen(false);
@@ -84,6 +86,15 @@ const Avatar = () => {
                 >
                   <li>
                     <Icon>portrait</Icon>Profile
+                  </li>
+                </Link>
+                <Link
+                  to={`/changepassword`}
+                  style={{ color: "black" }}
+                  onClick={handlePasswordChange}
+                >
+                  <li>
+                    <Icon>lock</Icon>Change Password
                   </li>
                 </Link>
                 <li onClick={handleLogout}>
