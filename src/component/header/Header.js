@@ -6,8 +6,8 @@ import Avatar from "./avtaruser/Avatar";
 import SortButton from "./sortbutton/SortButton";
 
 export default function Header() {
-  // const [results, setResults] = useState([]);
-
+  const urlLogo = "https://firebasestorage.googleapis.com/v0/b/artwork-platform.appspot.com/o/logo%2Ffeed6075-55fd-4fb3-98d4-946d30029eda?alt=media&token=a3dd9363-73f3-4aec-ae32-264c761a0c0f";
+  
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -25,7 +25,7 @@ export default function Header() {
           </div>
           <div className="logo">
             <Link to={`/`}>
-              <img src="./assets/image/logo.png" alt="Logo" />
+              <img src={urlLogo} alt="Logo" />
             </Link>
           </div>
           <SortButton /> {/* Đặt SortButton ở vị trí bạn muốn trong thanh header */}
