@@ -27,7 +27,7 @@ export const SearchList = () => {
             style={{ color: "black" }}
           >
             {/* <CardHome item={item}/> */}
-            <div className="cardHome">
+            <div className="cardHome" style={{boxShadow: "3px 4px 2px 2px rgba(0, 0, 0, 0.1), 3px 6px 3px 6px rgba(0, 0, 0, 0.06)"}}>
               <div className="cardImg">
                 <img src={item.url_Image} alt="" style={{height:"100%", width:"100%"}}/>
               </div>

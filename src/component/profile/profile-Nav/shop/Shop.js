@@ -4,8 +4,12 @@ import CreateArt from "./createart/CreateArt";
 import axios from "axios";
 import ArtOfUser from "./artofuser/ArtOfUser";
 import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
-import { v4 } from 'uuid';
+import { v4 } from "uuid";
 import { imgDb } from "../../../../configFirebase/config";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 export const Shop = () => {
   const [name, setName] = useState("");
@@ -19,8 +23,10 @@ export const Shop = () => {
     setName(value);
   };
 
-  const handleCategoryName = (value) => {
-    setCategoryName(value);
+
+  const handleCategoryName = (event) => {
+    const selectedOption = event.target.value;
+    setCategoryName(selectedOption);
   };
 
   const handleDescription = (value) => {
@@ -49,7 +55,6 @@ export const Shop = () => {
       setImgUrl(urls);
     });
   }, []);
-  const uniqueUrls = Array.from(imgUrl);
 
   const token = localStorage.getItem("token");
 
@@ -84,7 +89,7 @@ export const Shop = () => {
         }
       );
 
-      console.log("url",response.data);
+      console.log("url", response.data);
       alert("Tạo thành công");
       window.location.href = "/profile/shop";
     } catch (error) {
@@ -96,6 +101,8 @@ export const Shop = () => {
     }
   };
 
+  
+
   return (
     <div className="shopUser">
       {/* hàm tạo ảnh và thêm thông tin */}
@@ -105,11 +112,13 @@ export const Shop = () => {
         </div>
         <div className="createOfUser">
           <div className="createArt">
-            <a href="#popup1"><CreateArt /></a>
+            <a href="#popup1">
+              <CreateArt />
+            </a>
           </div>
 
           <div className="forUser">
-            <ArtOfUser/>
+            <ArtOfUser />
           </div>
         </div>
       </div>
@@ -134,13 +143,29 @@ export const Shop = () => {
                 onChange={(e) => handleName(e.target.value)}
               />
             </div>
-            <div className="popupInput">
-              <input
-                type="text"
-                placeholder="Enter category_Name of artwork"
-                onChange={(e) => handleCategoryName(e.target.value)}
-              />
-            </div>
+
+            <FormControl
+              sx={{ m: 1, minWidth: 120 }}
+              style={{ margin: "0 0 5px 0", width: "100%" }}
+            >
+              <InputLabel id="demo-simple-select-helper-label">
+                Category
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-helper-label"
+                id="demo-simple-select-helper"
+                value={categoryName}
+                onChange={handleCategoryName}
+                label="Category"
+              >
+                <MenuItem value={"AI"}>AI</MenuItem>
+                <MenuItem value={"Fantasy"}>Fantasy</MenuItem>
+                <MenuItem value={"View"}>View</MenuItem>
+                <MenuItem value={"Landscape"}>Landscape</MenuItem>
+                <MenuItem value={"Dragon"}>Dragon</MenuItem>
+              </Select>
+            </FormControl>
+
             <div className="popupInput">
               <input
                 type="text"
@@ -168,8 +193,6 @@ export const Shop = () => {
           </div>
         </div>
       </div>
-
-
     </div>
   );
 };

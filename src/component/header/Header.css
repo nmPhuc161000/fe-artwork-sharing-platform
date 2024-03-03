@@ -18,6 +18,10 @@
     position: relative;
 }
 
+.navbar .logo {
+    margin: auto;
+}
+
 .navbar .logo img{
     width: 100px;
 }
