@@ -10,6 +10,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { useNavigate } from "react-router-dom";
 
 export const Shop = () => {
   const [name, setName] = useState("");
@@ -18,6 +19,7 @@ export const Shop = () => {
   const [price, setPrice] = useState("");
   const [imageFile, setImageFile] = useState("");
   const [imgUrl, setImgUrl] = useState([]);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const handleName = (value) => {
     setName(value);
@@ -57,7 +59,7 @@ export const Shop = () => {
   }, []);
 
   const token = localStorage.getItem("token");
-
+  const navigate = useNavigate();
   const handleSave = async () => {
     if (!name || !categoryName || !description || !price) {
       alert("Vui lòng điền đầy đủ thông tin.");
@@ -67,7 +69,6 @@ export const Shop = () => {
     const imgRef = ref(imgDb, `/${v4()}`);
     const snapshot = await uploadBytes(imgRef, imageFile);
     const url = await getDownloadURL(snapshot.ref);
-    uploadBytes(imgRef, imageFile);
 
     const formData = new FormData();
     formData.append("Name", name);
@@ -91,7 +92,8 @@ export const Shop = () => {
 
       console.log("url", response.data);
       alert("Tạo thành công");
-      window.location.href = "/profile/shop";
+      navigate("/profile/shop");
+      setIsPopupOpen(false);
     } catch (error) {
       // Xử lý lỗi
       console.log("URL", url);
@@ -100,8 +102,6 @@ export const Shop = () => {
       console.log(formData);
     }
   };
-
-  
 
   return (
     <div className="shopUser">
@@ -112,7 +112,7 @@ export const Shop = () => {
         </div>
         <div className="createOfUser">
           <div className="createArt">
-            <a href="#popup1">
+            <a href="#popup1" onClick={() => setIsPopupOpen(true)}>
               <CreateArt />
             </a>
           </div>
@@ -124,6 +124,7 @@ export const Shop = () => {
       </div>
 
       {/* popup */}
+      {isPopupOpen && (
       <div id="popup1" className="overlay">
         <div className="popup">
           <div className="iconclose">
@@ -193,6 +194,7 @@ export const Shop = () => {
           </div>
         </div>
       </div>
+      )}
     </div>
   );
 };

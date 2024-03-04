@@ -2,7 +2,6 @@ import React from "react";
 import "./CardHome.css";
 
 export const CardHome = (item) => {
-  console.log(item);
   return (
     <div className="cardHome">
       <div className="cardImg"  style={{height:"75%", width:"100%"}} >

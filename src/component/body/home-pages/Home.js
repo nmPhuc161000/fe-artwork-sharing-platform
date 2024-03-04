@@ -8,7 +8,7 @@ import { CardHome } from "../cardhome/CardHome";
 export default function Home() {
   const [itemData, setItemData] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const categories = ["Dragon", "View", "AI", "Landscape", "Fantasy"];
+  const categories = ["Dragon", "Galaxy", "AI", "Landscape", "Fantasy"];
 
   useEffect(() => {
     const artData = async () => {
@@ -17,7 +17,7 @@ export default function Home() {
           "https://localhost:44306/api/Artwork/get-all"
         );
         setItemData(response.data);
-        console.log("Data from API: ", response.data);
+        // console.log("Data from API: ", response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -80,7 +80,6 @@ export default function Home() {
           gap: "10px",
           justifyContent: "center", // Để căn giữa
           width: "90%",
-          height: "320px",
           margin: "0 auto", // Để thẻ div nằm giữa trang
         }}
       >

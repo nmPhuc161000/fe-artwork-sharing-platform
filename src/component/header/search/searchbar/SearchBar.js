@@ -14,7 +14,6 @@ export default function SearchBar() {
   const navigate = useNavigate();
 
   const Url = `https://localhost:44306/api/Artwork/search?search=${inputValue}&searchBy=${option}`;
-  console.log(Url);
   const axiosData = (inputValue, option) => {
     axios
       .post(Url, {

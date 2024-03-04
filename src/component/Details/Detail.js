@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Icon, Modal, Button, Textarea } from "react-materialize";
 import "./Detail.css";
 import axios from "axios";
@@ -118,6 +118,7 @@ export default function Detail() {
   useEffect(() => {
     fetchUserData();
   }, []);
+  const navigate = useNavigate();
 
   const handleDelete = async () => { // Replace 'ID' with the actual ID
     try {
@@ -131,7 +132,7 @@ export default function Detail() {
       // Handle the response as needed
       console.log("Delete successful:", response.data);
       alert("Delete successful!");
-      window.location.href = "/profile/shop";
+     navigate("/profile/shop");
     } catch (error) {
       // Handle errors
       console.error("Error deleting:", error);
