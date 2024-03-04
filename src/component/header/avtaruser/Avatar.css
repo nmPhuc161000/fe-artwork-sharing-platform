@@ -10,11 +10,11 @@
 .avatar-dropdown .dropdown {
   background-color: white;
   padding: 4px;
-  width: 140px;
+  width: 160px;
   position: absolute;
   box-shadow: 3px 4px 2px 2px rgba(0, 0, 0, 0.1),
   2px 4px 2px 7px rgba(0, 0, 0, 0.06);
-  left: -30px;
+  left: -45px;
 }
 
 .avatar-dropdown .dropdown li {
