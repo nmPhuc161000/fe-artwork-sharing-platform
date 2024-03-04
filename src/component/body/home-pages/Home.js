@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./Home.css";
 import axios from "axios";
 import { CardHome } from "../cardhome/CardHome";
-// import Slider from "react-slick";
+import Slider from "react-slick";
 
 export default function Home() {
   const [itemData, setItemData] = useState([]);
@@ -11,7 +11,7 @@ export default function Home() {
   const categories = ["Dragon", "View", "AI", "Landscape", "Fantasy"];
 
   useEffect(() => {
-    const artData = async () => {
+    const fetchData = async () => {
       try {
         const response = await axios.get(
           "https://localhost:44306/api/Artwork/get-all"
@@ -23,7 +23,7 @@ export default function Home() {
       }
     };
 
-    artData();
+    fetchData();
   }, []);
 
   const handleCategoryClick = (category) => {
@@ -31,12 +31,29 @@ export default function Home() {
       prevCategory === category ? null : category
     );
   };
+
   const filteredItems = itemData.filter((item) =>
     selectedCategory ? item.category_Name === selectedCategory : true
   );
 
   return (
     <div className="container-fluid">
+      <Slider
+        dots={false}
+        infinite={true}
+        arrows={false}
+        speed={500}
+        slidesToShow={3}
+        slidesToScroll={1}
+        autoplay={true}
+        autoplaySpeed={2000}
+      >
+        {filteredItems.slice(0, 10).map((item) => (
+          <div key={item.id} className="slider-item">
+            <img className="slider-image" src={item.url_Image} alt={item.title} />
+          </div>
+        ))}
+      </Slider>
       <div
         className="category-bar"
         style={{
@@ -66,22 +83,15 @@ export default function Home() {
           ))}
         </div>
       </div>
-      {/* <Slider {...settings}>
-          {itemData.map((item, index) => (
-            <div key={index} className="slider-item">
-              <img className="slider-image" src={item.url_Image} alt={item.title} />
-            </div>
-          ))}
-        </Slider> */}
       <div
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fill, minmax(19%, 1fr))",
           gap: "10px",
-          justifyContent: "center", // Để căn giữa
+          justifyContent: "center",
           width: "90%",
           height: "320px",
-          margin: "0 auto", // Để thẻ div nằm giữa trang
+          margin: "0 auto",
         }}
       >
         {filteredItems.map((item) => (

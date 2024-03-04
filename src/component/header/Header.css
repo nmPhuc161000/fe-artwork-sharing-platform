@@ -19,8 +19,9 @@
 }
 
 .navbar .logo {
-    margin: auto;
+    margin:auto;
     height: 100%;
+    margin-left: 200px;
 }
 
 .navbar .logo img{
@@ -51,4 +52,7 @@
     width: 30px;
     height: 30px;
     margin-left: 20px;
+}
+.sort {
+    margin-left: 10px;
 }

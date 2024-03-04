@@ -46,7 +46,7 @@ const SortButton = () => {
   return (
     <div className="sortButton">
       <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-        Sort By
+        Sort
       </Button>
       <Menu
         id="simple-menu"
