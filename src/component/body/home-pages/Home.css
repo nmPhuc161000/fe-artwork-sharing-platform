@@ -1,5 +1,5 @@
+/* Trong file Slider.css hoặc tệp CSS tương tự */
 
- 
 .slick-slider {
     position: relative;
     display: block;
@@ -9,26 +9,31 @@
     -webkit-tap-highlight-color: transparent;
     max-width: 800px; /* Đặt kích thước tùy ý cho Slider */
     margin: 0 auto; /* Để căn giữa Slider */
+    overflow: hidden; /* Ngăn chặn thanh cuộn ngang */
+}
+.slick-slide img {
+    width: auto; /* Chiều rộng tối đa của ảnh là 100% của slide */
+    height: 200px; /* Thiết lập chiều cao cố định cho ảnh */
+    object-fit: cover; /* Đảm bảo ảnh không bị méo và vẫn đủ bản quyền */
+    display: block; /* Hiển thị ảnh dưới dạng phần tử block */
+    margin: auto; /* Căn giữa ảnh theo chiều ngang */
 }
 
-/* Trong file Home.css hoặc tệp CSS tương tự */
+.slick-track {
+    display: flex; /* Sử dụng flexbox để các slide được căn chỉnh một cách đều đặn */
+}
+
+.slick-slide {
+    display: flex;
+    justify-content: center;
+    margin-right: 70px;
+}
+
+.slick-slide:last-child {
+    margin-right: 0; /* Loại bỏ margin phải của slide cuối cùng */
+}
 .slider-item {
     width: 100%; /* Đảm bảo rằng chiều rộng của ảnh sẽ đầy đủ theo kích thước của slider */
     height: auto; /* Tự động tính toán chiều cao dựa trên chiều rộng, tránh làm méo ảnh */
     object-fit: cover; /* Đảm bảo ảnh không bị méo và vẫn đủ bản quyền */
-}
-
-/* CSS cho các Slide */
-.slick-slide {
-    display: flex;
-    justify-content: center;
-}
-
-/* CSS cho hình ảnh bên trong các Slide */
-.slider-image {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain; /* Để hình ảnh không bị méo và căn giữa */
-    display: block; /* Để hình ảnh hiển thị thành phần block */
-    margin: auto; /* Căn giữa hình ảnh theo chiều ngang */
 }

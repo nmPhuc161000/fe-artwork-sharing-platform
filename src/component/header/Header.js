@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Header.css";
-import  SearchBar  from "./search/searchbar/SearchBar";
+import SearchBar from "./search/searchbar/SearchBar";
 import Avatar from "./avtaruser/Avatar";
 
 export default function Header() {
   const urlLogo = "https://firebasestorage.googleapis.com/v0/b/artwork-platform.appspot.com/o/logo%2Ffeed6075-55fd-4fb3-98d4-946d30029eda?alt=media&token=a3dd9363-73f3-4aec-ae32-264c761a0c0f";
-  
+
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -20,7 +20,9 @@ export default function Header() {
       <div className="nav">
         <div className="navbar">
           <div className="search">
-            <SearchBar  />        
+            <SearchBar />
+          </div>
+          <div className="sort">
           </div>
           <div className="logo">
             <Link to={`/`}>

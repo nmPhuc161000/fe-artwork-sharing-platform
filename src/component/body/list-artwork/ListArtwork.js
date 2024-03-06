@@ -40,7 +40,7 @@ export const ListArtwork = ({ itemData }) => {
       <div
         className="category-bar"
         style={{
-          marginBottom: "20px",
+          margin: "15px 0",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
