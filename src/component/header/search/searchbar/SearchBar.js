@@ -8,8 +8,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-export default function SearchBar({setItemData}) {
-  console.log("type: ",typeof setItemData);
+export default function SearchBar() {
   const [inputValue, setInput] = useState("");
   const [option, setOption] = useState("");
   const navigate = useNavigate();

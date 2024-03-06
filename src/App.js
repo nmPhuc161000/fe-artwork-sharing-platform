@@ -12,7 +12,6 @@ import Profile from "./component/profile/Profile";
 import Payment from "./component/payment/Payment";
 import { SearchList } from "./component/header/search/searchlist/SearchList";
 import ChangePassword from "./component/change-password/ChangePassword";
-import SearchBar from "./component/header/search/searchbar/SearchBar";
 
 
 function App() {
@@ -30,13 +29,9 @@ function App() {
   React.useEffect(() => {
     setIsLoginPage(location.pathname === "/login");
   }, [location]);
-
-  const [itemData, setItemData] = useState([]);
-
-
   return (
     <div className="App">
-      <Header setItemData={setItemData}/>
+      <Header />
       <Routes>
         <Route path="/" element={<Home />}></Route>
         {/* header */}
@@ -44,8 +39,6 @@ function App() {
         <Route path="/recovery-password" element={<RecoveryPassword />}></Route>
         <Route path="/regis" element={<Register />}></Route>
         <Route path="/searchlist" element={<SearchList />}></Route>
-        {/* body */}
-        
         {/* detail */}
         <Route path="/detail/:ID" element={<Detail />}></Route>
         <Route path="/payment" element={<Payment />}></Route>
