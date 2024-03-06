@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import "./Home.css";
 import axios from "axios";
-import { CardHome } from "../cardhome/CardHome";
 import Slider from "react-slick";
+import { ListArtwork } from "../list-artwork/ListArtwork";
 
 export default function Home() {
   const [itemData, setItemData] = useState([]);
@@ -47,6 +46,9 @@ export default function Home() {
         slidesToScroll={1}
         autoplay={true}
         autoplaySpeed={2000}
+        swipe={false}
+        draggable={false}
+
       >
         {filteredItems.slice(0, 6).map((item) => (
           <div key={item.id} className="slider-item">
@@ -54,6 +56,9 @@ export default function Home() {
           </div>
         ))}
       </Slider>
+      <>
+      <ListArtwork itemData = {itemData}/>
+    </>
       <div
         className="category-bar"
         style={{
@@ -63,47 +68,6 @@ export default function Home() {
           justifyContent: "center",
         }}
       >
-        <div style={{ width: "90%" }}>
-          {categories.map((category, index) => (
-            <button
-              key={index}
-              onClick={() => handleCategoryClick(category)}
-              style={{
-                fontWeight: category === selectedCategory ? "bold" : "normal",
-                marginRight: "10px",
-                border: "1px solid #b6b7be",
-                borderRadius: "4px",
-                backgroundColor: "white",
-                padding: "10px 15px",
-                cursor: "pointer",
-              }}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
-      </div>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(19%, 1fr))",
-          gap: "10px",
-          justifyContent: "center",
-          width: "90%",
-          height: "320px",
-          margin: "0 auto", // Để thẻ div nằm giữa trang
-        }}
-      >
-        {filteredItems.map((item) => (
-          <div key={item.id} style={{ height: "320px" }}>
-            <Link
-              to={item && item.id ? `/detail/${item.id}` : "/fallback-path"}
-              style={{ color: "black" }}
-            >
-              <CardHome item={item} />
-            </Link>
-          </div>
-        ))}
       </div>
     </div>
   );
