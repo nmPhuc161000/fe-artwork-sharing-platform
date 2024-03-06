@@ -68,8 +68,8 @@ const Avatar = () => {
   }, []);
 
   return (
-    <div className="avatar-dropdown" ref={avatarRef}>
-      <div className="avatar">
+    <div className="avatar-dropdown" ref={avatarRef}style={{marginRight: "50px"}}>
+      <div className="avatar" >
         <img src={urlNoAva} alt="User Avatar" onClick={() => setOpen(!open)} />
       </div>
       {isLoggedIn && (
