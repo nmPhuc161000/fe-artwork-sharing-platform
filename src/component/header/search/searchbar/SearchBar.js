@@ -19,7 +19,7 @@ export default function SearchBar() {
       .post(Url, {
         headers: {
           accept: "*/*",
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "application/json",
         },
       })
       .then((response) => {
@@ -51,7 +51,7 @@ export default function SearchBar() {
     <div className="searchBar">
       <Icon style={{ marginLeft: "10px" }}>search</Icon>
       <input
-        placeholder="TSearch"
+        placeholder="Search"
         value={inputValue}
         onChange={(e) => handleChange(e.target.value)}
         onKeyPress={handleKeyPress}
