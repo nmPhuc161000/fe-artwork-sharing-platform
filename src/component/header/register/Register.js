@@ -38,7 +38,7 @@ export default function Register() {
   const navigate = useNavigate();
 
   const handleSave = async () => {
-    if (!fullName || !email || !userName || !password) {
+    if (!fullName || !email || !userName || !password || !phoneNo) {
       alert("Vui lòng điền đầy đủ thông tin.");
       return;
     }
@@ -64,8 +64,8 @@ export default function Register() {
       alert("Đăng ký thành công! Vui lòng đăng nhập.");
     } catch (error) {
       // Xử lý lỗi
-      alert("Hãy kiểm tra lại thông tin nhập vào!");
-      console.error("Đã có lỗi xảy ra khi gửi yêu cầu API:", error.message);
+      alert(error.response.data);
+      console.error("Đã có lỗi xảy ra khi gửi yêu cầu API:", error);
       console.log(data);
     }
   };
@@ -82,42 +82,42 @@ export default function Register() {
           <div className="group">
             <input
               type="text"
-              placeholder="Fullname"
+              placeholder="Fullname (*)"
               onChange={(e) => handleFullNameChange(e.target.value)}
             />
           </div>
           <div className="group">
             <input
               type="text"
-              placeholder="Email"
+              placeholder="Email (*)"
               onChange={(e) => handleEmailChange(e.target.value)}
             />
           </div>
           <div className="group">
             <input
               type="text"
-              placeholder="Username"
+              placeholder="Username (*)"
               onChange={(e) => handleUserNameChange(e.target.value)}
             />
           </div>
           <div className="group">
             <input
               type="password"
-              placeholder="Password"
+              placeholder="Password (*)"
               onChange={(e) => handlePasswordChange(e.target.value)}
             />
           </div>
           <div className="group">
             <input
               type="text"
-              placeholder="address"
+              placeholder="Address"
               onChange={(e) => handleAddressChange(e.target.value)}
             />
           </div>
           <div className="group">
             <input
               type="text"
-              placeholder="phone"
+              placeholder="Phone number (*)"
               onChange={(e) => handlePhoneNoChange(e.target.value)}
             />
           </div>

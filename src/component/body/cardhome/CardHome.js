@@ -1,6 +1,5 @@
 import React from "react";
 import "./CardHome.css";
-
 export const CardHome = ({ item }) => {
   console.log(item);
   return (

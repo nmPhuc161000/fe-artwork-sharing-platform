@@ -82,7 +82,7 @@ const Avatar = () => {
               <ul>
                 <li></li>
                 <Link
-                  to={`/profile`}
+                  to={`/profile/shop`}
                   style={{ color: "black" }}
                   onClick={handleProfileClick}
                 >

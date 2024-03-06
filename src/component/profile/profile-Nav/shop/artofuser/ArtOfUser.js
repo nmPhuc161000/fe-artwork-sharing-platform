@@ -26,7 +26,7 @@ export default function ArtOfUser() {
     };
 
     artData();
-  }, [token]);
+  }, [itemData]);
 
   return (
     <div className="container-fluid" style={{height:"100%"}}>

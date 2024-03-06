@@ -8,7 +8,7 @@ import Slider from "react-slick";
 export default function Home() {
   const [itemData, setItemData] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const categories = ["Dragon", "View", "AI", "Landscape", "Fantasy"];
+  const categories = ["Dragon", "Galaxy", "AI", "Landscape", "Fantasy"];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -17,7 +17,7 @@ export default function Home() {
           "https://localhost:44306/api/Artwork/get-all"
         );
         setItemData(response.data);
-        console.log("Data from API: ", response.data);
+        // console.log("Data from API: ", response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -48,7 +48,7 @@ export default function Home() {
         autoplay={true}
         autoplaySpeed={2000}
       >
-        {filteredItems.slice(0, 10).map((item) => (
+        {filteredItems.slice(0, 6).map((item) => (
           <div key={item.id} className="slider-item">
             <img className="slider-image" src={item.url_Image} alt={item.title} />
           </div>
@@ -91,7 +91,7 @@ export default function Home() {
           justifyContent: "center",
           width: "90%",
           height: "320px",
-          margin: "0 auto",
+          margin: "0 auto", // Để thẻ div nằm giữa trang
         }}
       >
         {filteredItems.map((item) => (
