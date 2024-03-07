@@ -1,30 +1,31 @@
 import React, { useState, useEffect } from "react";
-import "./Shop.css";
-import CreateArt from "./createart/CreateArt";
+import "./EditArt.css";
+import { Icon } from "react-materialize";
 import axios from "axios";
-import ArtOfUser from "./artofuser/ArtOfUser";
-import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
-import { v4 } from "uuid";
-import { imgDb } from "../../../../configFirebase/config";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useNavigate } from "react-router-dom";
+import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
+import { v4 } from "uuid";
+import { imgDb } from "../../../configFirebase/config";
 
-export const Shop = () => {
-  const [name, setName] = useState("");
-  const [categoryName, setCategoryName] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [imageFile, setImageFile] = useState("");
+export default function EditArt({ itemData }) {
+  const [name, setName] = useState(itemData.name || "");
+  const [categoryName, setCategoryName] = useState(
+    itemData.category_Name || ""
+  );
+  const [description, setDescription] = useState(itemData.description || "");
+  const [price, setPrice] = useState(itemData.price || "");
+  const [image, setImage] = useState(itemData.url_Image || "");
+  const [imageFile, setImageFile] = useState(null);
   const [imgUrl, setImgUrl] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const handleName = (value) => {
     setName(value);
   };
-
 
   const handleCategoryName = (event) => {
     const selectedOption = event.target.value;
@@ -43,6 +44,9 @@ export const Shop = () => {
     const file = e.target.files[0];
     if (file) {
       setImageFile(file);
+      setImage(URL.createObjectURL(file));
+    } else {
+      setImage(itemData.url_Image || "");
     }
   };
 
@@ -59,73 +63,53 @@ export const Shop = () => {
   }, []);
 
   const token = localStorage.getItem("token");
+
   const navigate = useNavigate();
-  const handleSave = async () => {
-    if (!name || !categoryName || !description || !price) {
-      alert("Vui lòng điền đầy đủ thông tin.");
-      return;
+  const handleEdit = async () => {
+    let url = itemData.url_Image || "";
+    if (imageFile) {
+      const imgRef = ref(imgDb, `films/${v4()}`);
+      const snapshot = await uploadBytes(imgRef, imageFile);
+      url = await getDownloadURL(snapshot.ref);
     }
-
-    const imgRef = ref(imgDb, `/${v4()}`);
-    const snapshot = await uploadBytes(imgRef, imageFile);
-    const url = await getDownloadURL(snapshot.ref);
-
-    const formData = new FormData();
-    formData.append("Name", name);
-    formData.append("Category_Name", categoryName);
-    formData.append("Description", description);
-    formData.append("Price", price);
-    formData.append("Url_Image", url); // Không cần thêm file và fileName
-
+    const editData = {
+      name: name,
+      category_Name: categoryName,
+      description: description,
+      price: parseFloat(price),
+      url_Image: url,
+    };
     try {
-      // Gửi yêu cầu POST đến API
-      const response = await axios.post(
-        "https://localhost:44306/api/Artwork/create",
-        formData,
+      // Make a DELETE request to the API endpoint
+      const response = await axios.put(
+        `https://localhost:44306/api/Artwork/update-artwork?id=${itemData.id}`,
+        editData,
         {
           headers: {
-            "Content-Type": `application/json`,
+            accept: "*/*",
             Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
           },
         }
       );
 
-      console.log("url", response.data);
-      alert("Tạo thành công");
-      navigate("/profile/shop");
-      setIsPopupOpen(false);
+      // Handle the response as needed
+      console.log("Delete successful:", response.data);
+      alert("Update Artwork successful!");
+      navigate(`/detail/${itemData.id}`);
     } catch (error) {
-      // Xử lý lỗi
-      console.log("URL", url);
-      alert("Hãy kiểm tra lại thông tin nhập vào!");
-      console.error("Đã có lỗi xảy ra khi gửi yêu cầu API:", error.message);
-      console.log(formData);
+      // Handle errors
+      console.log(editData);
+      console.error("Error updating:", error);
     }
   };
-
   return (
-    <div className="shopUser">
-      {/* hàm tạo ảnh và thêm thông tin */}
-      <div className="content">
-        <div className="commissions">
-          <span>Commissions</span>
-        </div>
-        <div className="createOfUser">
-          <div className="createArt">
-            <a href="#popup1" onClick={() => setIsPopupOpen(true)}>
-              <CreateArt />
-            </a>
-          </div>
+    <div>
+      <a href="#popupEdit">
+        <Icon>edit</Icon>
+      </a>
 
-          <div className="forUser">
-            <ArtOfUser />
-          </div>
-        </div>
-      </div>
-
-      {/* popup */}
-      {isPopupOpen && (
-      <div id="popup1" className="overlay">
+      <div id="popupEdit" className="overlay">
         <div className="popup">
           <div className="iconclose">
             <a
@@ -140,7 +124,7 @@ export const Shop = () => {
             <div className="popupInput">
               <input
                 type="text"
-                placeholder="Enter name of artwork"
+                value={name}
                 onChange={(e) => handleName(e.target.value)}
               />
             </div>
@@ -150,7 +134,7 @@ export const Shop = () => {
               style={{ margin: "0 0 5px 0", width: "100%" }}
             >
               <InputLabel id="demo-simple-select-helper-label">
-                Category
+                {categoryName}
               </InputLabel>
               <Select
                 labelId="demo-simple-select-helper-label"
@@ -170,14 +154,14 @@ export const Shop = () => {
             <div className="popupInput">
               <input
                 type="text"
-                placeholder="Enter description of artwork"
+                value={description}
                 onChange={(e) => handleDescription(e.target.value)}
               />
             </div>
             <div className="popupInput">
               <input
                 type="text"
-                placeholder="Enter price of artwork"
+                value={price}
                 onChange={(e) => handlePrice(e.target.value)}
               />
             </div>
@@ -187,14 +171,15 @@ export const Shop = () => {
                 onChange={(e) => handleImageFile(e)}
                 accept="image/*"
               />
+              {image && <div style={{ fontSize: "10px", width: "90%" }}>{image}
+              </div>}
             </div>
             <div className="popupButton">
-              <button onClick={() => handleSave()}>Create</button>
+              <button onClick={() => handleEdit()}>Update</button>
             </div>
           </div>
         </div>
       </div>
-      )}
     </div>
   );
-};
+}

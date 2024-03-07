@@ -26,7 +26,7 @@ export default function ArtOfUser() {
     };
 
     artData();
-  }, [itemData]);
+  }, []);
 
   return (
     <div className="container-fluid" style={{height:"100%"}}>
@@ -55,9 +55,9 @@ export default function ArtOfUser() {
                 <div className="cardInfor">
                   <div className="cardName">
                     <div>
-                      <strong>{item.name}</strong>
+                      <span style={{fontWeight: "bold"}}>{item.name}</span>
                     </div>
-                    <div>By {item.user_Name}</div>
+                    <div>By <span style={{fontWeight: "bold"}}>{item.user_Name}</span></div>
                   </div>
                   <div className="cardPrice">
                     <div>
