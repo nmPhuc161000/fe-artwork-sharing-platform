@@ -93,7 +93,7 @@ export const SearchList = () => {
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fill, minmax(19%, 1fr))",
-          gap: "10px",
+          gap: "15px",
           justifyContent: "center", // Để căn giữa
           width: "90%",
           margin: "0 auto", // Để thẻ div nằm giữa trang
@@ -101,14 +101,14 @@ export const SearchList = () => {
       >
         {sortedItems
           .map((item) => (
-            <div key={item.id} style={{ height: "320px" }}>
+            <div key={item.id} style={{ height: "365px" }}>
               <Link
                 to={item && item.id ? `/detail/${item.id}` : "/fallback-path"}
                 style={{ color: "black" }}
               >
                 {/* <CardHome item={item}/> */}
                 <div
-                  className="cardHome"
+                  className="cardSearchList"
                   style={{
                     boxShadow:
                       "3px 4px 2px 2px rgba(0, 0, 0, 0.1), 3px 6px 3px 6px rgba(0, 0, 0, 0.06)",

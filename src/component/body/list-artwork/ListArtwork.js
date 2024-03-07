@@ -88,14 +88,14 @@ export const ListArtwork = ({ itemData }) => {
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fill, minmax(19%, 1fr))",
-          gap: "10px",
+          gap: "15px",
           justifyContent: "center", // Để căn giữa
           width: "90%",
           margin: "0 auto", // Để thẻ div nằm giữa trang
         }}
       >
         {sortedItems.map((item) => (
-          <div key={item.id} style={{ height: "320px" }}>
+          <div key={item.id} style={{ height: "365px" }}>
             <Link
               to={item && item.id ? `/detail/${item.id}` : "/fallback-path"}
               style={{ color: "black" }}

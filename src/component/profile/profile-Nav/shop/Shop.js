@@ -2,107 +2,33 @@ import React, { useState, useEffect } from "react";
 import "./Shop.css";
 import CreateArt from "./createart/CreateArt";
 import axios from "axios";
-import ArtOfUser from "./artofuser/ArtOfUser";
-import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
-import { v4 } from "uuid";
-import { imgDb } from "../../../../configFirebase/config";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export const Shop = () => {
-  const [name, setName] = useState("");
-  const [categoryName, setCategoryName] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [imageFile, setImageFile] = useState("");
-  const [imgUrl, setImgUrl] = useState([]);
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
-
-  const handleName = (value) => {
-    setName(value);
-  };
-
-
-  const handleCategoryName = (event) => {
-    const selectedOption = event.target.value;
-    setCategoryName(selectedOption);
-  };
-
-  const handleDescription = (value) => {
-    setDescription(value);
-  };
-
-  const handlePrice = (value) => {
-    setPrice(value);
-  };
-
-  const handleImageFile = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setImageFile(file);
-    }
-  };
+  const [itemData, setItemData] = useState([]);
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    listAll(ref(imgDb, "")).then(async (imgs) => {
-      const urls = await Promise.all(
-        imgs.items.map(async (val) => {
-          const url = await getDownloadURL(val);
-          return url;
-        })
-      );
-      setImgUrl(urls);
-    });
+    const artData = async () => {
+      try {
+        const response = await axios.get(
+          "https://localhost:44306/api/Artwork/get-by-userId",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              accept: "*/*",
+            },
+          }
+        );
+        setItemData(response.data);
+        console.log("Data from API: ", response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    artData();
   }, []);
-
-  const token = localStorage.getItem("token");
-  const navigate = useNavigate();
-  const handleSave = async () => {
-    if (!name || !categoryName || !description || !price) {
-      alert("Vui lòng điền đầy đủ thông tin.");
-      return;
-    }
-
-    const imgRef = ref(imgDb, `/${v4()}`);
-    const snapshot = await uploadBytes(imgRef, imageFile);
-    const url = await getDownloadURL(snapshot.ref);
-
-    const formData = new FormData();
-    formData.append("Name", name);
-    formData.append("Category_Name", categoryName);
-    formData.append("Description", description);
-    formData.append("Price", price);
-    formData.append("Url_Image", url); // Không cần thêm file và fileName
-
-    try {
-      // Gửi yêu cầu POST đến API
-      const response = await axios.post(
-        "https://localhost:44306/api/Artwork/create",
-        formData,
-        {
-          headers: {
-            "Content-Type": `application/json`,
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      console.log("url", response.data);
-      alert("Tạo thành công");
-      navigate("/profile/shop");
-      setIsPopupOpen(false);
-    } catch (error) {
-      // Xử lý lỗi
-      console.log("URL", url);
-      alert("Hãy kiểm tra lại thông tin nhập vào!");
-      console.error("Đã có lỗi xảy ra khi gửi yêu cầu API:", error.message);
-      console.log(formData);
-    }
-  };
-
   return (
     <div className="shopUser">
       {/* hàm tạo ảnh và thêm thông tin */}
@@ -110,91 +36,69 @@ export const Shop = () => {
         <div className="commissions">
           <span>Commissions</span>
         </div>
-        <div className="createOfUser">
-          <div className="createArt">
-            <a href="#popup1" onClick={() => setIsPopupOpen(true)}>
-              <CreateArt />
-            </a>
-          </div>
 
-          <div className="forUser">
-            <ArtOfUser />
-          </div>
-        </div>
-      </div>
-
-      {/* popup */}
-      {isPopupOpen && (
-      <div id="popup1" className="overlay">
-        <div className="popup">
-          <div className="iconclose">
-            <a
-              className="close"
-              href="#"
-              style={{ color: "black", textDecoration: "none" }}
-            >
-              &times;
-            </a>
-          </div>
-          <div className="popupCreate">
-            <div className="popupInput">
-              <input
-                type="text"
-                placeholder="Enter name of artwork"
-                onChange={(e) => handleName(e.target.value)}
-              />
-            </div>
-
-            <FormControl
-              sx={{ m: 1, minWidth: 120 }}
-              style={{ margin: "0 0 5px 0", width: "100%" }}
-            >
-              <InputLabel id="demo-simple-select-helper-label">
-                Category
-              </InputLabel>
-              <Select
-                labelId="demo-simple-select-helper-label"
-                id="demo-simple-select-helper"
-                value={categoryName}
-                onChange={handleCategoryName}
-                label="Category"
-              >
-                <MenuItem value={"AI"}>AI</MenuItem>
-                <MenuItem value={"Fantasy"}>Fantasy</MenuItem>
-                <MenuItem value={"Galaxy"}>Galaxy</MenuItem>
-                <MenuItem value={"Landscape"}>Landscape</MenuItem>
-                <MenuItem value={"Dragon"}>Dragon</MenuItem>
-              </Select>
-            </FormControl>
-
-            <div className="popupInput">
-              <input
-                type="text"
-                placeholder="Enter description of artwork"
-                onChange={(e) => handleDescription(e.target.value)}
-              />
-            </div>
-            <div className="popupInput">
-              <input
-                type="text"
-                placeholder="Enter price of artwork"
-                onChange={(e) => handlePrice(e.target.value)}
-              />
-            </div>
-            <div className="popupInput">
-              <input
-                type="file"
-                onChange={(e) => handleImageFile(e)}
-                accept="image/*"
-              />
-            </div>
-            <div className="popupButton">
-              <button onClick={() => handleSave()}>Create</button>
-            </div>
+        <div className="container-fluid" style={{ height: "100%" }}>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
+              gap: "15px",
+              justifyContent: "center", // Để căn giữa
+              width: "100%",
+              height: "100%",
+              margin: "0 auto", // Để thẻ div nằm giữa trang
+            }}
+          >
+            <CreateArt />
+            {itemData.map((item) => (
+              <div key={item.id}>
+                <Link
+                  to={item && item.id ? `/detail/${item.id}` : "/fallback-path"}
+                  style={{ color: "black" }}
+                >
+                  <div
+                    className="cardShop"
+                    style={{
+                      height: "365px",
+                      width: "auto",
+                      boxShadow:
+                        "3px 4px 2px 2px rgba(0, 0, 0, 0.1), 3px 6px 3px 6px rgba(0, 0, 0, 0.06)",
+                    }}
+                  >
+                    <div className="cardImg">
+                      <img
+                        src={item.url_Image}
+                        alt=""
+                        style={{ height: "95%", width: "100%" }}
+                      />
+                    </div>
+                    <div className="cardInfor">
+                      <div className="cardName">
+                        <div>
+                          <span style={{ fontWeight: "bold" }}>
+                            {item.name}
+                          </span>
+                        </div>
+                        <div>
+                          By{" "}
+                          <span style={{ fontWeight: "bold" }}>
+                            {item.user_Name}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="cardPrice">
+                        <div>
+                          <strong>{item.price}</strong>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </div>
+            ))}
           </div>
         </div>
       </div>
-      )}
     </div>
   );
 };
