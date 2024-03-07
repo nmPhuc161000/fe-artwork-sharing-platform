@@ -56,8 +56,7 @@ export default function ChangePassword() {
         
         throw new Error("Failed to change password");
       }
-    } catch (error) {console.log("data: ", dataPassword);
-      console.error("Error:", error);
+    } catch (error) {
       setErrorMessage("Failed to change password. Please try again later.");
     }
   };
