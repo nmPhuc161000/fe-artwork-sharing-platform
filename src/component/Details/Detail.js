@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Icon, Modal, Button, Textarea } from "react-materialize";
 import "./Detail.css";
 import axios from "axios";
+import EditArt from "./editArt/EditArt";
+import DeleteArt from "./deleteArt/DeleteArt";
 
 export default function Detail() {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -80,15 +82,10 @@ export default function Detail() {
     fetchData();
   }, [ID]); // Thêm ID vào dependency array để useEffect chạy lại khi ID thay đổi
 
-  // console.log("ID: ", ID);
-  // console.log("Token User name: ", userData.userInfo.fullName);
-  // console.log("itemData User name: ", itemData.user_Name);
-
   const handleAuthorClick = () => {
     if (isLoggedIn) {
       window.location.href = "/profile";
     } else {
-      // Lưu địa chỉ URL của trang chi tiết trước khi chuyển hướng đến trang đăng nhập
       localStorage.setItem("redirectPath", window.location.pathname);
       window.location.href = "/login";
     }
@@ -118,26 +115,7 @@ export default function Detail() {
   useEffect(() => {
     fetchUserData();
   }, []);
-  const navigate = useNavigate();
-
-  const handleDelete = async () => { // Replace 'ID' with the actual ID
-    try {
-      // Make a DELETE request to the API endpoint
-      const response = await axios.delete(`https://localhost:44306/api/Artwork/delete/${String(ID)}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      // Handle the response as needed
-      console.log("Delete successful:", response.data);
-      alert("Delete successful!");
-     navigate("/profile/shop");
-    } catch (error) {
-      // Handle errors
-      console.error("Error deleting:", error);
-    }
-  };
+  
 
   return (
     <div className="container-card">
@@ -210,6 +188,7 @@ export default function Detail() {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+            height: "130px"
           }}
         >
           <a
@@ -233,53 +212,11 @@ export default function Detail() {
               <strong>Published:</strong> {itemData.createdAt}
             </p>
             {userData.userInfo?.fullName === itemData.user_Name && (
-              <a href="#popup1">
-                <Icon>delete</Icon>
-              </a>
+              <div style={{display: "flex"}}>
+                <DeleteArt ID={ID}/>
+                <EditArt itemData={itemData}/>
+              </div>
             )}
-          </div>
-          {/* popup delete */}
-          <div id="popup1" className="overlay">
-            <div className="popup">
-              <div className="iconclose">
-                <a
-                  className="close"
-                  href="#"
-                  style={{ color: "black", textDecoration: "none" }}
-                >
-                  &times;
-                </a>
-              </div>
-
-              <div className="popupDetail">
-                <div className="contentDelete">
-                  <div
-                    style={{
-                      display: "flex",
-                      width: "90%",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <div>
-                      <img
-                        src="https://st.deviantart.net/eclipse/global/svg/il05-delete.svg"
-                        alt=""
-                        style={{ width: "90px", height: "88px" }}
-                      />
-                    </div>
-                    <div style={{ marginLeft: "15px" }}>
-                      <div style={{ fontWeight: "bold", fontSize: "25px" }}>
-                        Delete this commission?
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="popupButton">
-                  <button onClick={() => handleDelete()}>Delete</button>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>

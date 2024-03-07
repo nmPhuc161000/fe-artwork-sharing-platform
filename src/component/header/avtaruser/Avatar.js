@@ -15,8 +15,9 @@ const Avatar = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     setOpen(false);
-    window.location.reload();
     navigate("/");
+    window.location.reload();
+    
   };
 
   const handleProfileClick = () => {
@@ -76,8 +77,8 @@ const Avatar = () => {
         <>
           {open && (
             <div className="dropdown">
-              <div className="userName">
-                <span style={{ fontWeight: "bold", margin: "10px" }}>
+              <div className="userName" style={{ textAlign: "left" }}>
+                <span style={{ fontWeight: "bold", margin: "0 10px" }}>
                   {username}
                 </span>
               </div>
