@@ -59,16 +59,6 @@ export default function Home() {
       <>
       <ListArtwork itemData = {itemData}/>
     </>
-      <div
-        className="category-bar"
-        style={{
-          marginBottom: "20px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-      </div>
     </div>
   );
 }

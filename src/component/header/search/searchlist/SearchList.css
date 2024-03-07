@@ -1,19 +1,19 @@
-.cardHome{
+.cardSearchList{
     background-color: white;
-    height: 320px;
+    height: 100%;
     width: 100%;
 }
 
-.cardHome .cardImg{
+.cardSearchList .cardImg{
     height: 75%;
     margin-bottom: 10px;
 }
 
-.cardHome .cardImg img{
+.cardSearchList .cardImg img{
     height: 100%;
 }
 
-.cardHome .cardInfor{
+.cardSearchList .cardInfor{
     display: flex;
     justify-content: space-around;
 }

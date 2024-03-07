@@ -1,12 +1,78 @@
-.createart .cartcreate{
-    text-align: center;
+.createart {
+  height: 365px;
 }
 
-.createart .cartcreate span{
-    font-weight: bold;
+.createart .cartcreate {
+  text-align: center;
 }
 
-.createart .cartcreate p{
-    width: 195px;
-    font-size: 14px;
+.createart .createArt {
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 3px 4px 2px 2px rgba(0, 0, 0, 0.1),
+    3px 6px 3px 6px rgba(0, 0, 0, 0.06);
+}
+
+.createart .cartcreate span {
+  font-weight: bold;
+}
+
+.createart .cartcreate p {
+  width: 195px;
+  font-size: 14px;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+}
+.popup {
+  margin: 70px auto;
+  padding: 5px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.popup .iconclose {
+  text-align: right;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  margin-right: 15px;
+}
+
+.popup .popupInput {
+  border: 0.5px solid #c9cacf;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+}
+
+.popup .popupInput input {
+  border: none;
+  width: 90%;
+  margin: 5px 0;
+  box-shadow: none;
+  outline: none;
 }

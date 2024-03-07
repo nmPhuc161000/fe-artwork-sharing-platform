@@ -9,12 +9,8 @@
 
 .shopUser .content .createOfUser{
   display: grid;
-  grid-template-columns: 0fr 2fr; /* Chia layout thành 2 cột bằng nhau */
+  grid-template-columns: 0fr 2fr; 
   gap: 10px;
-}
-
-.shopUser .content .createOfUser .forUser{
-
 }
 
 .shopUser .content .commissions {
@@ -28,15 +24,6 @@
   font-size: 18px;
 }
 
-.shopUser .content .createArt {
-  height: 326px;
-  width: 320px;
-  background-color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .shopUser .content .createArt a{
   display: flex;
   justify-content: center;
@@ -47,53 +34,20 @@
   text-decoration: none;
 }
 
-.shopUser .overlay {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.7);
-  transition: opacity 500ms;
-  visibility: hidden;
-  opacity: 0;
-}
-.shopUser .overlay:target {
-  visibility: visible;
-  opacity: 1;
-}
-.shopUser .popup {
-  margin: 70px auto;
-  padding: 5px;
-  background: #fff;
-  border-radius: 5px;
-  width: 30%;
-  position: relative;
-  transition: all 5s ease-in-out;
+.cardShop {
+  background-color: white;
+  height: 100%;
+  width: 100%;
+  box-shadow: 3px 4px 2px 2px rgba(0, 0, 0, 0.1),
+    3px 6px 3px 6px rgba(0, 0, 0, 0.06);
 }
 
-.shopUser .popup .iconclose {
-  text-align: right;
-  transition: all 200ms;
-  font-size: 30px;
-  font-weight: bold;
-  text-decoration: none;
-  margin-right: 15px;
+.cardShop .cardImg {
+  height: 75%;
+  margin-bottom: 10px;
 }
 
-.shopUser .popup .popupInput {
-  border: 0.5px solid #c9cacf;
-  margin-bottom: 5px;
+.cardShop .cardInfor {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 5px;
-}
-
-.shopUser .popup .popupInput input {
-  border: none;
-  width: 90%;
-  margin: 5px 0;
-  box-shadow: none;
-  outline: none;
+  justify-content: space-around;
 }

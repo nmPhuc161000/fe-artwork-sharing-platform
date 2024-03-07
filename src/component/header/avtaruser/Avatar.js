@@ -15,8 +15,9 @@ const Avatar = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     setOpen(false);
-    window.location.reload();
     navigate("/");
+    window.location.reload();
+    
   };
 
   const handleProfileClick = () => {
@@ -68,16 +69,16 @@ const Avatar = () => {
   }, []);
 
   return (
-    <div className="avatar-dropdown" ref={avatarRef}>
-      <div className="avatar">
+    <div className="avatar-dropdown" ref={avatarRef}style={{marginRight: "50px"}}>
+      <div className="avatar" >
         <img src={urlNoAva} alt="User Avatar" onClick={() => setOpen(!open)} />
       </div>
       {isLoggedIn && (
         <>
           {open && (
             <div className="dropdown">
-              <div className="userName">
-                <span style={{ fontWeight: "bold", margin: "10px" }}>
+              <div className="userName" style={{ textAlign: "left" }}>
+                <span style={{ fontWeight: "bold", margin: "0 10px" }}>
                   {username}
                 </span>
               </div>
