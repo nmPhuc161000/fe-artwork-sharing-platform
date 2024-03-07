@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './About.css';
 
 export default function About({ userId }) {
@@ -6,17 +7,16 @@ export default function About({ userId }) {
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
-    // Gửi yêu cầu GET để lấy thông tin người dùng từ API
-    fetch(`https://localhost:44306/api/Auth/user/${userId}`)
+    // Gửi yêu cầu GET để lấy thông tin người dùng từ API bằng Axios
+    axios.get(`https://localhost:44306/api/Auth/users/${userId}`)
       .then(response => {
-        if (response.ok) {
-          return response.json();
+        // Kiểm tra nếu yêu cầu thành công
+        if (response.status === 200) {
+          // Cập nhật state với dữ liệu lấy được từ API
+          setUserData(response.data);
+        } else {
+          throw new Error('Failed to fetch user data');
         }
-        throw new Error('Failed to fetch user data');
-      })
-      .then(data => {
-        // Cập nhật state với dữ liệu lấy được từ API
-        setUserData(data);
       })
       .catch(error => {
         console.error('Error:', error);
