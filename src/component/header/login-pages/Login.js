@@ -5,6 +5,7 @@ import { Icon } from 'react-materialize';
 import axios from 'axios';
 
 export default function Login() {
+  const urlLogo = "https://firebasestorage.googleapis.com/v0/b/artwork-platform.appspot.com/o/logo%2Ffeed6075-55fd-4fb3-98d4-946d30029eda?alt=media&token=a3dd9363-73f3-4aec-ae32-264c761a0c0f";
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -47,7 +48,9 @@ export default function Login() {
       <div className="overlay"></div>
       <div className="login">
         <div className="logoLogin">
-          <img src="./assets/image/logo.png" alt="" />
+          <Link to={`/`}>
+            <img src={urlLogo} alt="Logo" />
+          </Link>
         </div>
         <div className="title">Welcome to Artwork!</div>
         <h6>please login to your account</h6>

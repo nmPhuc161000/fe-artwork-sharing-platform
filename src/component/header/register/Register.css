@@ -1,17 +1,19 @@
 .regisPage {
   margin: 0;
   background-image: url("../../../../public/assets/image/imgBack.jpg");
+  background-position: center;
+  background-size: cover;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
   position: relative;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 2);
 }
 
 a {
   text-decoration: none;
+  color: #fff;
 }
 
 .overlay {
@@ -20,20 +22,24 @@ a {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Màu đen với độ trong suốt 0.5 */
-  z-index: 1; /* Lớp mờ đen ở trên cùng */
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Màu đen với độ trong suốt 0.5 */
+  z-index: 1;
+  /* Lớp mờ đen ở trên cùng */
 }
 
 .register {
-  background-color: #efefef;
-  width: 350px;
-  height: 90%;
+  background: transparent;
+  width: 550px; /* Thay đổi kích thước form đăng ký */
+  height: 76%; /* Giữ nguyên chiều cao của form đăng ký */
   text-align: center;
-  border: 2px solid #fff;
+  border: 2px solid rgba(255, 255, 255, 2);
   border-radius: 30px;
   padding: 0px 30px;
   box-shadow: 0 50px 150px #5533;
   z-index: 2;
+  color: #fff;
+  backdrop-filter: blur(20px);
 }
 
 .register .logoLogin img {
@@ -41,42 +47,60 @@ a {
 }
 
 .register .title {
-  font-size: 15px;
+  font-size: 25px; /* Thay đổi kích thước tiêu đề của form đăng ký */
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 10px; /* Giữ nguyên khoảng cách dưới của tiêu đề */
 }
 
 .register .group {
-  background-color: #fff;
-  border-radius: 10px;
-  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+.register .group .group-i {
+  width: 100%;
+  height: 25%;
+  background: transparent;
+  border: none;
+  outline: none;
+  border: 2px solid rgba(255, 255, 255, 2);
+  border-radius: 40px;
   margin-bottom: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 16px;
+  color: #fff;
+  padding: 10px 25px 10px 10px;
 }
 
-.register .group input {
-  width: 100%;
-  height: 50%;
-  background-color: transparent;
-  border: none;
-  outline: none;
-  padding: 20px;
-  font-size: 17px;
-  border: none;
+.register .group .group-i input {
+  color: #fff;
+  border-bottom: none;
+  font-size: 20px;
+  transform: translate(+5%);
 }
 
 .register .signUp button {
-  font-size: 20px;
-  background-color: #fa6a69;
+  font-size: 16px; /* Thay đổi kích thước chữ của button đăng ký */
+  background: #fff;
   width: 100%;
-  height: 50px;
-  border-radius: 10px;
+  height: 45px;
+  border-radius: 40px;
   border: none;
-  color: white;
-  box-shadow: 0 10px 20px #fa6a69;
-  margin-bottom: 40px;
+  outline: none;
+  color: #333;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+  cursor: pointer;
+  font-weight: 600;
+  margin-bottom: 20px;
   transition: 0.5s;
   cursor: pointer;
+}
+.group-left {
+  margin-right: 10px; /* Khoảng cách giữa hai cột */
+}
+
+.group-right {
+  margin-left: 10px; /* Khoảng cách giữa hai cột */
 }

@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Register.css";
 import axios from "axios";
 
 export default function Register() {
+  const urlLogo = "https://firebasestorage.googleapis.com/v0/b/artwork-platform.appspot.com/o/logo%2Ffeed6075-55fd-4fb3-98d4-946d30029eda?alt=media&token=a3dd9363-73f3-4aec-ae32-264c761a0c0f";
   const [userName, setUserName] = useState("");
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -76,50 +78,58 @@ export default function Register() {
         <div className="overlay"></div>
         <div className="register">
           <div className="logoLogin">
-            <img src="./assets/image/logo.png" alt=""></img>
+            <Link to={`/`}>
+              <img src={urlLogo} alt="Logo" />
+            </Link>
           </div>
           <div className="title">Register Now!</div>
           <div className="group">
-            <input
-              type="text"
-              placeholder="Fullname (*)"
-              onChange={(e) => handleFullNameChange(e.target.value)}
-            />
-          </div>
-          <div className="group">
-            <input
-              type="text"
-              placeholder="Email (*)"
-              onChange={(e) => handleEmailChange(e.target.value)}
-            />
-          </div>
-          <div className="group">
-            <input
-              type="text"
-              placeholder="Username (*)"
-              onChange={(e) => handleUserNameChange(e.target.value)}
-            />
-          </div>
-          <div className="group">
-            <input
-              type="password"
-              placeholder="Password (*)"
-              onChange={(e) => handlePasswordChange(e.target.value)}
-            />
-          </div>
-          <div className="group">
-            <input
-              type="text"
-              placeholder="Address"
-              onChange={(e) => handleAddressChange(e.target.value)}
-            />
-          </div>
-          <div className="group">
-            <input
-              type="text"
-              placeholder="Phone number (*)"
-              onChange={(e) => handlePhoneNoChange(e.target.value)}
-            />
+            <div className="group-left">
+              <div className="group-i">
+                <input
+                  type="text"
+                  placeholder="Fullname (*)"
+                  onChange={(e) => handleFullNameChange(e.target.value)}
+                />
+              </div>
+              <div className="group-i">
+                <input
+                  type="text"
+                  placeholder="Username (*)"
+                  onChange={(e) => handleUserNameChange(e.target.value)}
+                />
+              </div>
+              <div className="group-i">
+                <input
+                  type="password"
+                  placeholder="Password (*)"
+                  onChange={(e) => handlePasswordChange(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="group-right">
+              <div className="group-i">
+              <input
+                  type="text"
+                  placeholder="Email (*)"
+                  onChange={(e) => handleEmailChange(e.target.value)}
+                />
+              </div>
+              <div className="group-i">
+                <input
+                  type="text"
+                  placeholder="Address"
+                  onChange={(e) => handleAddressChange(e.target.value)}
+                />
+              </div>
+              <div className="group-i">
+                <input
+                  type="text"
+                  placeholder="Phone number (*)"
+                  onChange={(e) => handlePhoneNoChange(e.target.value)}
+                />
+              </div>
+            </div>
           </div>
           <div className="signUp">
             <button type="submit" onClick={() => handleSave()}>

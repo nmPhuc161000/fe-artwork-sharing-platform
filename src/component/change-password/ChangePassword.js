@@ -24,8 +24,11 @@ export default function ChangePassword() {
     event.preventDefault();
 
     const token = localStorage.getItem("token");
-    console.log("Token:", token);
 
+    if (!oldPassword || !newPassword || !confirmNewPassword) {
+      setErrorMessage("Please fill in all fields.");
+      return;
+    }
     if (newPassword !== confirmNewPassword) {
       setErrorMessage("New password and confirm password do not match.");
       return;
@@ -52,16 +55,18 @@ export default function ChangePassword() {
       if (response.status === 200) {
         console.log("Password changed successfully.");
         alert("Password changed successfully.");
+        window.location.reload();
       } else {
-        
         throw new Error("Failed to change password");
       }
-    } catch (error) {console.log("data: ", dataPassword);
-      console.error("Error:", error);
-      setErrorMessage("Failed to change password. Please try again later.");
+    } catch (error) {
+      var jsonString = error.request.response;
+      var jsonObject = JSON.parse(jsonString);
+      var errorMessage = jsonObject.message;
+      console.log("error: ", errorMessage);
+      setErrorMessage(errorMessage);
     }
   };
-
   return (
     <div className="ChangePassword">
       <h2>Change Password</h2>
