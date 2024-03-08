@@ -25,7 +25,10 @@ export default function ChangePassword() {
 
     const token = localStorage.getItem("token");
     console.log("Token:", token);
-
+    if (!oldPassword || !newPassword || !confirmNewPassword) {
+      setErrorMessage("Please fill in all fields.");
+      return;
+    }
     if (newPassword !== confirmNewPassword) {
       setErrorMessage("New password and confirm password do not match.");
       return;
@@ -57,7 +60,11 @@ export default function ChangePassword() {
         throw new Error("Failed to change password");
       }
     } catch (error) {
-      setErrorMessage("Failed to change password. Please try again later.");
+      var jsonString = error.request.response;
+      var jsonObject = JSON.parse(jsonString);
+      var errorMessage = jsonObject.message;
+      console.log("error: ", errorMessage);
+      setErrorMessage(errorMessage);
     }
   };
 

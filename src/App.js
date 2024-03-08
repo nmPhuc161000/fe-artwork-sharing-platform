@@ -13,7 +13,6 @@ import Payment from "./component/payment/Payment";
 import { SearchList } from "./component/header/search/searchlist/SearchList";
 import ChangePassword from "./component/change-password/ChangePassword";
 
-
 function App() {
   const location = useLocation();
   const [isLoginPage, setIsLoginPage] = useState(
@@ -22,16 +21,24 @@ function App() {
   const [isRegisterPage, setIsRegisterPage] = useState(
     location.pathname === "/regis"
   );
+  const [showFooter, setShowFooter] = useState(true);
+  const [showHeader, setShowHeader] = useState(true);
   React.useEffect(() => {
     setIsLoginPage(location.pathname === "/login");
     setIsRegisterPage(location.pathname === "/regis");
   }, [location]);
   React.useEffect(() => {
     setIsLoginPage(location.pathname === "/login");
+    setShowFooter(
+      location.pathname !== "/login" && location.pathname !== "/regis"
+    );
+    setShowHeader(
+      location.pathname !== "/login" && location.pathname !== "/regis"
+    );
   }, [location]);
   return (
     <div className="App">
-      <Header />
+      <Header isLoginPage={isLoginPage} isRegisterPage={isRegisterPage} />
       <Routes>
         <Route path="/" element={<Home />}></Route>
         {/* header */}
@@ -44,7 +51,7 @@ function App() {
         <Route path="/payment" element={<Payment />}></Route>
         {/* profile */}
         <Route path="/profile/*" element={<Profile />}></Route>
-        <Route path="/changepassword" element={<ChangePassword/>}></Route>
+        <Route path="/changepassword" element={<ChangePassword />}></Route>
       </Routes>
       <Footer isLoginPage={isLoginPage} isRegisterPage={isRegisterPage} />
     </div>

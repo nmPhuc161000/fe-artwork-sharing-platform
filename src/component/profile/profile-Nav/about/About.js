@@ -1,27 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import './About.css';
+import axios from 'axios';
 
 export default function About({ userId }) {
   const [userData, setUserData] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
-    // Gửi yêu cầu GET để lấy thông tin người dùng từ API
-    fetch(`https://localhost:44306/api/Auth/user/${userId}`)
+    // Gửi yêu cầu GET để lấy thông tin người dùng từ API bằng Axios
+    axios.get('https://localhost:44306/api/Auth/users')
       .then(response => {
-        if (response.ok) {
-          return response.json();
+        // Kiểm tra nếu yêu cầu thành công
+        if (response.status === 200) {
+          // Lấy danh sách người dùng từ response
+          const users = response.data;
+          // Chọn một người dùng để hiển thị (trong ví dụ này, chỉ lấy người dùng đầu tiên)
+          const user = users[0];
+          // Cập nhật state với thông tin của người dùng được chọn
+          setUserData(user);
+        } else {
+          throw new Error('Failed to fetch user data');
         }
-        throw new Error('Failed to fetch user data');
-      })
-      .then(data => {
-        // Cập nhật state với dữ liệu lấy được từ API
-        setUserData(data);
       })
       .catch(error => {
         console.error('Error:', error);
       });
-  }, [userId]);
+  }, []);
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -52,7 +56,7 @@ export default function About({ userId }) {
               </li>
             </ul>
           )}
-          {userData?.id === userId && (
+          {userData && (
             <button className="edit-button" onClick={handleEditClick}>Edit</button>
           )}
         </div>
