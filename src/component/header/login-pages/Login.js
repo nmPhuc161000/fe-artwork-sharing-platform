@@ -45,10 +45,9 @@ export default function Login() {
 
   return (
     <div className="loginPage">
-      <div className="overlay"></div>
       <div className="login">
         <div className="logoLogin">
-          <Link to={`/`}>
+        <Link to={`/`}>
             <img src={urlLogo} alt="Logo" />
           </Link>
         </div>

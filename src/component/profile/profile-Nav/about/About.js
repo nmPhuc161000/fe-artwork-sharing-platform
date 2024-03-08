@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import './About.css';
+import axios from 'axios';
 
-export default function About() {
+export default function About({ userId }) {
   const [userData, setUserData] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
 

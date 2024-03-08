@@ -5,13 +5,14 @@ import "./Register.css";
 import axios from "axios";
 
 export default function Register() {
-  const urlLogo = "https://firebasestorage.googleapis.com/v0/b/artwork-platform.appspot.com/o/logo%2Ffeed6075-55fd-4fb3-98d4-946d30029eda?alt=media&token=a3dd9363-73f3-4aec-ae32-264c761a0c0f";
   const [userName, setUserName] = useState("");
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phoneNo, setPhone] = useState("");
   const [address, setAddress] = useState("");
+  const urlLogo =
+    "https://firebasestorage.googleapis.com/v0/b/artwork-platform.appspot.com/o/logo%2Ffeed6075-55fd-4fb3-98d4-946d30029eda?alt=media&token=a3dd9363-73f3-4aec-ae32-264c761a0c0f";
 
   const handleFullNameChange = (value) => {
     setFullName(value);
@@ -75,7 +76,6 @@ export default function Register() {
   return (
     <>
       <div className="regisPage">
-        <div className="overlay"></div>
         <div className="register">
           <div className="logoLogin">
             <Link to={`/`}>
@@ -109,7 +109,7 @@ export default function Register() {
             </div>
             <div className="group-right">
               <div className="group-i">
-              <input
+                <input
                   type="text"
                   placeholder="Email (*)"
                   onChange={(e) => handleEmailChange(e.target.value)}
@@ -135,6 +135,10 @@ export default function Register() {
             <button type="submit" onClick={() => handleSave()}>
               Create
             </button>
+          </div>
+          <div className='loginInRegis'>
+            <h6>Don't have an account?</h6>
+            <Link to={`/login`}><button>Login</button></Link>
           </div>
         </div>
       </div>
