@@ -1,5 +1,6 @@
 import React from 'react'
 import './Footer.css'
+import { FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa';
 function Footer({ isLoginPage, isRegisterPage }) { // Thêm isRegisterPage vào props
   if (isLoginPage || isRegisterPage) { // Ẩn footer nếu là trang Login hoặc Register
     return null;
@@ -10,27 +11,39 @@ function Footer({ isLoginPage, isRegisterPage }) { // Thêm isRegisterPage vào 
   return (
     <div className='footer-content'>
       <img src={urlLogo} alt='logo' className='footer-logo' />
-      <div className="footer-info">
-        <h3>Info</h3>
-        <ul>
-          <li>Courses</li>
-          <li>Schedule</li>
-          <li>Pricing</li>
-          <li>Teachers</li>
-        </ul>
-      </div>
-      <div className="footer-about">
-        <h3>About</h3>
-        <ul>
-          <li>Blog</li>
-          <li>About us</li>
-        </ul>
-      </div>
-      <div className="footer-contact">
-        <h3>Contact us.</h3>
-        <p>Address: Lô E2a-7, Đường D1, Đ. D1, Long Thạnh Mỹ, Thành Phố Thủ Đức, Thành phố Hồ Chí Minh 700000</p>
-        <p>Phone No: +84 123 456789</p>
-        <p>Email: baokk254952@fpt.edu.vn</p>
+      <div className='row'>
+        <div className="footer-col">
+          <h4>Info</h4>
+          <ul>
+            <li>Courses</li>
+            <li>Schedule</li>
+            <li>Pricing</li>
+            <li>Teachers</li>
+          </ul>
+        </div>
+        <div className="footer-col">
+          <h4>About</h4>
+          <ul>
+            <li>Blog</li>
+            <li>About us</li>
+          </ul>
+        </div>
+        <div className="footer-col">
+          <h4>Contact us.</h4>
+          <ul>
+            <li><p>Address: Lô E2a-7, Đường D1, Đ. D1, Long Thạnh Mỹ, Thành Phố Thủ Đức, Thành phố Hồ Chí Minh 700000</p></li>
+            <li><p>Phone No: +84 123 456789</p></li>
+            <li><p>Email: baokk254952@fpt.edu.vn</p></li>
+          </ul>
+        </div>
+        <div className="footer-col">
+          <h4>Follow Us</h4>
+          <ul className="social-icons">
+            <li><a href="#"><FaFacebookF /></a></li>
+            <li><a href="#"><FaInstagram /></a></li>
+            <li><a href="#"><FaTwitter /></a></li>
+          </ul>
+        </div>
       </div>
     </div>
   );
