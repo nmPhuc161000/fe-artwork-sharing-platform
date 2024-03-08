@@ -41,6 +41,9 @@
   align-items: center;
   justify-content: center;
 }
+.product-favorite {
+  width: 135px;
+}
 .product-download,
 .product-comment,
 .product-fullscreen,
@@ -48,7 +51,7 @@
   display: flex;
   align-items: center;
   /* Canh nội dung theo trục dọc */
-  justify-content: flex-start;
+  justify-content: center;
   /* Canh nội dung sang bên trái */
 }
 .product-comment button,

@@ -6,8 +6,6 @@ import { ListArtwork } from "../list-artwork/ListArtwork";
 
 export default function Home() {
   const [itemData, setItemData] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const categories = ["Dragon", "Galaxy", "AI", "Landscape", "Fantasy"];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,16 +23,6 @@ export default function Home() {
     fetchData();
   }, []);
 
-  const handleCategoryClick = (category) => {
-    setSelectedCategory((prevCategory) =>
-      prevCategory === category ? null : category
-    );
-  };
-
-  const filteredItems = itemData.filter((item) =>
-    selectedCategory ? item.category_Name === selectedCategory : true
-  );
-
   return (
     <div className="container-fluid">
       <Slider
@@ -50,7 +38,7 @@ export default function Home() {
         draggable={false}
 
       >
-        {filteredItems.slice(0, 6).map((item) => (
+        {itemData.slice(0, 6).map((item) => (
           <div key={item.id} className="slider-item">
             <img className="slider-image" src={item.url_Image} alt={item.title} />
           </div>
