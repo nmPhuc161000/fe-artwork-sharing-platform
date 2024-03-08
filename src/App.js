@@ -13,7 +13,6 @@ import Payment from "./component/payment/Payment";
 import { SearchList } from "./component/header/search/searchlist/SearchList";
 import ChangePassword from "./component/change-password/ChangePassword";
 
-
 function App() {
   const location = useLocation();
   const [isLoginPage, setIsLoginPage] = useState(
@@ -30,8 +29,12 @@ function App() {
   }, [location]);
   React.useEffect(() => {
     setIsLoginPage(location.pathname === "/login");
-    setShowFooter(location.pathname !== "/login" && location.pathname !== "/regis");
-    setShowHeader(location.pathname !== "/login" && location.pathname !== "/regis");
+    setShowFooter(
+      location.pathname !== "/login" && location.pathname !== "/regis"
+    );
+    setShowHeader(
+      location.pathname !== "/login" && location.pathname !== "/regis"
+    );
   }, [location]);
   return (
     <div className="App">
@@ -48,7 +51,7 @@ function App() {
         <Route path="/payment" element={<Payment />}></Route>
         {/* profile */}
         <Route path="/profile/*" element={<Profile />}></Route>
-        <Route path="/changepassword" element={<ChangePassword/>}></Route>
+        <Route path="/changepassword" element={<ChangePassword />}></Route>
       </Routes>
       <Footer isLoginPage={isLoginPage} isRegisterPage={isRegisterPage} />
     </div>
