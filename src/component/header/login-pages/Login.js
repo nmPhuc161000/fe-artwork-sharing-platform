@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Login.css';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Icon } from 'react-materialize';
 import axios from 'axios';
 
@@ -22,7 +22,7 @@ export default function Login() {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-
+  const navigate = useNavigate();
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -31,11 +31,17 @@ export default function Login() {
         { username, password }
       );
       console.log(response.data);
+      console.log(response.data.userInfo.roles);
+      if(response.data.userInfo.roles === 'ADMIN'){
+        navigate('/home-admin');
+      } else if (response.data.userInfo.roles.includes('CREATOR') || response.data.userInfo.roles.includes('CUSTOMER')) {
+        window.location.href = "/";
+    }
       const { newToken } = response.data;
       localStorage.setItem('token', newToken);
       axios.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
       alert("Login successful");
-      window.location.href = "/";
+      
     } catch (error) {
       alert("Login fail! Please re-enter!!!");
       console.error("An error occurred while sending the API request:", error.message);
