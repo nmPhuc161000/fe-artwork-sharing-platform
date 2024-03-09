@@ -8,7 +8,7 @@ import Select from "@mui/material/Select";
 
 export const ListArtwork = ({ itemData }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const categories = ["Dragon", "Galaxy", "AI", "Landscape", "Fantasy"];
+  const categories = ["Dragon", "Galaxy", "AI", "Landscape", "Fantasy", "Home"];
   const [sortBy, setSortBy] = useState(null); 
 
   const handleCategoryClick = (category) => {

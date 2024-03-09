@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 export const Shop = () => {
   const [itemData, setItemData] = useState([]);
+  const [isCreate, setIsCreate] = useState(false)
   const token = localStorage.getItem("token");
 
   useEffect(() => {
@@ -28,7 +29,11 @@ export const Shop = () => {
     };
 
     artData();
-  }, []);
+  }, [isCreate]);
+
+  const handleCreateArt = () => {
+    setIsCreate((prev) => !prev);
+  };
   return (
     <div className="shopUser">
       {/* hàm tạo ảnh và thêm thông tin */}
@@ -49,7 +54,7 @@ export const Shop = () => {
               margin: "0 auto", // Để thẻ div nằm giữa trang
             }}
           >
-            <CreateArt />
+            <CreateArt onCreate={handleCreateArt}/>
             {itemData.map((item) => (
               <div key={item.id}>
                 <Link
