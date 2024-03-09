@@ -77,3 +77,18 @@
   box-shadow: none;
   outline: none;
 }
+
+.popup .popupButtonCreate{
+  text-align: right;
+}
+
+
+.popup .popupButtonCreate button{
+  width: 90px;
+  height: 40px;
+  font-weight: bold;
+  background-color: #00f4eb;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}

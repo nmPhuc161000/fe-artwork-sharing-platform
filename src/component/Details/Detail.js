@@ -17,8 +17,7 @@ export default function Detail() {
     if (token) {
       setIsLoggedIn(true);
     }
-  }, []);
-
+  }, [token]);
 
   const handleCommentChange = (event) => {
     setComment(event.target.value);

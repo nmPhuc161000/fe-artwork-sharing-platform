@@ -67,6 +67,7 @@
     border: none;
     width: 91px;
     height: 40px;
+    border-radius: 5px;
   }
   
   .popupDetail .popupButton button:hover {

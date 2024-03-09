@@ -11,7 +11,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useNavigate } from "react-router-dom";
 
-export default function CreateArt() {
+export default function CreateArt({ onCreate }) {
   const [name, setName] = useState("");
   const [categoryName, setCategoryName] = useState("");
   const [description, setDescription] = useState("");
@@ -20,6 +20,7 @@ export default function CreateArt() {
   const [imgUrl, setImgUrl] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleName = (value) => {
     setName(value);
@@ -77,6 +78,7 @@ export default function CreateArt() {
     formData.append("Url_Image", url); // Không cần thêm file và fileName
 
     try {
+      setIsLoading(true);
       // Gửi yêu cầu POST đến API
       const response = await axios.post(
         "https://localhost:44306/api/Artwork/create",
@@ -88,17 +90,26 @@ export default function CreateArt() {
           },
         }
       );
+      //Reset input after create successful
+      setName("");
+      setCategoryName("");
+      setDescription("");
+      setPrice("");
+      setImageFile("");
 
       console.log("url", response.data);
       alert("Tạo thành công");
       navigate("/profile/shop");
       setIsPopupOpen(false);
+      onCreate(response);
     } catch (error) {
       // Xử lý lỗi
       console.log("URL", url);
       alert("Hãy kiểm tra lại thông tin nhập vào!");
       console.error("Đã có lỗi xảy ra khi gửi yêu cầu API:", error.message);
       console.log(formData);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -170,6 +181,7 @@ export default function CreateArt() {
                   <MenuItem value={"Galaxy"}>Galaxy</MenuItem>
                   <MenuItem value={"Landscape"}>Landscape</MenuItem>
                   <MenuItem value={"Dragon"}>Dragon</MenuItem>
+                  <MenuItem value={"Home"}>Home</MenuItem>
                 </Select>
               </FormControl>
 
@@ -194,8 +206,10 @@ export default function CreateArt() {
                   accept="image/*"
                 />
               </div>
-              <div className="popupButton">
-                <button onClick={() => handleSave()}>Create</button>
+              <div className="popupButtonCreate">
+                <button onClick={() => handleSave()} disabled={isLoading}>
+                  <span>{isLoading ? "Creating..." : "Create"}</span>
+                </button>
               </div>
             </div>
           </div>

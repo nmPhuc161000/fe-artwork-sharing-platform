@@ -71,7 +71,7 @@ export default function Register() {
 
       console.log(response.data);
       navigate("/login");
-      alert("Đăng ký thành công! Vui lòng đăng nhập.");
+      alert(response.data);
     } catch (error) {
       // Xử lý lỗi
       alert(error.response.data);
