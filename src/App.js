@@ -12,6 +12,8 @@ import Profile from "./component/profile/Profile";
 import Payment from "./component/payment/Payment";
 import { SearchList } from "./component/header/search/searchlist/SearchList";
 import ChangePassword from "./component/change-password/ChangePassword";
+import EmailOTP from "./component/header/emailOTP/EmailOTP";
+import HomeAdmin from "./admin-page/HomeAdmin";
 
 function App() {
   const location = useLocation();
@@ -21,26 +23,52 @@ function App() {
   const [isRegisterPage, setIsRegisterPage] = useState(
     location.pathname === "/regis"
   );
+  const [isRecoveryPage, setIsRecoveryPage] = useState(
+    location.pathname === "/recovery-password"
+  );
+  const [isEmailOTP, setIsEmailOTP] = useState(
+    location.pathname === "/emailOTP"
+  );
+  const [isHomeAdmin, setIsHomeAdmin] = useState(
+    location.pathname === "/home-admin"
+  );
   const [showFooter, setShowFooter] = useState(true);
   const [showHeader, setShowHeader] = useState(true);
   React.useEffect(() => {
     setIsLoginPage(location.pathname === "/login");
     setIsRegisterPage(location.pathname === "/regis");
+    setIsRecoveryPage(location.pathname === "/recovery-password");
+    setIsEmailOTP(location.pathname === "/emailOTP");
+    setIsHomeAdmin(location.pathname === "/home-admin");
   }, [location]);
 
   React.useEffect(() => {
     setIsLoginPage(location.pathname === "/login");
     setShowFooter(
-      location.pathname !== "/login" && location.pathname !== "/regis"
+      location.pathname !== "/login" &&
+      location.pathname !== "/regis" &&
+      location.pathname !== "/recovery-password" &&
+      location.pathname !== "/emailOTP"
     );
     setShowHeader(
-      location.pathname !== "/login" && location.pathname !== "/regis"
+      location.pathname !== "/login" &&
+      location.pathname !== "/regis" &&
+      location.pathname !== "/recovery-password"
     );
+    setIsRegisterPage(location.pathname === "/regis");
+    setIsHomeAdmin(location.pathname === "/home-admin");
   }, [location]);
 
   return (
     <div className="App">
-      <Header isLoginPage={isLoginPage} isRegisterPage={isRegisterPage} />
+      {(!isLoginPage && !isRegisterPage && !isRecoveryPage &&!isEmailOTP &&!isHomeAdmin) && (
+      <Header isLoginPage={isLoginPage}
+              isRegisterPage={isRegisterPage}
+              isRecoveryPage={isRecoveryPage}
+              isEmailOTP={isEmailOTP}
+              isHomeAdmin={isHomeAdmin}
+      />
+      )}
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/home-admin" element={<HomeAdmin/>}></Route>
@@ -57,7 +85,13 @@ function App() {
         <Route path="/profile/*" element={<Profile />}></Route>
         <Route path="/changepassword" element={<ChangePassword />}></Route>
       </Routes>
-      <Footer isLoginPage={isLoginPage} isRegisterPage={isRegisterPage} />
+       {(!isLoginPage && !isRegisterPage && !isRecoveryPage &&!isEmailOTP &&!isHomeAdmin ) && (
+      <Footer isLoginPage={isLoginPage}
+              isRegisterPage={isRegisterPage}
+              isRecoveryPage={isRecoveryPage}
+              isEmailOTP={isEmailOTP}
+              isHomeAdmin={isHomeAdmin}
+      />)}
     </div>
   );
 }

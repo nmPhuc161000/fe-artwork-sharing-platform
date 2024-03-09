@@ -44,9 +44,9 @@ export default function Home() {
         swipe={false}
         draggable={false}
       >
-        {filteredItems.slice(0, 6).map((item) => (
-          <div key={item.id} className="slider-item">
-            <img className="slider-image" src={item.url_Image} alt={item.title} />
+        {sliderImg.slice(0, 5).map((imageUrl, index) => (
+          <div key={index} className="slider-item">
+            <img className="slider-image" src={imageUrl} alt={`Slide ${index + 1}`} />
           </div>
         ))}
       </Slider>
