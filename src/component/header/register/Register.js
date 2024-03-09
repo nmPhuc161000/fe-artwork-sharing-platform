@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { Icon } from "react-materialize";
 import "./Register.css";
 import axios from "axios";
 
@@ -9,6 +10,8 @@ export default function Register() {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [inputType, setInputType] = useState('password');
   const [phoneNo, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const urlLogo =
@@ -28,6 +31,10 @@ export default function Register() {
 
   const handlePasswordChange = (value) => {
     setPassword(value);
+  };
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword); // Cập nhật trạng thái showPassword
+    setInputType(inputType === 'password' ? 'text' : 'password');
   };
 
   const handlePhoneNoChange = (value) => {
@@ -101,10 +108,13 @@ export default function Register() {
               </div>
               <div className="group-i">
                 <input
-                  type="password"
+                  type={inputType}
                   placeholder="Password (*)"
                   onChange={(e) => handlePasswordChange(e.target.value)}
                 />
+                <button type="button" onClick={togglePasswordVisibility}>
+                  <Icon className="toggle-password-icon">{showPassword ? 'visibility_off' : 'visibility'}</Icon>
+                </button>
               </div>
             </div>
             <div className="group-right">
@@ -137,7 +147,7 @@ export default function Register() {
             </button>
           </div>
           <div className='loginInRegis'>
-            <h6>Don't have an account?</h6>
+            <h6>Bạn đã có tài khoản?</h6>
             <Link to={`/login`}><button>Login</button></Link>
           </div>
         </div>

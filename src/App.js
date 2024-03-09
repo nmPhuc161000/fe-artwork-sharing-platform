@@ -12,6 +12,7 @@ import Profile from "./component/profile/Profile";
 import Payment from "./component/payment/Payment";
 import { SearchList } from "./component/header/search/searchlist/SearchList";
 import ChangePassword from "./component/change-password/ChangePassword";
+import EmailOTP from "./component/header/emailOTP/EmailOTP";
 
 function App() {
   const location = useLocation();
@@ -21,29 +22,49 @@ function App() {
   const [isRegisterPage, setIsRegisterPage] = useState(
     location.pathname === "/regis"
   );
+  const [isRecoveryPage, setIsRecoveryPage] = useState(
+    location.pathname === "/recovery-password"
+  );
+  const [isEmailOTP, setIsEmailOTP] = useState(
+    location.pathname === "/emailOTP"
+  );
   const [showFooter, setShowFooter] = useState(true);
   const [showHeader, setShowHeader] = useState(true);
   React.useEffect(() => {
     setIsLoginPage(location.pathname === "/login");
     setIsRegisterPage(location.pathname === "/regis");
+    setIsRecoveryPage(location.pathname === "/recovery-password");
+    setIsEmailOTP(location.pathname === "/emailOTP");
   }, [location]);
+
   React.useEffect(() => {
     setIsLoginPage(location.pathname === "/login");
     setShowFooter(
-      location.pathname !== "/login" && location.pathname !== "/regis"
+      location.pathname !== "/login" &&
+      location.pathname !== "/regis" &&
+      location.pathname !== "/recovery-password" &&
+      location.pathname !== "/emailOTP"
     );
     setShowHeader(
-      location.pathname !== "/login" && location.pathname !== "/regis"
+      location.pathname !== "/login" &&
+      location.pathname !== "/regis" &&
+      location.pathname !== "/recovery-password"
     );
   }, [location]);
+
   return (
     <div className="App">
-      <Header isLoginPage={isLoginPage} isRegisterPage={isRegisterPage} />
+      <Header isLoginPage={isLoginPage}
+              isRegisterPage={isRegisterPage}
+              isRecoveryPage={isRecoveryPage}
+              isEmailOTP={isEmailOTP}
+      />
       <Routes>
         <Route path="/" element={<Home />}></Route>
         {/* header */}
         <Route path="/login" element={<Login />}></Route>
         <Route path="/recovery-password" element={<RecoveryPassword />}></Route>
+        <Route path="/emailOTP" element={<EmailOTP />}></Route>
         <Route path="/regis" element={<Register />}></Route>
         <Route path="/searchlist" element={<SearchList />}></Route>
         {/* detail */}
@@ -53,7 +74,11 @@ function App() {
         <Route path="/profile/*" element={<Profile />}></Route>
         <Route path="/changepassword" element={<ChangePassword />}></Route>
       </Routes>
-      <Footer isLoginPage={isLoginPage} isRegisterPage={isRegisterPage} />
+      <Footer isLoginPage={isLoginPage}
+              isRegisterPage={isRegisterPage}
+              isRecoveryPage={isRecoveryPage}
+              isEmailOTP={isEmailOTP}
+      />
     </div>
   );
 }

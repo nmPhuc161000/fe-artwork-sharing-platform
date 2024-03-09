@@ -16,7 +16,7 @@ a {
   color: #fff;
 }
 
-.recovery {
+.recoveryPage {
   text-align: right;
   margin-bottom: 15px;
   border: none;
@@ -31,7 +31,7 @@ a {
 .login {
   background: transparent;
   width: 350px;
-  height: 76%;
+  height: 82%;
   text-align: center;
   border: 2px solid rgba(255, 255, 255, 2);
   border-radius: 30px;
@@ -107,7 +107,7 @@ a {
   background: #fff;
   width: 100%;
   height: 45px;
-  border-radius: 30px;
+  border-radius: 10px;
   border: none;
   outline: none;
   color: #333;

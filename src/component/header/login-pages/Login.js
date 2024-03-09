@@ -68,14 +68,14 @@ export default function Login() {
               <Icon className="toggle-password-icon">{showPassword ? 'visibility_off' : 'visibility'}</Icon>
             </button>
           </div>
-          <div className='recovery'>
-            <Link to="/recovery-password">Recover Password?</Link>
+          <div className='recoveryPage'>
+            <Link to="/recovery-password">Quên mật khẩu?</Link>
           </div>
           <div className="signIn">
             <button type="submit">Login</button>
           </div>
           <div className='signUp'>
-            <h6>Don't have an account?</h6>
+            <h6>Bạn chưa có tài khoản?</h6>
             <Link to={`/regis`}><button>Sign UP</button></Link>
           </div>
         </form>
