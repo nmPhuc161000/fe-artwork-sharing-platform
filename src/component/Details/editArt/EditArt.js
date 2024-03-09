@@ -106,7 +106,7 @@ export default function EditArt({ itemData }) {
   return (
     <div>
       <a href="#popupEdit">
-        <Icon>edit</Icon>
+        <Icon className="iconEdit">edit</Icon>
       </a>
 
       <div id="popupEdit" className="overlay">

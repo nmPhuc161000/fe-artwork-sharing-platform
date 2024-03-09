@@ -5,9 +5,9 @@ import "./Detail.css";
 import axios from "axios";
 import EditArt from "./editArt/EditArt";
 import DeleteArt from "./deleteArt/DeleteArt";
+import Favourite from "./favourite/Favourite";
 
 export default function Detail() {
-  const [isFavorite, setIsFavorite] = useState(false);
   const [comment, setComment] = useState("");
   const [isCommentModalOpen, setIsCommentModalOpen] = useState(false); // State để điều khiển việc hiển thị modal comment
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -19,9 +19,6 @@ export default function Detail() {
     }
   }, []);
 
-  const toggleFavorite = () => {
-    setIsFavorite(!isFavorite);
-  };
 
   const handleCommentChange = (event) => {
     setComment(event.target.value);
@@ -115,7 +112,6 @@ export default function Detail() {
   useEffect(() => {
     fetchUserData();
   }, []);
-  
 
   return (
     <div className="container-card">
@@ -125,22 +121,7 @@ export default function Detail() {
         </div>
       </div>
       <div className="product-icons">
-        <div className="product-favorite">
-          {/* Hiển thị nút favorite hoặc nút add vào yêu thích tùy thuộc vào trạng thái isFavorite */}
-          {isFavorite ? (
-            <button onClick={toggleFavorite}>
-              <Icon>favorite</Icon>{" "}
-              {/* Icon hiển thị khi sản phẩm đã được thêm vào yêu thích */}
-              <span>In Favorites</span>
-            </button>
-          ) : (
-            <button onClick={toggleFavorite}>
-              <Icon>favorite_border</Icon>{" "}
-              {/* Icon hiển thị khi sản phẩm chưa được thêm vào yêu thích */}
-              <span>Add to Favorites</span>
-            </button>
-          )}
-        </div>
+        <Favourite itemData={itemData}/>
         <div className="product-comment">
           {/* Clicking on the icon opens the comment modal */}
           <button onClick={() => setIsCommentModalOpen(true)}>
@@ -184,7 +165,7 @@ export default function Detail() {
       <div className="product-info">
         <div
           style={{
-            width: "90%",
+            width: "70%",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
@@ -212,7 +193,7 @@ export default function Detail() {
               <strong>Published:</strong> {itemData.createdAt}
             </p>
             {userData.userInfo?.fullName === itemData.user_Name && (
-              <div style={{display: "flex"}}>
+              <div style={{display: "flex", gap:"10px"}}>
                 <DeleteArt ID={ID}/>
                 <EditArt itemData={itemData}/>
               </div>

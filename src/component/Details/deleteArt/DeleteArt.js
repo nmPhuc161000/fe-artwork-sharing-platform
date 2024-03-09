@@ -33,7 +33,7 @@ export default function DeleteArt({ ID }) {
   return (
     <div>
       <a href="#popupDelete">
-        <Icon>delete</Icon>
+        <Icon className="iconDelete">delete</Icon>
       </a>
 
       {/* popup delete */}

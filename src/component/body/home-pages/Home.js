@@ -13,8 +13,6 @@ export default function Home() {
     "https://firebasestorage.googleapis.com/v0/b/artwork-platform.appspot.com/o/slider%2F948fd2ef-0a9d-411d-8787-ec561f48129e?alt=media&token=ab62f46b-6e1b-4a02-bd45-6383e0d49157"
   ]
   const [itemData, setItemData] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const categories = ["Dragon", "Galaxy", "AI", "Landscape", "Fantasy"];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,16 +30,6 @@ export default function Home() {
     fetchData();
   }, []);
 
-  const handleCategoryClick = (category) => {
-    setSelectedCategory((prevCategory) =>
-      prevCategory === category ? null : category
-    );
-  };
-
-  const filteredItems = itemData.filter((item) =>
-    selectedCategory ? item.category_Name === selectedCategory : true
-  );
-
   return (
     <div className="container-fluid">
       <Slider
@@ -56,9 +44,9 @@ export default function Home() {
         swipe={false}
         draggable={false}
       >
-        {sliderImg.slice(0, 5).map((imageUrl, index) => (
-          <div key={index} className="slider-item">
-            <img className="slider-image" src={imageUrl} alt={`Slide ${index + 1}`} />
+        {filteredItems.slice(0, 6).map((item) => (
+          <div key={item.id} className="slider-item">
+            <img className="slider-image" src={item.url_Image} alt={item.title} />
           </div>
         ))}
       </Slider>
