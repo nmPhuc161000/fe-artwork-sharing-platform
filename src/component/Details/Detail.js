@@ -189,7 +189,7 @@ export default function Detail() {
           </div>
           <div className="public">
             <p>
-              <strong>Published:</strong> {new Date(itemData.createdAt).toLocaleString()}
+              <strong>Published:</strong> {new Date(itemData.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
             </p>
             {userData.userInfo?.fullName === itemData.user_Name && (
               <div style={{display: "flex", gap:"10px"}}>
