@@ -10,10 +10,11 @@ export default function Register() {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [inputType, setInputType] = useState('password');
   const [phoneNo, setPhone] = useState("");
   const [address, setAddress] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [inputType, setInputType] = useState("password");
+
   const urlLogo =
     "https://firebasestorage.googleapis.com/v0/b/artwork-platform.appspot.com/o/logo%2Ffeed6075-55fd-4fb3-98d4-946d30029eda?alt=media&token=a3dd9363-73f3-4aec-ae32-264c761a0c0f";
 
@@ -34,7 +35,7 @@ export default function Register() {
   };
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword); // Cập nhật trạng thái showPassword
-    setInputType(inputType === 'password' ? 'text' : 'password');
+    setInputType(inputType === "password" ? "text" : "password");
   };
 
   const handlePhoneNoChange = (value) => {
@@ -113,7 +114,9 @@ export default function Register() {
                   onChange={(e) => handlePasswordChange(e.target.value)}
                 />
                 <button type="button" onClick={togglePasswordVisibility}>
-                  <Icon className="toggle-password-icon">{showPassword ? 'visibility_off' : 'visibility'}</Icon>
+                  <Icon className="toggle-password-icon">
+                    {showPassword ? "visibility_off" : "visibility"}
+                  </Icon>
                 </button>
               </div>
             </div>
@@ -146,9 +149,11 @@ export default function Register() {
               Create
             </button>
           </div>
-          <div className='loginInRegis'>
+          <div className="loginInRegis">
             <h6>Bạn đã có tài khoản?</h6>
-            <Link to={`/login`}><button>Login</button></Link>
+            <Link to={`/login`}>
+              <button>Login</button>
+            </Link>
           </div>
         </div>
       </div>

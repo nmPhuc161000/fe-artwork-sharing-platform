@@ -94,7 +94,7 @@ export default function EditArt({ itemData }) {
       );
 
       // Handle the response as needed
-      console.log("Delete successful:", response.data);
+      console.log("Update artwork successful:", response.data);
       alert("Update Artwork successful!");
       navigate(`/detail/${itemData.id}`);
     } catch (error) {
