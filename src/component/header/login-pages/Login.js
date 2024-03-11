@@ -32,9 +32,9 @@ export default function Login() {
       );
       console.log(response.data);
       console.log(response.data.userInfo.roles);
-      if(response.data.userInfo.roles === 'ADMIN'){
+      if(response.data.userInfo.roles.includes('ADMIN')){
         navigate('/home-admin');
-      } else if (response.data.userInfo.roles.includes('CREATOR') || response.data.userInfo.roles.includes('CUSTOMER')) {
+      } else if (response.data.userInfo.roles.includes('CREATOR')) {
         window.location.href = "/";
     }
       const { newToken } = response.data;
