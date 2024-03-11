@@ -43,7 +43,7 @@ export default function Login() {
       alert("Login successful");
       
     } catch (error) {
-      alert("Login fail! Please re-enter!!!");
+      alert("Sai username hoặc password!!!");
       console.error("An error occurred while sending the API request:", error.message);
       setLoginError(true);
     }
