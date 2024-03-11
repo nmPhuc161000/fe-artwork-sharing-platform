@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./EditArt.css";
+import urlApi from "../../configAPI/UrlApi";
 import { Icon } from "react-materialize";
 import axios from "axios";
 import InputLabel from "@mui/material/InputLabel";
@@ -68,7 +69,7 @@ export default function EditArt({ itemData }) {
   const handleEdit = async () => {
     let url = itemData.url_Image || "";
     if (imageFile) {
-      const imgRef = ref(imgDb, `films/${v4()}`);
+      const imgRef = ref(imgDb, `/${v4()}`);
       const snapshot = await uploadBytes(imgRef, imageFile);
       url = await getDownloadURL(snapshot.ref);
     }
@@ -82,7 +83,7 @@ export default function EditArt({ itemData }) {
     try {
       // Make a DELETE request to the API endpoint
       const response = await axios.put(
-        `https://localhost:44306/api/Artwork/update-artwork?id=${itemData.id}`,
+        `${urlApi}/api/Artwork/update-artwork?id=${itemData.id}`,
         editData,
         {
           headers: {

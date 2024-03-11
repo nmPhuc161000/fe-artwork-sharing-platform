@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./About.css";
+import urlApi from "../../../configAPI/UrlApi";
 import axios from "axios";
 
 export default function About({ userInfor, onUpdate }) {
@@ -34,7 +35,7 @@ export default function About({ userInfor, onUpdate }) {
       address: address,
     };
     axios
-      .put("https://localhost:44306/api/Auth/update-user", userData, {
+      .put(`${urlApi}/api/Auth/update-user`, userData, {
         headers: {
           Authorization: `Bearer ${token}`
         }

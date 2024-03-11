@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Favourites.css";
+import userEvent from "@testing-library/user-event";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
@@ -9,7 +10,7 @@ export default function Favourites() {
   useEffect(() => {
     const favouritesData = async () => {
       try {
-        const response = await axios.get("https://localhost:44306/api/Favourite/get-favourite", {
+        const response = await axios.get(`${urlApi}/api/Favourite/get-favourite`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

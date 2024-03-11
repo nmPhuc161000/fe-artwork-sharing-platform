@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Shop.css";
+import urlApi from "../../../configAPI/UrlApi";
 import CreateArt from "./createart/CreateArt";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -13,7 +14,7 @@ export const Shop = () => {
     const artData = async () => {
       try {
         const response = await axios.get(
-          "https://localhost:44306/api/Artwork/get-by-userId",
+          `${urlApi}/api/Artwork/get-by-userId`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

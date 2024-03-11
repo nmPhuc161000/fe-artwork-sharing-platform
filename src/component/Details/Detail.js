@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Icon, Modal, Button, Textarea } from "react-materialize";
 import "./Detail.css";
+import urlApi from "../configAPI/UrlApi";
 import axios from "axios";
 import EditArt from "./editArt/EditArt";
 import DeleteArt from "./deleteArt/DeleteArt";
@@ -66,7 +67,7 @@ export default function Detail() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://localhost:44306/api/Artwork/${String(ID)}`
+          `${urlApi}/api/Artwork/${String(ID)}`
         );
         setItemData(response.data);
         console.log("Data from API: ", response.data);
@@ -91,7 +92,7 @@ export default function Detail() {
   const fetchUserData = async () => {
     try {
       const response = await axios.post(
-        "https://localhost:44306/api/Auth/me",
+        `${urlApi}/api/Auth/me`,
         {
           token: tokenUser,
         },

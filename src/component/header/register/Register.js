@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Icon } from "react-materialize";
 import "./Register.css";
+import urlApi from "../../configAPI/UrlApi";
 import axios from "axios";
 
 export default function Register() {
@@ -66,7 +67,7 @@ export default function Register() {
     try {
       // Gửi yêu cầu POST đến API
       const response = await axios.post(
-        "https://localhost:44306/api/Auth/register",
+        `${urlApi}/api/Auth/register`,
         data
       );
 

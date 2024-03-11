@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./ChangePassword.css";
+import urlApi from '../configAPI/UrlApi'
 import axios from "axios";
 
 export default function ChangePassword() {
@@ -42,7 +43,7 @@ export default function ChangePassword() {
 
     try {
       const response = await axios.put(
-        "https://localhost:44306/api/Auth/change-password",
+        `${urlApi}/api/Auth/change-password`,
         dataPassword,
         {
           headers: {

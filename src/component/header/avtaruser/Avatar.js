@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./Avatar.css";
+import urlApi from "../../configAPI/UrlApi";
 import { Icon } from "react-materialize";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -42,7 +43,7 @@ const Avatar = () => {
     if (token) {
       setIsLoggedIn(true);
       axios
-        .post("https://localhost:44306/api/Auth/me", data, {
+        .post(`${urlApi}/api/Auth/me`, data, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",

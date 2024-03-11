@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
-import './Login.css';
-import { Link, useNavigate } from 'react-router-dom'
-import { Icon } from 'react-materialize';
-import axios from 'axios';
+import React, { useState } from "react";
+import "./Login.css";
+import urlApi from "../../configAPI/UrlApi";
+import { Link, useNavigate } from "react-router-dom";
+import { Icon } from "react-materialize";
+import axios from "axios";
 
 export default function Login() {
-  const urlLogo = "https://firebasestorage.googleapis.com/v0/b/artwork-platform.appspot.com/o/logo%2Ffeed6075-55fd-4fb3-98d4-946d30029eda?alt=media&token=a3dd9363-73f3-4aec-ae32-264c761a0c0f";
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const urlLogo =
+    "https://firebasestorage.googleapis.com/v0/b/artwork-platform.appspot.com/o/logo%2Ffeed6075-55fd-4fb3-98d4-946d30029eda?alt=media&token=a3dd9363-73f3-4aec-ae32-264c761a0c0f";
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loginError, setLoginError] = useState(false);
 
@@ -26,25 +28,27 @@ export default function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post(
-        "https://localhost:44306/api/Auth/login",
-        { username, password }
-      );
+      const response = await axios.post(`${urlApi}/api/Auth/login`, {
+        username,
+        password,
+      });
       console.log(response.data);
       console.log(response.data.userInfo.roles);
-      if(response.data.userInfo.roles.includes('ADMIN')){
-        navigate('/home-admin');
-      } else if (response.data.userInfo.roles.includes('CREATOR')) {
+      if (response.data.userInfo.roles.includes("ADMIN")) {
+        navigate("/home-admin");
+      } else if (response.data.userInfo.roles.includes("CREATOR")) {
         window.location.href = "/";
-    }
+      }
       const { newToken } = response.data;
-      localStorage.setItem('token', newToken);
-      axios.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
+      localStorage.setItem("token", newToken);
+      axios.defaults.headers.common["Authorization"] = `Bearer ${newToken}`;
       alert("Login successful");
-      
     } catch (error) {
       alert("Login fail! Please re-enter!!!");
-      console.error("An error occurred while sending the API request:", error.message);
+      console.error(
+        "An error occurred while sending the API request:",
+        error.message
+      );
       setLoginError(true);
     }
   };
@@ -53,7 +57,7 @@ export default function Login() {
     <div className="loginPage">
       <div className="login">
         <div className="logoLogin">
-        <Link to={`/`}>
+          <Link to={`/`}>
             <img src={urlLogo} alt="Logo" />
           </Link>
         </div>
@@ -61,28 +65,37 @@ export default function Login() {
         <h6>please login to your account</h6>
         <form onSubmit={handleSubmit}>
           <div className="group">
-            <input type="text" placeholder="Username" value={username} onChange={handleUsernameChange} />
+            <input
+              type="text"
+              placeholder="Username"
+              value={username}
+              onChange={handleUsernameChange}
+            />
           </div>
           <div className="group">
             <input
-              type={showPassword ? 'text' : 'password'}
+              type={showPassword ? "text" : "password"}
               placeholder="Password"
               value={password}
               onChange={handlePasswordChange}
             />
             <button type="button" onClick={togglePasswordVisibility}>
-              <Icon className="toggle-password-icon">{showPassword ? 'visibility_off' : 'visibility'}</Icon>
+              <Icon className="toggle-password-icon">
+                {showPassword ? "visibility_off" : "visibility"}
+              </Icon>
             </button>
           </div>
-          <div className='recoveryPage'>
+          <div className="recoveryPage">
             <Link to="/recovery-password">Quên mật khẩu?</Link>
           </div>
           <div className="signIn">
             <button type="submit">Login</button>
           </div>
-          <div className='signUp'>
+          <div className="signUp">
             <h6>Bạn chưa có tài khoản?</h6>
-            <Link to={`/regis`}><button>Sign UP</button></Link>
+            <Link to={`/regis`}>
+              <button>Sign UP</button>
+            </Link>
           </div>
         </form>
       </div>
