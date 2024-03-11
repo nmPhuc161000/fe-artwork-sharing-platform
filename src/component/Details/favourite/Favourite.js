@@ -5,6 +5,7 @@ import axios from "axios";
 
 export default function Favourite({itemData}) {
   const [isFavorite, setIsFavorite] = useState(false);
+  const [dataFavourite, setDataFavourite] = useState([]);
   const token = localStorage.getItem("token");
 
   useEffect(() => {
@@ -26,11 +27,13 @@ export default function Favourite({itemData}) {
               Authorization: `Bearer ${token}`,
             },
           }
-        );
+        ).then((response) => {
+          setDataFavourite(response);
+        });
         console.log("Added to favorites successfully");
       } else {
         await axios.delete(
-          "https://localhost:44306/api/Favourite/remove-artwork?favourite_Id=7",
+          `https://localhost:44306/api/Favourite/remove-artwork?favourite_Id=${dataFavourite.favourite_id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
