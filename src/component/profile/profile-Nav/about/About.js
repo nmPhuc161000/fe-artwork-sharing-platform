@@ -35,7 +35,7 @@ export default function About({ userInfor, onUpdate }) {
       address: address,
     };
     axios
-      .put(`${urlApi}/api/Auth/update-user`, userData, {
+      .put(`${urlApi}/api/User/update-information`, userData, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -46,6 +46,7 @@ export default function About({ userInfor, onUpdate }) {
         } else {
           throw new Error("Failed to update user data");
         }
+        alert("Update account successful!")
         onUpdate(response.data);
       })
       .catch((error) => {

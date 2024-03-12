@@ -1,0 +1,76 @@
+.request{
+    display: flex;
+    justify-content: center;
+    align-items: center;background-color: white;
+}
+
+.request .request-content{
+    width: 85%;
+}
+
+.request .request-content .conten-title{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.conten-title span{
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.conten-title button{
+    height: 46px;
+    width: 120px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.conten-title button:hover{
+    background-color: black;
+    color: white;
+}
+
+.content-box{
+ display: flex;
+ justify-content: space-around;
+ align-items: center;
+}
+
+.content-box .box-sideBar{
+    width: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.box-sideBar span{
+    text-align: center;
+    width: 120px;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.content-box .box-request{
+    width: 960px;
+    
+}
+
+.box-request ul{
+    width: 425px;
+    box-shadow: 0 3px 20px 0 rgba(0, 0, 0, 0.2), 
+              0 3px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.box-request ul li{
+    width: 100%;
+    height: 71px;
+    text-align: center;
+}
+
+.box-request ul li span{
+    font-size: 32px;
+    display: inline;
+    color: #eaeaea;
+}

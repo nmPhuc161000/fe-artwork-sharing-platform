@@ -12,7 +12,7 @@ export const CardHome = ({ item }) => {
           <div>
             <strong>{item.name}</strong>
           </div>
-          <div>By <strong>{item.user_Name}</strong></div>
+          <div>By <strong>{item.full_Name}</strong></div>
         </div>
         <div className="cardPrice">
           <div>

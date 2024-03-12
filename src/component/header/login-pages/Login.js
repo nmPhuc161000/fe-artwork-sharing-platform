@@ -41,7 +41,7 @@ export default function Login() {
       }
       const { newToken } = response.data;
       localStorage.setItem("token", newToken);
-      axios.defaults.headers.common["Authorization"] = `Bearer ${newToken}`;
+      // axios.defaults.headers.common["Authorization"] = `Bearer ${newToken}`;
       alert("Login successful");
     } catch (error) {
       alert("Login fail! Please re-enter!!!");

@@ -14,6 +14,7 @@ import { SearchList } from "./component/header/search/searchlist/SearchList";
 import ChangePassword from "./component/change-password/ChangePassword";
 import EmailOTP from "./component/header/emailOTP/EmailOTP";
 import HomeAdmin from "./admin-page/HomeAdmin";
+import Request from "./component/Details/request/Request";
 
 function App() {
   const location = useLocation();
@@ -86,6 +87,7 @@ function App() {
         {/* detail */}
         <Route path="/detail/:ID" element={<Detail />}></Route>
         <Route path="/payment" element={<Payment />}></Route>
+        <Route path="/request" element={<Request/>}></Route>
         {/* profile */}
         <Route path="/profile/*" element={<Profile />}></Route>
         <Route path="/changepassword" element={<ChangePassword />}></Route>
