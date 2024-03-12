@@ -93,6 +93,3 @@
 .input-field input::-webkit-outer-spin-button {
   display: none;
 }
-.input-field input[type="number"] {
-  -moz-appearance: textfield; /* Firefox */
-}

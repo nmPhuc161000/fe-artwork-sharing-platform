@@ -1,55 +1,166 @@
-.payment-page {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
+.PaymetPage {
+	background-image: url("/public/assets/image/Land.png");
+	background-position: center;
+	background-size: cover;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	position: relative;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 2);
+	color: white;
 }
 
-.payment-page h1 {
-    text-align: center;
-    margin-bottom: 20px;
+.container-payment {
+	display: flex;
+	width: 67%;
+	border: 1px solid #ccc;
+	border-radius: 7px;
+	background: transparent;
+	backdrop-filter: blur(100px);
 }
 
-.payment-page form {
-    display: flex;
-    flex-direction: column;
+.left {
+	width: 25%;
+	font-weight: bold;
+
 }
 
-.payment-page label {
-    margin-bottom: 10px;
+.left p {
+	padding: 30px 20px;
 }
 
-.payment-page input[type="text"],
-.payment-page select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-    margin-bottom: 10px;
+.methods {
+	padding: 10px 0;
 }
 
-.payment-page button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
+.methods div {
+	padding: 7px 20px;
+	cursor: pointer;
+	font-size: 15px;
 }
 
-.payment-page button:hover {
-    background-color: #0056b3;
+.methods div:hover {
+	box-shadow: 0 0 10px rgba(172, 255, 47, 0.196);
 }
 
-.payment-page .card-inputs {
-    display: flex;
-    flex-direction: column;
+.methods div::after {
+	content: '';
+	display: inline-block;
+	color: greenyellow;
+	width: 0;
+	height: 0;
+	border-color: transparent;
+	border-style: solid;
+	border-width: 4px 0 4px 4px;
+	border-left-color: var(--fondy-success);
+	margin-left: 10px;
 }
 
-.payment-page .card-inputs label {
-    width: 100%;
+.fa-solid {
+	margin-right: 10px;
+	font-size: 22px;
+	color: #aaa;
 }
 
-.payment-page .card-inputs input {
-    flex: 1;
+.center {
+	width: 50%;
+	border-right: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+	height: 70vh;
+}
+
+.center a {
+	width: 100%;
+	padding: 15px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.right {
+	width: 25%;
+}
+
+.right p {
+	padding: 30px 20px;
+	font-weight: bold;
+}
+
+.details {
+	padding: 20px 20px;
+}
+
+.right a {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 15px;
+}
+
+.card-details {
+	padding: 0 80px;
+}
+
+.card-details .c-number {
+	width: 100%;
+	border: 1px solid #aaa;
+	border-radius: 3px;
+	padding: 0 12px;
+	margin-top: 10px;
+	height: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.PaymetPage input {
+	border: none;
+	border-radius: 3px;
+	outline: none;
+}
+
+.c-details {
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+	margin: 10px 0;
+}
+.c-details .cc-exp,
+.c-details .cvv-box {
+	border: 1px solid #aaa;
+	margin-top: 10px;
+	padding: 0 12px;
+	height: 50px;
+	border-radius: 3px;
+	display: flex;
+	justify-content: space-between;
+	width: 108px;
+}
+.card-details button {
+	width: 100%;
+	border: none;
+	height: 50px;
+	border-radius: 3px;
+	margin-top: 30px;
+	font-size: 18px;
+	color: #444;
+	background-color: greenyellow;
+}
+
+.card-details button:hover {
+	background-color: #444;
+	color: white;
+	cursor: pointer;
+}
+.emailPay {
+	border: 1px solid #aaa;
+	border-radius: 3px;
+	padding: 0 12px;
+}
+.emailPay input{
+	width: 100%;
+	padding: 12px;
+	height: 50px;
+	margin-top: 10px;
 }

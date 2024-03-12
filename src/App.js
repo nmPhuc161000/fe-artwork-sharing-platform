@@ -32,6 +32,9 @@ function App() {
   const [isHomeAdmin, setIsHomeAdmin] = useState(
     location.pathname === "/home-admin"
   );
+  const [isPayment, setIsPayment] = useState(
+    location.pathname === "/payment"
+  );
   const [showFooter, setShowFooter] = useState(true);
   const [showHeader, setShowHeader] = useState(true);
   React.useEffect(() => {
@@ -40,6 +43,7 @@ function App() {
     setIsRecoveryPage(location.pathname === "/recovery-password");
     setIsEmailOTP(location.pathname === "/emailOTP");
     setIsHomeAdmin(location.pathname === "/home-admin");
+    setIsPayment(location.pathname === "/payment");
   }, [location]);
 
   React.useEffect(() => {
@@ -48,7 +52,8 @@ function App() {
       location.pathname !== "/login" &&
       location.pathname !== "/regis" &&
       location.pathname !== "/recovery-password" &&
-      location.pathname !== "/emailOTP"
+      location.pathname !== "/emailOTP" &&
+      location.pathname !== "/payment"
     );
     setShowHeader(
       location.pathname !== "/login" &&
@@ -91,6 +96,7 @@ function App() {
               isRecoveryPage={isRecoveryPage}
               isEmailOTP={isEmailOTP}
               isHomeAdmin={isHomeAdmin}
+              isPayment={isPayment}
       />)}
     </div>
   );
