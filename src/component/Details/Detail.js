@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Icon, Modal, Button, Textarea } from "react-materialize";
 import "./Detail.css";
 import urlApi from "../configAPI/UrlApi";
@@ -8,7 +8,7 @@ import EditArt from "./editArt/EditArt";
 import DeleteArt from "./deleteArt/DeleteArt";
 import Favourite from "./favourite/Favourite";
 
-export default function Detail() {
+export default function Detail({setUserById}) {
   const [comment, setComment] = useState("");
   const [isCommentModalOpen, setIsCommentModalOpen] = useState(false); // State để điều khiển việc hiển thị modal comment
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -85,6 +85,7 @@ export default function Detail() {
       try {
         const response = await axios.get(`${urlApi}/api/Artwork/${String(ID)}`);
         setItemData(response.data);
+        setUserById(response.data);
         console.log("Data from API: ", response.data);
       } catch (error) {
         console.error("Error fetching data:", error);

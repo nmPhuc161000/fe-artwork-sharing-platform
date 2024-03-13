@@ -1,76 +1,122 @@
-.request{
-    display: flex;
-    justify-content: center;
-    align-items: center;background-color: white;
+.request {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
 }
 
-.request .request-content{
-    width: 85%;
+.request .request-content {
+  width: 85%;
 }
 
-.request .request-content .conten-title{
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
+.request .request-content .conten-title {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
 }
 
-.conten-title span{
-    font-size: 40px;
-    font-weight: bold;
+.conten-title span {
+  font-size: 40px;
+  font-weight: bold;
+  margin-left: 40px;
 }
 
-.conten-title button{
-    height: 46px;
-    width: 120px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 15px;
+.conten-title button {
+  height: 46px;
+  width: 120px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 15px;
 }
 
-.conten-title button:hover{
-    background-color: black;
-    color: white;
+.conten-title button:hover {
+  background-color: black;
+  color: white;
 }
 
-.content-box{
- display: flex;
- justify-content: space-around;
- align-items: center;
+.content-box {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 90vh;
+  margin-top: 50px;
 }
 
-.content-box .box-sideBar{
-    width: 120px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.content-box .box-sideBar {
+  height: 100%;
+  width: 120px;
+  display: flex;
+  flex-direction: column;
 }
 
-.box-sideBar span{
-    text-align: center;
-    width: 120px;
-    font-size: 18px;
-    margin-bottom: 10px;
+.box-sideBar button {
+  text-align: center;
+  width: 120px;
+  font-size: 20px;
+  margin-bottom: 10px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
 }
 
-.content-box .box-request{
-    width: 960px;
-    
+.box-sideBar button:active,
+.box-sideBar button:focus {
+  background-color: rgb(201, 234, 251);
+  font-weight: bold;
 }
 
-.box-request ul{
-    width: 425px;
-    box-shadow: 0 3px 20px 0 rgba(0, 0, 0, 0.2), 
-              0 3px 20px 0 rgba(0, 0, 0, 0.19);
+.content-box .box-request {
+  height: 100%;
+  width: 1080px;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
-.box-request ul li{
-    width: 100%;
-    height: 71px;
-    text-align: center;
+.box-request ul {
+  width: 425px;
+  margin: 0;
 }
 
-.box-request ul li span{
-    font-size: 32px;
-    display: inline;
-    color: #eaeaea;
+.box-request ul li {
+  width: 100%;
+  height: 71px;
+  text-align: center;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 3px 20px 0 rgb(221 209 209 / 20%),
+    0 3px 20px 0 rgb(120 105 105 / 19%);
+}
+
+.box-request ul li span {
+  font-size: 32px;
+  display: inline;
+  color: #eaeaea;
+}
+
+.boxRequest-notMail {
+  height: 500px;
+  width: 655px;
+  box-shadow: 0 3px 20px 0 rgb(221 209 209 / 20%),
+    0 3px 20px 0 rgb(120 105 105 / 19%);
+}
+
+.boxRequest-mail {
+  height: 430px;
+  width: 630px;
+  box-shadow: 0 3px 20px 0 rgb(221 209 209 / 20%),
+    0 3px 20px 0 rgb(120 105 105 / 19%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.boxRequest-mail textarea {
+  resize: vertical;
+  border: none;
+  outline: none;
+  height: 120px;
 }

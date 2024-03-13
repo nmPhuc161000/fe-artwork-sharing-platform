@@ -60,6 +60,8 @@ function App() {
     setIsHomeAdmin(location.pathname === "/home-admin");
   }, [location]);
 
+  const [usedById, setUserById] = useState([]);
+  
   return (
     <div className="App">
       {!isLoginPage &&
@@ -85,9 +87,15 @@ function App() {
         <Route path="/regis" element={<Register />}></Route>
         <Route path="/searchlist" element={<SearchList />}></Route>
         {/* detail */}
-        <Route path="/detail/:ID" element={<Detail />}></Route>
+        <Route
+          path="/detail/:ID"
+          element={<Detail setUserById={setUserById} />}
+        ></Route>
         <Route path="/payment" element={<Payment />}></Route>
-        <Route path="/request" element={<Request/>}></Route>
+        <Route
+          path="/request"
+          element={<Request usedById={usedById} />}
+        ></Route>
         {/* profile */}
         <Route path="/profile/*" element={<Profile />}></Route>
         <Route path="/changepassword" element={<ChangePassword />}></Route>
