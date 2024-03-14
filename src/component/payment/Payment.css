@@ -173,4 +173,5 @@
 	max-width: 100%;
 	/* Đảm bảo hình ảnh không vượt quá chiều rộng của container */
 	max-height: 100%;
+	 object-fit: cover;
 }
