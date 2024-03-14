@@ -43,7 +43,7 @@ export default function ChangePassword() {
 
     try {
       const response = await axios.put(
-        `${urlApi}/api/Auth/change-password`,
+        `${urlApi}/api/User/change-password`,
         dataPassword,
         {
           headers: {

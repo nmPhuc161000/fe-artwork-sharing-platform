@@ -12,8 +12,9 @@
   padding: 4px;
   width: 160px;
   position: absolute;
-  box-shadow: 3px 4px 2px 2px rgba(0, 0, 0, 0.1),
-  2px 4px 2px 7px rgba(0, 0, 0, 0.06);
+  border-radius: 5px;
+  box-shadow: 0 3px 20px 0 rgb(221 209 209 / 20%),
+    0 3px 20px 0 rgba(83, 72, 72, 0.19);
   left: -45px;
 }
 

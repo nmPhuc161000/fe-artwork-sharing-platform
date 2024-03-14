@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Icon, Modal, Button, Textarea } from "react-materialize";
+import { Link } from "react-router-dom";
 import "./Detail.css";
 import urlApi from "../configAPI/UrlApi";
 import axios from "axios";
@@ -8,7 +9,7 @@ import EditArt from "./editArt/EditArt";
 import DeleteArt from "./deleteArt/DeleteArt";
 import Favourite from "./favourite/Favourite";
 
-export default function Detail() {
+export default function Detail({ setUserById }) {
   const [comment, setComment] = useState("");
   const [isCommentModalOpen, setIsCommentModalOpen] = useState(false); // State để điều khiển việc hiển thị modal comment
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -55,24 +56,24 @@ export default function Detail() {
   };
 
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const handleDownloadClick = () => {
+  const handleDownloadClick = (navigate, location) => {
+    console.log("Redirect path:", location.pathname);
     if (isLoggedIn) {
-      // window.location.href = "/payment";
       navigate("/payment");
     } else {
-      // Lưu địa chỉ URL của trang chi tiết trước khi chuyển hướng đến trang đăng nhập
-      localStorage.setItem("redirectPath", window.location.pathname);
-      // window.location.href = "/login";
+      localStorage.setItem("redirectPath", location.pathname);
       navigate("/login");
     }
   };
 
-  const handleRequest = () => {
+  const handleRequest = (navigate, location) => {
+    console.log("Redirect path:", location.pathname);
     if (isLoggedIn) {
       navigate("/request");
     } else {
-      localStorage.setItem("redirectPath", window.location.pathname);
+      localStorage.setItem("redirectPath", location.pathname);
       navigate("/login");
     }
   };
@@ -85,6 +86,7 @@ export default function Detail() {
       try {
         const response = await axios.get(`${urlApi}/api/Artwork/${String(ID)}`);
         setItemData(response.data);
+        setUserById(response.data);
         console.log("Data from API: ", response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -180,7 +182,7 @@ export default function Detail() {
         {/* request */}
         <div className="product-request">
           <button
-            onClick={handleRequest}
+            onClick={() => handleRequest(navigate, location)}
             href={isLoggedIn ? "/request" : "/login"}
           >
             <Icon>mail</Icon>

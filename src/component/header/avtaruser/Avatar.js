@@ -50,13 +50,11 @@ const Avatar = () => {
           },
         })
         .then((response) => {
-          // Xử lý dữ liệu trả về từ API
+
           const userInfo = response.data.userInfo;
+          localStorage.setItem('user', JSON.stringify(userInfo))
 
-          // Lấy userName từ thông tin người dùng
           setUsername(userInfo.fullName);
-
-          // Sử dụng userName theo nhu cầu của bạn
         })
         .catch((error) => {
           // Xử lý lỗi nếu có

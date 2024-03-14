@@ -34,10 +34,12 @@ export default function Login() {
       });
       console.log(response.data);
       console.log(response.data.userInfo.roles);
+      const previousPath = localStorage.getItem("redirectPath");
       if (response.data.userInfo.roles.includes("ADMIN")) {
         navigate("/home-admin");
       } else if (response.data.userInfo.roles.includes("CREATOR")) {
-        window.location.href = "/";
+        navigate(previousPath || "/");
+        localStorage.removeItem("redirectPath");
       }
       const { newToken } = response.data;
       localStorage.setItem("token", newToken);
