@@ -4,8 +4,16 @@ import
   BsListCheck, BsMenuButtonWideFill, BsFillGearFill}
  from 'react-icons/bs'
  import './Sidebar.css'
+ import { RiLogoutBoxRLine } from "react-icons/ri";
+import { useNavigate } from 'react-router-dom';
 
 function Sidebar({openSidebarToggle, OpenSidebar}) {
+    const navigate = useNavigate();
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        navigate("/");
+        // window.location.reload();
+      };
   return (
     <aside id="sidebar" className={openSidebarToggle ? "sidebar-responsive": ""}>
         <div className='sidebar-title'>
@@ -49,6 +57,11 @@ function Sidebar({openSidebarToggle, OpenSidebar}) {
             <li className='sidebar-list-item'>
                 <a href="">
                     <BsFillGearFill className='icon'/> Setting
+                </a>
+            </li>
+            <li className='sidebar-list-item' onClick={handleLogout}>
+                <a href="" >
+                    <RiLogoutBoxRLine className='icon' /> Logout
                 </a>
             </li>
         </ul>

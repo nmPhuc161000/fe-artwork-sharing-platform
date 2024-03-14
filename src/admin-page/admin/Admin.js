@@ -62,7 +62,7 @@ function Admin() {
       <div className='main-cards'>
         <div className='card'>
           <div className='card-inner'>
-            <h4>PRODUCTS</h4>
+            <h4>ARTWORK</h4>
             <BsFillArchiveFill className='card_icon' />
           </div>
           <h1>300</h1>
