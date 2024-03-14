@@ -21,9 +21,6 @@ export default function Request({ userById }) {
 
   const handleNewRequest = (tab) => {
     setMail(tab);
-    if (tab === "newRequest") {
-      userById.full_Name = "";
-    }
   };
 
   const handleEmail = (value) => {
