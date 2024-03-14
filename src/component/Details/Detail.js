@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Icon, Modal, Button, Textarea } from "react-materialize";
+import { Link } from "react-router-dom";
 import "./Detail.css";
 import urlApi from "../configAPI/UrlApi";
 import axios from "axios";
@@ -162,14 +163,21 @@ export default function Detail({ setUserById }) {
           </Modal>
         </div>
         <div className="product-download">
-          {/* Nút download */}
-          <button
-            onClick={() => handleDownloadClick(navigate, location)}
-            href={isLoggedIn ? "/payment" : "/login"}
-          >
-            <Icon>paid</Icon>
-            <span>Payment</span>
-          </button>
+          {isLoggedIn ? (
+            <Link to={`/payment/${encodeURIComponent(itemData.url_Image)}`}>
+              <button>
+                <Icon>paid</Icon>
+                <span>Thanh toán</span>
+              </button>
+            </Link>
+          ) : (
+            <Link to="/login">
+              <button>
+                <Icon>paid</Icon>
+                <span>Thanh toán</span>
+              </button>
+            </Link>
+          )}
         </div>
         {/* request */}
         <div className="product-request">

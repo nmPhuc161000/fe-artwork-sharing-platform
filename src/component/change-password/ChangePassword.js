@@ -31,7 +31,7 @@ export default function ChangePassword() {
       return;
     }
     if (newPassword !== confirmNewPassword) {
-      setErrorMessage("New password and confirm password do not match.");
+      setErrorMessage("Mật khẩu mới và mật khẩu xác nhận không khớp.");
       return;
     }
 

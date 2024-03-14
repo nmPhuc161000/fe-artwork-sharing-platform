@@ -121,7 +121,7 @@ export default function Register() {
                 </button>
               </div>
             </div>
-            <div className="group-right">
+            <div className="group-right"> 
               <div className="group-i">
                 <input
                   type="text"

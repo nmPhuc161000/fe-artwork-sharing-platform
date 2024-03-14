@@ -1,0 +1,18 @@
+.logout-button {
+  background-color: #ff6347; /* Màu đỏ */
+  color: #ffffff; /* Màu trắng cho chữ */
+  padding: 5px 15px; /* Kích thước nút */
+  font-size: 16px; /* Kích thước chữ */
+  border: none; /* Loại bỏ đường viền */
+  border-radius: 5px; /* Bo góc */
+  cursor: pointer; /* Con trỏ chuột biểu thị nút có thể được nhấp vào */
+  transition: background-color 0.3s ease; /* Hiệu ứng chuyển đổi màu nền */
+  position: absolute; /* Đặt vị trí tuyệt đối */
+  top: 0; /* Đặt ở phía trên cùng của phần tử cha */
+  right: 0; /* Đặt ở phía bên phải của phần tử cha */
+  margin: 10px; /* Khoảng cách giữa nút và viền của phần tử cha */
+}
+
+.logout-button:hover {
+  background-color: #d9534f; /* Màu đỏ nhạt khi di chuột qua */
+}

@@ -13,7 +13,7 @@
 }
 .slick-slide img {
     width: auto; /* Chiều rộng tối đa của ảnh là 100% của slide */
-    height: 200px; /* Thiết lập chiều cao cố định cho ảnh */
+    height: 300px; /* Thiết lập chiều cao cố định cho ảnh */
     object-fit: cover; /* Đảm bảo ảnh không bị méo và vẫn đủ bản quyền */
     display: block; /* Hiển thị ảnh dưới dạng phần tử block */
     margin: auto; /* Căn giữa ảnh theo chiều ngang */

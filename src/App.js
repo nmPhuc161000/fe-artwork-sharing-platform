@@ -13,7 +13,7 @@ import Payment from "./component/payment/Payment";
 import { SearchList } from "./component/header/search/searchlist/SearchList";
 import ChangePassword from "./component/change-password/ChangePassword";
 import EmailOTP from "./component/header/emailOTP/EmailOTP";
-import HomeAdmin from "./admin-page/HomeAdmin";
+import HomeAdmin from "./admin-page/homeadmin/HomeAdmin";
 import Request from "./component/Details/request/Request";
 
 function App() {
@@ -33,6 +33,9 @@ function App() {
   const [isHomeAdmin, setIsHomeAdmin] = useState(
     location.pathname === "/home-admin"
   );
+  const [isPayment, setIsPayment] = useState(
+    location.pathname === "/payment"
+  );
   const [showFooter, setShowFooter] = useState(true);
   const [showHeader, setShowHeader] = useState(true);
   useEffect(() => {
@@ -41,15 +44,17 @@ function App() {
     setIsRecoveryPage(location.pathname === "/recovery-password");
     setIsEmailOTP(location.pathname === "/emailOTP");
     setIsHomeAdmin(location.pathname === "/home-admin");
+    setIsPayment(location.pathname === "/payment");
   }, [location]);
 
   useEffect(() => {
     setIsLoginPage(location.pathname === "/login");
     setShowFooter(
       location.pathname !== "/login" &&
-        location.pathname !== "/regis" &&
-        location.pathname !== "/recovery-password" &&
-        location.pathname !== "/emailOTP"
+      location.pathname !== "/regis" &&
+      location.pathname !== "/recovery-password" &&
+      location.pathname !== "/emailOTP" &&
+      location.pathname !== "/payment"
     );
     setShowHeader(
       location.pathname !== "/login" &&
@@ -87,32 +92,21 @@ function App() {
         <Route path="/regis" element={<Register />}></Route>
         <Route path="/searchlist" element={<SearchList />}></Route>
         {/* detail */}
-        <Route
-          path="/detail/:ID"
-          element={<Detail setUserById={setUserById} />}
-        ></Route>
-        <Route path="/payment" element={<Payment />}></Route>
-        <Route
-          path="/request"
-          element={<Request userById={userById} />}
-        ></Route>
+        <Route path="/detail/:ID" element={<Detail />}></Route>
+        <Route path="/payment/:imageUrl" element={<Payment />}></Route>
+        <Route path="/request" element={<Request/>}></Route>
         {/* profile */}
         <Route path="/profile/*" element={<Profile />}></Route>
         <Route path="/changepassword" element={<ChangePassword />}></Route>
       </Routes>
-      {!isLoginPage &&
-        !isRegisterPage &&
-        !isRecoveryPage &&
-        !isEmailOTP &&
-        !isHomeAdmin && (
-          <Footer
-            isLoginPage={isLoginPage}
-            isRegisterPage={isRegisterPage}
-            isRecoveryPage={isRecoveryPage}
-            isEmailOTP={isEmailOTP}
-            isHomeAdmin={isHomeAdmin}
-          />
-        )}
+       {!isLoginPage && !isRegisterPage && !isRecoveryPage &&!isEmailOTP &&!isHomeAdmin && !isPayment && (
+      <Footer isLoginPage={isLoginPage}
+              isRegisterPage={isRegisterPage}
+              isRecoveryPage={isRecoveryPage}
+              isEmailOTP={isEmailOTP}
+              isHomeAdmin={isHomeAdmin}
+              isPayment={isPayment}
+      />)}
     </div>
   );
 }
