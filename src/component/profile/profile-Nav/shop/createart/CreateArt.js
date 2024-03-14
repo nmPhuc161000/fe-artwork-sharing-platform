@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./CreatrArt.css";
+import urlApi from "../../../../configAPI/UrlApi";
 import { Icon } from "react-materialize";
 import axios from "axios";
 import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
@@ -81,7 +82,7 @@ export default function CreateArt({ onCreate }) {
       setIsLoading(true);
       // Gửi yêu cầu POST đến API
       const response = await axios.post(
-        "https://localhost:44306/api/Artwork/create",
+        `${urlApi}/api/Artwork/create`,
         formData,
         {
           headers: {

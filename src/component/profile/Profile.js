@@ -5,6 +5,7 @@ import About from "./profile-Nav/about/About";
 import { Shop } from "./profile-Nav/shop/Shop";
 import Favourites from "./profile-Nav/favourites/Favourites";
 import axios from "axios";
+import urlApi from "../configAPI/UrlApi";
 
 function Profile() {
   const [user, setUser] = useState([]);
@@ -15,7 +16,7 @@ function Profile() {
     const fetchUserData = async () => {
       try {
         const response = await axios.post(
-          "https://localhost:44306/api/Auth/me",
+          `${urlApi}/api/Auth/me`,
           { token: token }
         );
         setUser(response.data);

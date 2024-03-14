@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./SearchBar.css";
+import urlApi from "../../../configAPI/UrlApi";
 import { Icon } from "react-materialize";
 import axios from "axios";
 import InputLabel from "@mui/material/InputLabel";
@@ -13,7 +14,7 @@ export default function SearchBar() {
   const [option, setOption] = useState("");
   const navigate = useNavigate();
 
-  const Url = `https://localhost:44306/api/Artwork/search?search=${inputValue}&searchBy=${option}`;
+  const Url = `${urlApi}/api/Artwork/search?search=${inputValue}&searchBy=${option}`;
   const axiosData = (inputValue, option) => {
     axios
       .post(Url, {

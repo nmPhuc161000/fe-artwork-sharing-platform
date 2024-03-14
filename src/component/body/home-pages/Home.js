@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Home.css";
+import urlApi from '../../configAPI/UrlApi'
 import axios from "axios";
 import Slider from "react-slick";
 import { ListArtwork } from "../list-artwork/ListArtwork";
@@ -18,7 +19,7 @@ export default function Home() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://localhost:44306/api/Artwork/get-all"
+          `${urlApi}/api/Artwork/get-all`
         );
         setItemData(response.data);
         // console.log("Data from API: ", response.data);

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Icon, Modal, Button, Textarea } from "react-materialize";
 import "./Detail.css";
+import urlApi from "../configAPI/UrlApi";
 import axios from "axios";
 import EditArt from "./editArt/EditArt";
 import DeleteArt from "./deleteArt/DeleteArt";
@@ -13,6 +14,9 @@ export default function Detail() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const tokenUser = localStorage.getItem("token");
   const token = localStorage.getItem("token");
+  const urlNoAva =
+    "https://firebasestorage.googleapis.com/v0/b/artwork-platform.appspot.com/o/logo%2F499638df-cf1c-4ee7-9abf-fb51e875e6dc?alt=media&token=367643f5-8904-4be8-97a0-a794e6b76bd0";
+
   useEffect(() => {
     if (token) {
       setIsLoggedIn(true);
@@ -49,13 +53,27 @@ export default function Detail() {
       alert("Image element not found.");
     }
   };
+
+  const navigate = useNavigate();
+
   const handleDownloadClick = () => {
     if (isLoggedIn) {
-      window.location.href = "/payment";
+      // window.location.href = "/payment";
+      navigate("/payment");
     } else {
       // Lưu địa chỉ URL của trang chi tiết trước khi chuyển hướng đến trang đăng nhập
       localStorage.setItem("redirectPath", window.location.pathname);
-      window.location.href = "/login";
+      // window.location.href = "/login";
+      navigate("/login");
+    }
+  };
+
+  const handleRequest = () => {
+    if (isLoggedIn) {
+      navigate("/request");
+    } else {
+      localStorage.setItem("redirectPath", window.location.pathname);
+      navigate("/login");
     }
   };
 
@@ -65,9 +83,7 @@ export default function Detail() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `https://localhost:44306/api/Artwork/${String(ID)}`
-        );
+        const response = await axios.get(`${urlApi}/api/Artwork/${String(ID)}`);
         setItemData(response.data);
         console.log("Data from API: ", response.data);
       } catch (error) {
@@ -91,7 +107,7 @@ export default function Detail() {
   const fetchUserData = async () => {
     try {
       const response = await axios.post(
-        "https://localhost:44306/api/Auth/me",
+        `${urlApi}/api/Auth/me`,
         {
           token: tokenUser,
         },
@@ -120,7 +136,7 @@ export default function Detail() {
         </div>
       </div>
       <div className="product-icons">
-        <Favourite itemData={itemData}/>
+        <Favourite itemData={itemData} />
         <div className="product-comment">
           {/* Clicking on the icon opens the comment modal */}
           <button onClick={() => setIsCommentModalOpen(true)}>
@@ -145,15 +161,33 @@ export default function Detail() {
           </Modal>
         </div>
         <div className="product-download">
-          {/* Nút download */}
+          {isLoggedIn ? (
+            <Link to={`/payment/${encodeURIComponent(itemData.url_Image)}`}>
+              <button>
+                <Icon>paid</Icon>
+                <span>Thanh toán</span>
+              </button>
+            </Link>
+          ) : (
+            <Link to="/login">
+              <button>
+                <Icon>paid</Icon>
+                <span>Thanh toán</span>
+              </button>
+            </Link>
+          )}
+        </div>
+        {/* request */}
+        <div className="product-request">
           <button
-            onClick={handleDownloadClick}
-            href={isLoggedIn ? "/payment" : "/login"}
+            onClick={handleRequest}
+            href={isLoggedIn ? "/request" : "/login"}
           >
-            <Icon>paid</Icon>
-            <span>Payment</span>
+            <Icon>mail</Icon>
+            <span>Request</span>
           </button>
         </div>
+        {/* request */}
         <div className="product-fullscreen">
           <button onClick={toggleFullscreen}>
             <Icon>fullscreen</Icon>
@@ -168,33 +202,44 @@ export default function Detail() {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            height: "130px"
+            height: "130px",
           }}
         >
-          <a
-            onClick={handleAuthorClick}
-            href={isLoggedIn ? "/profile" : "/login"}
-            className="author"
-          >
-            <img src="" alt="Author Avatar" />
-          </a>
+          <div style={{ width: "70px" }}>
+            <div style={{ height: "30px" }}></div>
+            <a
+              onClick={handleAuthorClick}
+              href={isLoggedIn ? "/profile" : "/login"}
+              className="author"
+            >
+              <img src={urlNoAva} alt="Author Avatar" />
+            </a>
+          </div>
           <div className="artist">
             <p>
-              <strong>{itemData.name}</strong>
+              <span style={{ fontWeight: "bold", fontSize: "30px" }}>
+                {itemData.name}
+              </span>
             </p>
             <p>
-              Artist: <strong>{itemData.user_Name}</strong>
+              Artist:{" "}
+              <span style={{ fontWeight: "bold" }}>{itemData.full_Name}</span>
             </p>
             {/* Thông tin về tác giả */}
           </div>
           <div className="public">
             <p>
-              <strong>Published:</strong> {new Date(itemData.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+              <strong>Published:</strong>{" "}
+              {new Date(itemData.createdAt).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
             </p>
             {userData.userInfo?.fullName === itemData.user_Name && (
-              <div style={{display: "flex", gap:"10px"}}>
-                <DeleteArt ID={ID}/>
-                <EditArt itemData={itemData}/>
+              <div style={{ display: "flex", gap: "10px" }}>
+                <DeleteArt ID={ID} />
+                <EditArt itemData={itemData} />
               </div>
             )}
           </div>

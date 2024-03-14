@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Footer from "./component/footer/Footer";
 import Header from "./component/header/Header";
@@ -13,7 +13,8 @@ import Payment from "./component/payment/Payment";
 import { SearchList } from "./component/header/search/searchlist/SearchList";
 import ChangePassword from "./component/change-password/ChangePassword";
 import EmailOTP from "./component/header/emailOTP/EmailOTP";
-import HomeAdmin from "./admin-page/HomeAdmin";
+import HomeAdmin from "./admin-page/homeadmin/HomeAdmin";
+import Request from "./component/Details/request/Request";
 
 function App() {
   const location = useLocation();
@@ -37,7 +38,7 @@ function App() {
   );
   const [showFooter, setShowFooter] = useState(true);
   const [showHeader, setShowHeader] = useState(true);
-  React.useEffect(() => {
+  useEffect(() => {
     setIsLoginPage(location.pathname === "/login");
     setIsRegisterPage(location.pathname === "/regis");
     setIsRecoveryPage(location.pathname === "/recovery-password");
@@ -46,7 +47,7 @@ function App() {
     setIsPayment(location.pathname === "/payment");
   }, [location]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setIsLoginPage(location.pathname === "/login");
     setShowFooter(
       location.pathname !== "/login" &&
@@ -57,8 +58,8 @@ function App() {
     );
     setShowHeader(
       location.pathname !== "/login" &&
-      location.pathname !== "/regis" &&
-      location.pathname !== "/recovery-password"
+        location.pathname !== "/regis" &&
+        location.pathname !== "/recovery-password"
     );
     setIsRegisterPage(location.pathname === "/regis");
     setIsHomeAdmin(location.pathname === "/home-admin");
@@ -66,17 +67,22 @@ function App() {
 
   return (
     <div className="App">
-      {(!isLoginPage && !isRegisterPage && !isRecoveryPage &&!isEmailOTP &&!isHomeAdmin) && (
-      <Header isLoginPage={isLoginPage}
-              isRegisterPage={isRegisterPage}
-              isRecoveryPage={isRecoveryPage}
-              isEmailOTP={isEmailOTP}
-              isHomeAdmin={isHomeAdmin}
-      />
-      )}
+      {!isLoginPage &&
+        !isRegisterPage &&
+        !isRecoveryPage &&
+        !isEmailOTP &&
+        !isHomeAdmin && (
+          <Header
+            isLoginPage={isLoginPage}
+            isRegisterPage={isRegisterPage}
+            isRecoveryPage={isRecoveryPage}
+            isEmailOTP={isEmailOTP}
+            isHomeAdmin={isHomeAdmin}
+          />
+        )}
       <Routes>
         <Route path="/" element={<Home />}></Route>
-        <Route path="/home-admin" element={<HomeAdmin/>}></Route>
+        <Route path="/home-admin" element={<HomeAdmin />}></Route>
         {/* header */}
         <Route path="/login" element={<Login />}></Route>
         <Route path="/recovery-password" element={<RecoveryPassword />}></Route>
@@ -85,12 +91,13 @@ function App() {
         <Route path="/searchlist" element={<SearchList />}></Route>
         {/* detail */}
         <Route path="/detail/:ID" element={<Detail />}></Route>
-        <Route path="/payment" element={<Payment />}></Route>
+        <Route path="/payment/:imageUrl" element={<Payment />}></Route>
+        <Route path="/request" element={<Request/>}></Route>
         {/* profile */}
         <Route path="/profile/*" element={<Profile />}></Route>
         <Route path="/changepassword" element={<ChangePassword />}></Route>
       </Routes>
-       {(!isLoginPage && !isRegisterPage && !isRecoveryPage &&!isEmailOTP &&!isHomeAdmin ) && (
+       {!isLoginPage && !isRegisterPage && !isRecoveryPage &&!isEmailOTP &&!isHomeAdmin && !isPayment && (
       <Footer isLoginPage={isLoginPage}
               isRegisterPage={isRegisterPage}
               isRecoveryPage={isRecoveryPage}

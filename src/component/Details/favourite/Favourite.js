@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Favourite.css";
+import urlApi from '../../configAPI/UrlApi'
 import { Icon } from "react-materialize";
 import axios from "axios";
 
@@ -20,7 +21,7 @@ export default function Favourite({itemData}) {
     try {
       if (!isFavorite) {
         await axios.post(
-          `https://localhost:44306/api/Favourite/add-favourite?artwork_Id=${itemData.id}`,
+          `${urlApi}/api/Favourite/add-favourite?artwork_Id=${itemData.id}`,
           {},  // Add an empty object for the request body
           {
             headers: {
@@ -33,7 +34,7 @@ export default function Favourite({itemData}) {
         console.log("Added to favorites successfully");
       } else {
         await axios.delete(
-          `https://localhost:44306/api/Favourite/remove-artwork?favourite_Id=${dataFavourite.favourite_id}`,
+          `${urlApi}/api/Favourite/remove-artwork?favourite_Id=${dataFavourite.favourite_id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
