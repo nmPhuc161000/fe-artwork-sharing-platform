@@ -6,22 +6,22 @@
 }
 
 .request .request-content {
-  width: 85%;
+  width: 95%;
 }
 
-.request .request-content .conten-title {
+.request .request-content .content-title {
   display: flex;
   justify-content: space-between;
   margin-bottom: 15px;
 }
 
-.conten-title span {
+.content-title span {
   font-size: 40px;
   font-weight: bold;
   margin-left: 40px;
 }
 
-.conten-title button {
+.content-title button {
   height: 46px;
   width: 120px;
   font-weight: bold;
@@ -29,7 +29,7 @@
   margin-top: 15px;
 }
 
-.conten-title button:hover {
+.content-title button:hover {
   background-color: black;
   color: white;
 }
@@ -75,23 +75,26 @@
 }
 
 .box-request ul {
-  width: 425px;
+  width: 100%;
   margin: 0;
 }
 
 .box-request ul li {
   width: 100%;
-  height: 71px;
+  box-shadow: 0 3px 20px 0 rgb(221 209 209 / 20%),
+    0 3px 20px 0 rgb(120 105 105 / 19%);
+    margin-bottom: 15px;
+}
+
+.box-request ul #li1 {
   text-align: center;
   font-weight: bold;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 3px 20px 0 rgb(221 209 209 / 20%),
-    0 3px 20px 0 rgb(120 105 105 / 19%);
 }
 
-.box-request ul li span {
+.box-request ul #li1 span {
   font-size: 32px;
   display: inline;
   color: #eaeaea;
@@ -99,14 +102,14 @@
 
 .boxRequest-notMail {
   height: 500px;
-  width: 655px;
+  width: 100%;
   box-shadow: 0 3px 20px 0 rgb(221 209 209 / 20%),
     0 3px 20px 0 rgb(120 105 105 / 19%);
 }
 
 .boxRequest-mail {
   height: 430px;
-  width: 630px;
+  width: 100%;
   box-shadow: 0 3px 20px 0 rgb(221 209 209 / 20%),
     0 3px 20px 0 rgb(120 105 105 / 19%);
   display: flex;
@@ -118,5 +121,6 @@
   resize: vertical;
   border: none;
   outline: none;
-  height: 120px;
+  height: 165px;
+  margin-top: 15px;
 }

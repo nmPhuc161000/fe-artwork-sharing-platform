@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import "./Unread.css";
+import "./Sent.css";
 import urlApi from "../../../configAPI/UrlApi";
 import axios from "axios";
 
-export default function Unread() {
-  const [hasData, setHasData] = useState(false);
-  const [order, setOrder] = useState([]);
+export default function Sent({username, updateData}) {
+    const [hasData, setHasData] = useState(false);
+  const [sent, setSent] = useState([]);
   const token = localStorage.getItem("token");
 
   const urlNoAva =
@@ -14,7 +14,7 @@ export default function Unread() {
   useEffect(() => {
     if (token) {
       axios
-        .get(`${urlApi}/api/RequestOrder/get-mine-order`, {
+        .get(`${urlApi}/api/RequestOrder/get-mine-request`, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
@@ -23,7 +23,7 @@ export default function Unread() {
         .then((response) => {
           if (Array.isArray(response.data)) {
             setHasData(true);
-            setOrder(response.data);
+            setSent(response.data);
           } else {
             // Nếu response.data không phải là mảng, xử lý tương ứng
             console.error("Dữ liệu trả về không phải là mảng");
@@ -34,22 +34,23 @@ export default function Unread() {
           console.error("Lỗi khi gọi API:", error);
         });
     }
-  }, []);
+  }, [updateData]);
   return (
     <React.Fragment>
-      {hasData && order.length > 0 ? (
+      {hasData && sent.length > 0 ? (
         <>
-          {order.map((note) => (
-            <li key={note} id="li2" className="liOrder">
+          {sent.map((note) => (
+            <li key={note} id="li2" className="liSent">
               <div id="div1">
                 <section style={{display: "flex"}}>
-                  <img src={urlNoAva} alt="" />
-                  <div style={{ margin: "12px 0 0 12px" }}>
-                    From: <strong>{note.fullName_Sender}</strong>
+                  <img src={urlNoAva} alt="" style={{marginTop: "10px"}}/>
+                  <div style={{ margin: "0 0 0 12px" }}>
+                    <section style={{textAlign: "left"}}>From: <strong>{username.fullName}</strong></section>
+                    <section style={{textAlign: "left"}}>To: <strong>{note.fullName_Receivier}</strong></section>
                   </div>
                 </section>
                 <section>
-                  <p>{note.text}</p>
+                  <p style={{textAlign: "left"}}>{note.text}</p>
                 </section>
               </div>
             </li>
@@ -57,7 +58,7 @@ export default function Unread() {
         </>
       ) : (
         <li id="li1">
-          <span>Your Unread Notes</span>
+          <span>No Sent Notes</span>
         </li>
       )}
     </React.Fragment>

@@ -60,7 +60,7 @@ function App() {
     setIsHomeAdmin(location.pathname === "/home-admin");
   }, [location]);
 
-  const [usedById, setUserById] = useState([]);
+  const [userById, setUserById] = useState([]);
   
   return (
     <div className="App">
@@ -94,7 +94,7 @@ function App() {
         <Route path="/payment" element={<Payment />}></Route>
         <Route
           path="/request"
-          element={<Request usedById={usedById} />}
+          element={<Request userById={userById} />}
         ></Route>
         {/* profile */}
         <Route path="/profile/*" element={<Profile />}></Route>
