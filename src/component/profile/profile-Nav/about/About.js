@@ -26,7 +26,7 @@ export default function About({ userInfor, onUpdate }) {
     setAddress(value);
   };
 
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
   const handleSaveClick = () => {
     const userData = {
       fullName: fullName,
@@ -37,8 +37,8 @@ export default function About({ userInfor, onUpdate }) {
     axios
       .put(`${urlApi}/api/User/update-information`, userData, {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       })
       .then((response) => {
         if (response.status === 200) {
@@ -46,7 +46,7 @@ export default function About({ userInfor, onUpdate }) {
         } else {
           throw new Error("Failed to update user data");
         }
-        alert("Update account successful!")
+        alert("Update account successful!");
         onUpdate(response.data);
       })
       .catch((error) => {
@@ -79,9 +79,17 @@ export default function About({ userInfor, onUpdate }) {
                   <div className="info-input">{userInfor.phoneNumber}</div>
                 </li>
                 <li>
+                  <label htmlFor="address">Address:</label>
+                  <div className="info-input">{userInfor.address}</div>
+                </li>
+                <li>
                   <label htmlFor="createdAt">Created At:</label>
                   <div className="info-input">
-                    {new Date(userInfor.createdAt).toLocaleString()}
+                    {new Date(userInfor.createdAt).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
                   </div>
                 </li>
               </ul>
@@ -107,7 +115,11 @@ export default function About({ userInfor, onUpdate }) {
                   value={phoneNumber}
                   onChange={(e) => handlePhoneNumberChange(e.target.value)}
                 />
-                <button onClick={handleSaveClick}>Lưu</button>
+                <div style={{ textAlign: "right" }}>
+                  <button onClick={handleSaveClick} className="edit-button">
+                    Lưu
+                  </button>
+                </div>
               </div>
             )}
             {!isEditing && (
