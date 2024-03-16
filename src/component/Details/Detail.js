@@ -164,7 +164,7 @@ export default function Detail({ setUserById }) {
         </div>
         <div className="product-download">
           {isLoggedIn ? (
-            <Link to={`/payment/${encodeURIComponent(itemData.url_Image)}`}>
+            <Link to={`/payment/${encodeURIComponent(itemData.url_Image)}/${itemData.price}`}>
               <button>
                 <Icon>paid</Icon>
                 <span>Thanh toán</span>

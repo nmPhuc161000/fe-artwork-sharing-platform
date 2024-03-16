@@ -2,14 +2,15 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import './Payment.css';
 
-const Payment = () => {
-  const { imageUrl } = useParams();
+const Payment = ({ item }) => {
+  const { imageUrl, price } = useParams();
   console.log("Image URL:", imageUrl);
+  console.log("Price:", price);
   const handlePayNow = (e) => {
     e.preventDefault();
     // Xử lý thanh toán tại đây
     console.log('Payment processing...');
-    
+
   };
 
   return (
@@ -58,9 +59,19 @@ const Payment = () => {
           </div>
         </div>
         <div className="right">
-          <p>Order information</p>
+          <div className='price-info'>
+            <p>Summary</p>
+          </div>
+          <hr style={{ border: '1px solid #ccc', margin: '0 5px' }} />
           <div className="details-img">
             <img src={decodeURIComponent(imageUrl)} alt="Product" />
+          </div>
+          <hr style={{ border: '1px solid #ccc', margin: '0 5px' }} />
+          <div className='total'>
+            <p>Total: </p>
+            <div className='price'>
+              <strong>{price}</strong>
+            </div>
           </div>
         </div>
       </div>

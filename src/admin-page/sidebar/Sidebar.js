@@ -1,59 +1,82 @@
-import React from 'react'
-import 
-{ BsGrid1X2Fill, BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, 
-  BsListCheck, BsMenuButtonWideFill, BsFillGearFill}
- from 'react-icons/bs'
- import './Sidebar.css'
+import React from 'react';
+import {
+    BsFillBoxFill, BsFillGrid1X2Fill, BsEmojiSmile, BsFillGrid3X3GapFill, BsMenuButtonWideFill, BsPeopleFill, BsFillGearFill
+} from 'react-icons/bs'
+import './Sidebar.css';
+import { RiLogoutBoxRLine } from "react-icons/ri";
+import { useNavigate } from 'react-router-dom';
 
-function Sidebar({openSidebarToggle, OpenSidebar}) {
-  return (
-    <aside id="sidebar" className={openSidebarToggle ? "sidebar-responsive": ""}>
-        <div className='sidebar-title'>
-            <div className='sidebar-brand'>
-                <div className='icon_header'/> ADMIN
-            </div>
-            <span className='icon close_icon' onClick={OpenSidebar}>X</span>
-        </div>
+function Sidebar() {
+    const allSideMenu = document.querySelectorAll('.side-menu.top li a');
+    const navigate = useNavigate();
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        navigate("/");
+        //window.location.reload();
+    };
+    allSideMenu.forEach(item => {
+        const li = item.parentElement;
 
-        <ul className='sidebar-list'>
-            <li className='sidebar-list-item'>
-                <a href="">
-                    <BsGrid1X2Fill className='icon'/> Dashboard
-                </a>
-            </li>
-            <li className='sidebar-list-item'>
-                <a href="">
-                    <BsFillArchiveFill className='icon'/> Products
-                </a>
-            </li>
-            <li className='sidebar-list-item'>
-                <a href="">
-                    <BsFillGrid3X3GapFill className='icon'/> Categories
-                </a>
-            </li>
-            <li className='sidebar-list-item'>
-                <a href="">
-                    <BsPeopleFill className='icon'/> Customers
-                </a>
-            </li>
-            <li className='sidebar-list-item'>
-                <a href="">
-                    <BsListCheck className='icon'/> Inventory
-                </a>
-            </li>
-            <li className='sidebar-list-item'>
-                <a href="">
-                    <BsMenuButtonWideFill className='icon'/> Reports
-                </a>
-            </li>
-            <li className='sidebar-list-item'>
-                <a href="">
-                    <BsFillGearFill className='icon'/> Setting
-                </a>
-            </li>
-        </ul>
-    </aside>
-  )
+        item.addEventListener('click', function () {
+            allSideMenu.forEach(i => {
+                i.parentElement.classList.remove('active');
+            })
+            li.classList.add('active');
+        })
+    });
+    return (
+        <section id="sidebar" className="sidebar">
+            <a href="/home-admin" className="brand">
+                <BsEmojiSmile className='bx bxs-smile' />
+                <span className="text">AdminHub</span>
+            </a>
+            <ul className="side-menu top">
+                <li class="active">
+                    <a href="#">
+                        <BsFillGrid1X2Fill className='bx bxs-dashboard' />
+                        <span className="text">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <BsFillBoxFill className='bx bxs-smile' />
+                        <span className="text">Product</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <BsFillGrid3X3GapFill className='bx bxs-category' />
+                        <span className="text">Category</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <BsMenuButtonWideFill className='bx bxs-report' />
+                        <span className="text">Reports</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <BsPeopleFill className='bx bxs-cogs' />
+                        <span className="text">Creator</span>
+                    </a>
+                </li>
+            </ul>
+            <ul className="side-menu">
+                <li>
+                    <a href="#">
+                        <BsFillGearFill className='bx bxs-cog' />
+                        <span className="text">Settings</span>
+                    </a>
+                </li>
+                <li className='sidebar-list-item' onClick={handleLogout}>
+                    <a href="" >
+                        <RiLogoutBoxRLine className='bx bxs-setting' /> Logout
+                    </a>
+                </li>
+            </ul>
+        </section>
+    );
 }
 
-export default Sidebar
+export default Sidebar;
