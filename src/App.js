@@ -93,7 +93,7 @@ function App() {
         <Route path="/searchlist" element={<SearchList />}></Route>
         {/* detail */}
         <Route path="/detail/:ID" element={<Detail setUserById={setUserById}/>}></Route>
-        <Route path="/payment/:imageUrl" element={<Payment />}></Route>
+        <Route path="/payment/:imageUrl/:price" element={<Payment />}></Route>
         <Route path="/request" element={<Request userById={userById}/>}></Route>
         {/* profile */}
         <Route path="/profile/*" element={<Profile />}></Route>
