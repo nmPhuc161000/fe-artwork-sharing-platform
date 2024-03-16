@@ -66,32 +66,36 @@ export default function About({ userInfor, onUpdate }) {
           <div>
             {!isEditing ? (
               <ul>
-                <li>
-                  <label htmlFor="fullName">Full Name:</label>
-                  <div className="info-input">{userInfor.fullName}</div>
-                </li>
-                <li>
-                  <label htmlFor="userName">Email:</label>
-                  <div className="info-input">{userInfor.email}</div>
-                </li>
-                <li>
-                  <label htmlFor="address">Phone:</label>
-                  <div className="info-input">{userInfor.phoneNumber}</div>
-                </li>
-                <li>
-                  <label htmlFor="address">Address:</label>
-                  <div className="info-input">{userInfor.address}</div>
-                </li>
-                <li>
-                  <label htmlFor="createdAt">Created At:</label>
-                  <div className="info-input">
-                    {new Date(userInfor.createdAt).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </div>
-                </li>
+                <div className="about-left">
+                  <li>
+                    <label htmlFor="fullName">Full Name:</label>
+                    <div className="info-input">{userInfor.fullName}</div>
+                  </li>
+                  <li>
+                    <label htmlFor="userName">Email:</label>
+                    <div className="info-input">{userInfor.email}</div>
+                  </li>
+                  <li>
+                    <label htmlFor="createdAt">Created At:</label>
+                    <div className="info-input">
+                      {new Date(userInfor.createdAt).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
+                    </div>
+                  </li>
+                </div>
+                <div className="about-right">
+                  <li>
+                    <label htmlFor="address">Phone:</label>
+                    <div className="info-input">{userInfor.phoneNumber}</div>
+                  </li>
+                  <li>
+                    <label htmlFor="address">Address:</label>
+                    <div className="info-input">{userInfor.address}</div>
+                  </li>
+                </div>
               </ul>
             ) : (
               <div>

@@ -83,8 +83,8 @@ function App() {
           />
         )}
       <Routes>
-        <Route path="/" element={<Home />}></Route>
-        <Route path="/home-admin" element={<HomeAdmin />}></Route>
+        <Route path="/" element={<Home />}> </Route>
+        <Route path="/home-admin" element={<HomeAdmin/>}></Route>
         {/* header */}
         <Route path="/login" element={<Login />}></Route>
         <Route path="/recovery-password" element={<RecoveryPassword />}></Route>
