@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Login.css";
-import urlApi from "../../configAPI/UrlApi";
+import urlApi from "../../../configAPI/UrlApi";
 import { Link, useNavigate } from "react-router-dom";
 import { Icon } from "react-materialize";
 import axios from "axios";

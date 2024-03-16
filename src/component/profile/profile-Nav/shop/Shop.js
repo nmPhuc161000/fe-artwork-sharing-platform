@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Shop.css";
-import urlApi from "../../../configAPI/UrlApi";
+import urlApi from "../../../../configAPI/UrlApi";
 import CreateArt from "./createart/CreateArt";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -94,7 +94,7 @@ export const Shop = () => {
                       </div>
                       <div className="cardPrice">
                         <div>
-                          <strong>{item.price}</strong>
+                          <strong>{item.price}</strong>K vnd
                         </div>
                       </div>
                     </div>

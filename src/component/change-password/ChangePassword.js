@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./ChangePassword.css";
-import urlApi from '../configAPI/UrlApi'
+import urlApi from '../../configAPI/UrlApi'
 import axios from "axios";
 
 export default function ChangePassword() {

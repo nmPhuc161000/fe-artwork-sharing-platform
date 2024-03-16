@@ -5,6 +5,7 @@ import {
 import './Sidebar.css';
 import { RiLogoutBoxRLine } from "react-icons/ri";
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function Sidebar() {
     const allSideMenu = document.querySelectorAll('.side-menu.top li a');
@@ -38,10 +39,10 @@ function Sidebar() {
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <Link href="#">
                         <BsFillBoxFill className='bx bxs-smile' />
                         <span className="text">Product</span>
-                    </a>
+                    </Link>
                 </li>
                 <li>
                     <a href="#">

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Sent.css";
-import urlApi from "../../../configAPI/UrlApi";
+import urlApi from "../../../../configAPI/UrlApi";
 import axios from "axios";
 import DeleteSent from "./deleteSent/DeleteSent";
 

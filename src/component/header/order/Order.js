@@ -2,7 +2,7 @@ import axios from "axios";
 import "./Order.css";
 import React, { useEffect, useRef, useState } from "react";
 import { Icon } from "react-materialize";
-import urlApi from "../../configAPI/UrlApi";
+import urlApi from "../../../configAPI/UrlApi";
 import { useNavigate } from "react-router-dom";
 
 export default function Order() {

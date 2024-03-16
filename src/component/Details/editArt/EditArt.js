@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./EditArt.css";
-import urlApi from "../../configAPI/UrlApi";
+import urlApi from "../../../configAPI/UrlApi";
 import { Icon } from "react-materialize";
 import axios from "axios";
 import InputLabel from "@mui/material/InputLabel";

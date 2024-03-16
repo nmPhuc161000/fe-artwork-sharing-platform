@@ -3,7 +3,7 @@ import "./Favourites.css";
 import userEvent from "@testing-library/user-event";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import urlApi from "../../../configAPI/UrlApi";
+import urlApi from "../../../../configAPI/UrlApi";
 
 export default function Favourites() {
   const [favourites, setFavourites] = useState([]);

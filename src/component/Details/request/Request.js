@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Request.css";
-import urlApi from "../../configAPI/UrlApi";
+import urlApi from "../../../configAPI/UrlApi";
 import axios from "axios";
 import Sent from "./sent/Sent";
 
