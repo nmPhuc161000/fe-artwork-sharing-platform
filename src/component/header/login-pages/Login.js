@@ -36,7 +36,7 @@ export default function Login() {
       console.log(response.data.userInfo.roles);
       const previousPath = localStorage.getItem("redirectPath");
       if (response.data.userInfo.roles.includes("ADMIN")) {
-        navigate("/home-admin");
+        navigate("/home-admin/dashboard");
       } else if (response.data.userInfo.roles.includes("CREATOR")) {
         navigate(previousPath || "/");
         localStorage.removeItem("redirectPath");

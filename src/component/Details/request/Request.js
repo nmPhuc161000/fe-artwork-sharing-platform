@@ -157,7 +157,7 @@ export default function Request({ userById }) {
                         onChange={(e) => handleText(e.target.value)}
                       />
                     </section>
-                    <section style={{ textAlign: "right" }}>
+                    <section style={{ textAlign: "right", marginBottom: "20px" }}>
                       <button
                         onClick={() => handleNewRequest("notMail")}
                         className={currentTab === "newRequest" ? "notMail" : ""}
