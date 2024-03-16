@@ -5,7 +5,7 @@ import SearchBar from "./search/searchbar/SearchBar";
 import Avatar from "./avtaruser/Avatar";
 import Order from "./order/Order";
 
-export default function Header({ isLoginPage, isRegisterPage,isRecoveryPage, isEmailOTP }) {
+export default function Header({ isLoginPage, isRegisterPage,isRecoveryPage, isEmailOTP, isHomeAdmin }) {
   const urlLogo = "https://firebasestorage.googleapis.com/v0/b/artwork-platform.appspot.com/o/logo%2Ffeed6075-55fd-4fb3-98d4-946d30029eda?alt=media&token=a3dd9363-73f3-4aec-ae32-264c761a0c0f";
 
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -15,7 +15,7 @@ export default function Header({ isLoginPage, isRegisterPage,isRecoveryPage, isE
       setIsLoggedIn(false);
     }
   }, []);
-  if (isLoginPage || isRegisterPage || isRecoveryPage || isEmailOTP) { // Ẩn header nếu là trang Login hoặc Register
+  if (isLoginPage || isRegisterPage || isRecoveryPage || isEmailOTP || isHomeAdmin) { // Ẩn header nếu là trang Login hoặc Register
     return null;
   }
 

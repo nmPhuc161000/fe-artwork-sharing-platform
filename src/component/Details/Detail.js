@@ -238,7 +238,7 @@ export default function Detail({ setUserById }) {
                 day: "numeric",
               })}
             </p>
-            {userData.userInfo?.fullName === itemData.user_Name && (
+            {userData.userInfo?.fullName === itemData.full_Name && (
               <div style={{ display: "flex", gap: "10px" }}>
                 <DeleteArt ID={ID} />
                 <EditArt itemData={itemData} />

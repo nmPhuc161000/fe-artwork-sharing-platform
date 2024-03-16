@@ -8,6 +8,7 @@ function ProfileNav() {
         <li><Link to="/profile/favourites">Favorites</Link></li>
         <li><Link to="/profile/shop">Shop</Link></li>
         <li><Link to="/profile/about">About</Link></li>
+        <li><Link to="/profile/mylog/:id">MyLog</Link></li>
       </ul>
     </nav>
   );

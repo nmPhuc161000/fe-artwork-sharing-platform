@@ -33,15 +33,16 @@ export default function Favourite({itemData}) {
         });
         console.log("Added to favorites successfully");
       } else {
-        await axios.delete(
-          `${urlApi}/api/Favourite/remove-artwork?favourite_Id=${dataFavourite.favourite_id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        console.log("Removed from favorites successfully");
+        // await axios.delete(
+        //   `${urlApi}/api/Favourite/remove-artwork?favourite_Id=${dataFavourite.favourite_id}`,
+        //   {
+        //     headers: {
+        //       Authorization: `Bearer ${token}`,
+        //     },
+        //   }
+        // );
+        // console.log("Removed from favorites successfully");
+        setIsFavorite(true);
       }
 
       const newFavoriteState = !isFavorite;

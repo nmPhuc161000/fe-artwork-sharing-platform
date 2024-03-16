@@ -3,6 +3,7 @@ import "./Order.css";
 import React, { useEffect, useRef, useState } from "react";
 import { Icon } from "react-materialize";
 import urlApi from "../../configAPI/UrlApi";
+import { useNavigate } from "react-router-dom";
 
 export default function Order() {
   const [open, setOpen] = useState(false);
@@ -58,6 +59,7 @@ export default function Order() {
   }, []);
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     const data = {
@@ -88,19 +90,19 @@ export default function Order() {
   }, []);
 
   const [selectedNotes, setSelectedNotes] = useState([]);
-
-const handleNoteClick = (note) => {
-  setUnreadCount(unreadCount - 1);
-  localStorage.setItem("unreadCount", unreadCount - 1);
-  setSelectedNotes([...selectedNotes, note.id]);
-};
-
+  const navigate = useNavigate();
+  const handleNoteClick = (note) => {
+    setUnreadCount(unreadCount - 1);
+    localStorage.setItem("unreadCount", unreadCount - 1);
+    setSelectedNotes([...selectedNotes, note.id]);
+    navigate(`/profile/mylog/${note.id}`);
+  };
 
   function formatTimeAgo(createdAt) {
     const timeDifference = new Date() - new Date(createdAt);
     const hours = Math.floor(timeDifference / (1000 * 60 * 60));
     return `${hours} hours ago`;
-}
+  }
   return (
     <div className="order-dropdown" ref={avatarRef}>
       <div className="order" onClick={() => setOpen(!open)}>
@@ -120,7 +122,9 @@ const handleNoteClick = (note) => {
                       <li
                         key={note.id}
                         id="li2"
-                        className={`liOrder ${selectedNotes.includes(note.id) ? 'selected' : ''}`}
+                        className={`liOrder ${
+                          selectedNotes.includes(note.id) ? "selected" : ""
+                        }`}
                         onClick={() => handleNoteClick(note)}
                       >
                         <div id="div1">
@@ -132,8 +136,7 @@ const handleNoteClick = (note) => {
                             />
                             <div style={{ marginLeft: "15px" }}>
                               <div style={{ textAlign: "left" }}>
-                                {formatTimeAgo(note.createdAt)
-                                }
+                                {formatTimeAgo(note.createdAt)}
                               </div>
                               <div style={{ textAlign: "left" }}>
                                 From: <strong>{note.fullName_Sender}</strong>
@@ -141,7 +144,7 @@ const handleNoteClick = (note) => {
                             </div>
                           </section>
                           <section>
-                            <p style={{ textAlign: "left" }}>{note.text}</p>
+                            <p style={{ textAlign: "left", maxWidth: "357.3px" }}>{note.text}</p>
                           </section>
                         </div>
                       </li>

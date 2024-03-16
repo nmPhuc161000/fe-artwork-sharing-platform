@@ -6,6 +6,7 @@ import { Shop } from "./profile-Nav/shop/Shop";
 import Favourites from "./profile-Nav/favourites/Favourites";
 import axios from "axios";
 import urlApi from "../configAPI/UrlApi";
+import Mylog from "./profile-Nav/mylog/Mylog";
 
 function Profile() {
   const [user, setUser] = useState([]);
@@ -39,6 +40,7 @@ function Profile() {
         <Route path="favourites" element={<Favourites />}></Route>
         <Route path="about" element={userInfor ? <About userInfor={userInfor} onUpdate={handleEditFilm}/> : null}/>
         <Route path="shop" element={<Shop />} />
+        <Route path="mylog/:id" element={<Mylog/>}></Route>
       </Routes>
     </div>
   );

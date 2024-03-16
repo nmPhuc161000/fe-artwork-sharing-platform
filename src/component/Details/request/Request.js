@@ -11,8 +11,8 @@ export default function Request({ userById }) {
   const [email, setEmail] = useState(username.email || "");
   const [phoneNo, setPhoneNo] = useState(username.phoneNumber || "");
   const [text, setText] = useState("");
-  const [updateData, setUpdateData] = useState([])
-  
+  const [updateData, setUpdateData] = useState([]);
+
   const token = localStorage.getItem("token");
 
   const handleTabClick = (tab) => {
@@ -21,9 +21,6 @@ export default function Request({ userById }) {
 
   const handleNewRequest = (tab) => {
     setMail(tab);
-    if (tab === "newRequest") {
-      userById.full_Name = "";
-    }
   };
 
   const handleEmail = (value) => {
@@ -47,7 +44,7 @@ export default function Request({ userById }) {
   const handleSend = async () => {
     try {
       if (!text) {
-        alert("Hãy nhập nội dung cần gửi trước khi gửi!!!")
+        alert("Hãy nhập nội dung cần gửi trước khi gửi!!!");
         return;
       }
       const response = await axios.post(
@@ -61,7 +58,7 @@ export default function Request({ userById }) {
         }
       );
 
-      console.log(response);
+      console.log(response.data);
       if (response.status === 200) {
         alert("Send successful!");
         setText("");
@@ -129,7 +126,7 @@ export default function Request({ userById }) {
           </div>
           <div className="box-request">
             <ul>
-                <Sent username={username} updateData={updateData}/>
+              <Sent username={username} updateData={updateData} />
             </ul>
             <div>
               {mail === "newRequest" ? (
@@ -156,6 +153,7 @@ export default function Request({ userById }) {
 
                       <textarea
                         placeholder="What's on your mind?"
+                        value={text}
                         onChange={(e) => handleText(e.target.value)}
                       />
                     </section>

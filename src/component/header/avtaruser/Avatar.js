@@ -18,7 +18,6 @@ const Avatar = () => {
     setOpen(false);
     navigate("/");
     window.location.reload();
-    
   };
 
   const handleProfileClick = () => {

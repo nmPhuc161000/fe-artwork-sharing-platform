@@ -92,9 +92,9 @@ function App() {
         <Route path="/regis" element={<Register />}></Route>
         <Route path="/searchlist" element={<SearchList />}></Route>
         {/* detail */}
-        <Route path="/detail/:ID" element={<Detail />}></Route>
-        <Route path="/payment/:imageUrl/:price" element={<Payment />}></Route>
-        <Route path="/request" element={<Request/>}></Route>
+        <Route path="/detail/:ID" element={<Detail setUserById={setUserById}/>}></Route>
+        <Route path="/payment/:imageUrl" element={<Payment />}></Route>
+        <Route path="/request" element={<Request userById={userById}/>}></Route>
         {/* profile */}
         <Route path="/profile/*" element={<Profile />}></Route>
         <Route path="/changepassword" element={<ChangePassword />}></Route>
