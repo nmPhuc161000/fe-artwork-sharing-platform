@@ -127,7 +127,7 @@ export const SearchList = () => {
                         <strong>{item.name}</strong>
                       </div>
                       <div>
-                        By <strong>{item.user_Name}</strong>
+                        By <strong>{item.full_Name}</strong>
                       </div>
                     </div>
                     <div className="cardPrice">

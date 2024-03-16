@@ -69,7 +69,7 @@
   height: 100%;
   width: 1080px;
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1.5fr 2fr;
   gap: 10px;
   margin-bottom: 20px;
 }
@@ -77,13 +77,16 @@
 .box-request ul {
   width: 100%;
   margin: 0;
+  max-height: 430px; /* Đặt chiều cao cố định */
+  overflow-y: auto;
+  box-shadow: 0 3px 20px 0 rgb(221 209 209 / 20%),
+    0 3px 20px 0 rgb(120 105 105 / 19%);
 }
 
 .box-request ul li {
-  width: 100%;
   box-shadow: 0 3px 20px 0 rgb(221 209 209 / 20%),
     0 3px 20px 0 rgb(120 105 105 / 19%);
-    margin-bottom: 15px;
+    margin: 15px;
 }
 
 .box-request ul #li1 {

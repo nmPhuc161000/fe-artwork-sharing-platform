@@ -40,7 +40,7 @@ export const Shop = () => {
       {/* hàm tạo ảnh và thêm thông tin */}
       <div className="content">
         <div className="commissions">
-          <span>Commissions</span>
+          <span>Artwork</span>
         </div>
 
         <div className="container-fluid" style={{ height: "100%" }}>
@@ -88,7 +88,7 @@ export const Shop = () => {
                         <div>
                           By{" "}
                           <span style={{ fontWeight: "bold" }}>
-                            {item.user_Name}
+                            {item.full_Name}
                           </span>
                         </div>
                       </div>

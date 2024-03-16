@@ -43,11 +43,10 @@ export default function Login() {
       }
       const { newToken } = response.data;
       localStorage.setItem("token", newToken);
-      // axios.defaults.headers.common["Authorization"] = `Bearer ${newToken}`;
       alert("Login successful");
     } catch (error) {
       alert("Login fail! Please re-enter!!!");
-      console.error("An error occurred while sending the API request:", error.message);
+      console.error("An error occurred while sending the API request:", error.request);
       setLoginError(true);
     }
   };

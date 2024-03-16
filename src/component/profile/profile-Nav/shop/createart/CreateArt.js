@@ -132,7 +132,7 @@ export default function CreateArt({ onCreate }) {
               <div>
                 <Icon>add</Icon>
               </div>
-              <span>Create a new commission</span>
+              <span>Create a new artwork</span>
               <p>
                 Offer custom creations directly to deviants who love your style.
               </p>
