@@ -18,73 +18,59 @@ import Request from "./component/Details/request/Request";
 
 function App() {
   const location = useLocation();
-  const [isLoginPage, setIsLoginPage] = useState(
-    location.pathname === "/login"
-  );
-  const [isRegisterPage, setIsRegisterPage] = useState(
-    location.pathname === "/regis"
-  );
-  const [isRecoveryPage, setIsRecoveryPage] = useState(
-    location.pathname === "/recovery-password"
-  );
-  const [isEmailOTP, setIsEmailOTP] = useState(
-    location.pathname === "/emailOTP"
-  );
-  const [isHomeAdmin, setIsHomeAdmin] = useState(
-    location.pathname === "/home-admin"
-  );
-  const [isPayment, setIsPayment] = useState(
-    location.pathname === "/payment"
-  );
+  const [isLoginPage, setIsLoginPage] = useState(location.pathname === "/login");
+  const [isRegisterPage, setIsRegisterPage] = useState(location.pathname === "/regis");
+  const [isRecoveryPage, setIsRecoveryPage] = useState(location.pathname === "/recovery-password");
+  const [isEmailOTP, setIsEmailOTP] = useState(location.pathname === "/emailOTP");
+  const [isPayment, setIsPayment] = useState(location.pathname === "/payment");
   const [showFooter, setShowFooter] = useState(true);
   const [showHeader, setShowHeader] = useState(true);
+  const isHomeAdmin = location.pathname.startsWith("/home-admin");
+
   useEffect(() => {
     setIsLoginPage(location.pathname === "/login");
     setIsRegisterPage(location.pathname === "/regis");
     setIsRecoveryPage(location.pathname === "/recovery-password");
     setIsEmailOTP(location.pathname === "/emailOTP");
-    setIsHomeAdmin(location.pathname === "/home-admin");
     setIsPayment(location.pathname === "/payment");
   }, [location]);
 
   useEffect(() => {
-    setIsLoginPage(location.pathname === "/login");
     setShowFooter(
-      location.pathname !== "/login" &&
-      location.pathname !== "/regis" &&
-      location.pathname !== "/recovery-password" &&
-      location.pathname !== "/emailOTP" &&
-      location.pathname !== "/payment"
+      !isLoginPage &&
+      !isRegisterPage &&
+      !isRecoveryPage &&
+      !isEmailOTP &&
+      !isPayment &&
+      !isHomeAdmin
     );
     setShowHeader(
-      location.pathname !== "/login" &&
-        location.pathname !== "/regis" &&
-        location.pathname !== "/recovery-password"
+      !isLoginPage &&
+      !isRegisterPage &&
+      !isRecoveryPage &&
+      !isEmailOTP &&
+      !isHomeAdmin
     );
-    setIsRegisterPage(location.pathname === "/regis");
-    setIsHomeAdmin(location.pathname === "/home-admin");
-  }, [location]);
+  }, [location, isLoginPage, isRegisterPage, isRecoveryPage, isEmailOTP, isPayment, isHomeAdmin]);
 
   const [userById, setUserById] = useState([]);
   
   return (
     <div className="App">
-      {!isLoginPage &&
-        !isRegisterPage &&
-        !isRecoveryPage &&
-        !isEmailOTP &&
-        !isHomeAdmin && (
-          <Header
-            isLoginPage={isLoginPage}
-            isRegisterPage={isRegisterPage}
-            isRecoveryPage={isRecoveryPage}
-            isEmailOTP={isEmailOTP}
-            isHomeAdmin={isHomeAdmin}
-          />
-        )}
+      {showHeader && (
+        <Header
+          isLoginPage={isLoginPage}
+          isRegisterPage={isRegisterPage}
+          isRecoveryPage={isRecoveryPage}
+          isEmailOTP={isEmailOTP}
+          isHomeAdmin={isHomeAdmin}
+        />
+      )}
       <Routes>
-        <Route path="/" element={<Home />}> </Route>
-        <Route path="/home-admin" element={<HomeAdmin/>}></Route>
+        <Route path="/" element={<Home />}></Route>
+        {isHomeAdmin && (
+          <Route path="/home-admin/*" element={<HomeAdmin />}></Route>
+        )}
         {/* header */}
         <Route path="/login" element={<Login />}></Route>
         <Route path="/recovery-password" element={<RecoveryPassword />}></Route>
@@ -99,14 +85,16 @@ function App() {
         <Route path="/profile/*" element={<Profile />}></Route>
         <Route path="/changepassword" element={<ChangePassword />}></Route>
       </Routes>
-       {!isLoginPage && !isRegisterPage && !isRecoveryPage &&!isEmailOTP &&!isHomeAdmin && !isPayment && (
-      <Footer isLoginPage={isLoginPage}
-              isRegisterPage={isRegisterPage}
-              isRecoveryPage={isRecoveryPage}
-              isEmailOTP={isEmailOTP}
-              isHomeAdmin={isHomeAdmin}
-              isPayment={isPayment}
-      />)}
+      {showFooter && !isHomeAdmin && (
+        <Footer
+          isLoginPage={isLoginPage}
+          isRegisterPage={isRegisterPage}
+          isRecoveryPage={isRecoveryPage}
+          isEmailOTP={isEmailOTP}
+          isHomeAdmin={isHomeAdmin}
+          isPayment={isPayment}
+        />
+      )}
     </div>
   );
 }

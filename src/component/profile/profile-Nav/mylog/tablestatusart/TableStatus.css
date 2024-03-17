@@ -1,0 +1,7 @@
+.table thead{
+    height: 60px;
+}
+
+.table th, .table td{
+    text-align: center;
+}

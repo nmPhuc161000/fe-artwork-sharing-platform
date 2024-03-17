@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./CheckOrder.css";
 import axios from "axios";
-import urlApi from "../../../../configAPI/UrlApi";
+import urlApi from "../../../../../configAPI/UrlApi";
 import ButtonStatus from "./buttonStatus/ButtonStatus";
 
 export default function CheckOrder({ id }) {
@@ -25,7 +25,7 @@ export default function CheckOrder({ id }) {
       }
     };
     axiosData();
-  });
+  }, []);
   function formatTimeAgo(data) {
     const timeDifference = new Date() - new Date(data);
     const hours = Math.floor(timeDifference / (1000 * 60 * 60));
@@ -54,7 +54,7 @@ export default function CheckOrder({ id }) {
           <p>{dataRequestById.text}</p>
         </section>
       </div>
-        <ButtonStatus />
+        <ButtonStatus id= {id}/>
     </div>
   );
 }

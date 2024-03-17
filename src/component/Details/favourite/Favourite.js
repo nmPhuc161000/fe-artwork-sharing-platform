@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Favourite.css";
-import urlApi from '../../configAPI/UrlApi'
+import urlApi from '../../../configAPI/UrlApi'
 import { Icon } from "react-materialize";
 import axios from "axios";
 

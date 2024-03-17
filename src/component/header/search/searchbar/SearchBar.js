@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./SearchBar.css";
-import urlApi from "../../../configAPI/UrlApi";
+import urlApi from "../../../../configAPI/UrlApi";
 import { Icon } from "react-materialize";
 import axios from "axios";
 import InputLabel from "@mui/material/InputLabel";

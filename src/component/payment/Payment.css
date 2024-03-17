@@ -1,4 +1,4 @@
-.PaymentPage {
+/* .PaymentPage {
 	background-image: url("/public/assets/image/Land.png");
 	background-position: center;
 	background-size: cover;
@@ -8,14 +8,14 @@
 	height: 100vh;
 	position: relative;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 2);
-	color: white;
-}
+	color: black;
+} */
 
 .container-payment {
 	display: flex;
-  width: 100%; /* Chiều rộng 100% của phần tử chứa */
-  max-width: 1200px; /* Giới hạn chiều rộng tối đa */
-  margin: 0 auto; /* Canh giữa */
+  width: 100%; 
+  max-width: 1200px; 
+  margin: 0 auto;
   border: 1px solid #ccc;
   border-radius: 7px;
   background: transparent;
@@ -56,6 +56,7 @@
 
 .center {
 	width: 50%;
+	background-color: white;
 	border-right: 1px solid #ccc;
 	border-left: 1px solid #ccc;
 	height: 90vh;
@@ -83,6 +84,7 @@
 }
 
 .right {
+	background-color: #ccc;
 	align-items: center;
 	justify-content: center;
 	padding: 15px;

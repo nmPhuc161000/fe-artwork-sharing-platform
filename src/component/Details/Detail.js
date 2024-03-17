@@ -3,7 +3,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Icon, Modal, Button, Textarea } from "react-materialize";
 import { Link } from "react-router-dom";
 import "./Detail.css";
-import urlApi from "../configAPI/UrlApi";
+import urlApi from "../../configAPI/UrlApi";
 import axios from "axios";
 import EditArt from "./editArt/EditArt";
 import DeleteArt from "./deleteArt/DeleteArt";

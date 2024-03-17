@@ -111,7 +111,6 @@
 }
 
 .boxRequest-mail {
-  height: 430px;
   width: 100%;
   box-shadow: 0 3px 20px 0 rgb(221 209 209 / 20%),
     0 3px 20px 0 rgb(120 105 105 / 19%);
@@ -124,6 +123,6 @@
   resize: vertical;
   border: none;
   outline: none;
-  height: 165px;
+  height: 177px;
   margin-top: 15px;
 }

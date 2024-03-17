@@ -5,7 +5,7 @@ import About from "./profile-Nav/about/About";
 import { Shop } from "./profile-Nav/shop/Shop";
 import Favourites from "./profile-Nav/favourites/Favourites";
 import axios from "axios";
-import urlApi from "../configAPI/UrlApi";
+import urlApi from "../../configAPI/UrlApi";
 import Mylog from "./profile-Nav/mylog/Mylog";
 
 function Profile() {

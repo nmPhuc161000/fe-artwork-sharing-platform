@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./AvatarAdmin.css";
-import urlApi from "../../configAPI/UrlApi";
+import urlApi from "../../../configAPI/UrlApi";
 import { Icon } from "react-materialize";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";

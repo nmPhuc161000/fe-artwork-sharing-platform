@@ -2,7 +2,7 @@ import React from "react";
 import "./DeleteSent.css";
 import { Icon } from "react-materialize";
 import axios from "axios";
-import urlApi from "../../../../configAPI/UrlApi";
+import urlApi from "../../../../../configAPI/UrlApi";
 
 export default function DeleteSent({ note, setUpdateDe }) {
   const token = localStorage.getItem("token");

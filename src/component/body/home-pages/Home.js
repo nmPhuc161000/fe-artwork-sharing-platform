@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Home.css";
-import urlApi from '../../configAPI/UrlApi'
+import urlApi from '../../../configAPI/UrlApi'
 import axios from "axios";
 import Slider from "react-slick";
 import { ListArtwork } from "../list-artwork/ListArtwork";

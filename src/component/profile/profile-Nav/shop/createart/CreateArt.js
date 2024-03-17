@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./CreatrArt.css";
-import urlApi from "../../../../configAPI/UrlApi";
+import urlApi from "../../../../../configAPI/UrlApi";
 import { Icon } from "react-materialize";
 import axios from "axios";
 import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
@@ -196,7 +196,7 @@ export default function CreateArt({ onCreate }) {
               <div className="popupInput">
                 <input
                   type="text"
-                  placeholder="Enter price of artwork"
+                  placeholder="Enter price of artwork (K vnd)"
                   onChange={(e) => handlePrice(e.target.value)}
                 />
               </div>
