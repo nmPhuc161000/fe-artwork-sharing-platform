@@ -23,7 +23,8 @@ export default function Favourites() {
     };
 
     favouritesData();
-  });
+  },[]);
+  const [hoveredItem, setHoveredItem] = useState(null);
   return (
     <div className="favourite">
       {/* hàm tạo ảnh và thêm thông tin */}
@@ -33,64 +34,91 @@ export default function Favourites() {
         </div>
 
         <div className="container-fluid" style={{ height: "100%" }}>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
-              gap: "15px",
-              justifyContent: "center", // Để căn giữa
-              width: "100%",
-              height: "100%",
-              margin: "0 auto", // Để thẻ div nằm giữa trang
-            }}
-          >
-            {favourites.map((item) => (
-              <div key={item.id}>
-                <Link
-                  to={item && item.artwork_Id ? `/detail/${item.artwork_Id}` : "/fallback-path"}
-                  style={{ color: "black" }}
-                >
+        <div
+          className="row-art"
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            flexDirection: "row",
+            width: "93%",
+          }}
+        >
+          {favourites.map((item) => (
+            <Link
+              to={item && item.id ? `/detail/${item.id}` : "/fallback-path"}
+              style={{ color: "black", display: "block" }}
+            >
+              <div
+                key={item.id}
+                className="col-art"
+                style={{ margin: "0 4px", position: "relative" }}
+                onMouseEnter={() => item && setHoveredItem(item)}
+                onMouseLeave={() => setHoveredItem(null)}
+              >
+                <img
+                  src={item.url_Image}
+                  alt=""
+                  style={{
+                    marginTop: "4px",
+                    maxWidth: "100%",
+                    height: "255px",
+                    objectFit: "cover",
+                  }}
+                />
+
+                {hoveredItem === item && (
                   <div
-                    className="cardShop"
+                    className="image-info"
                     style={{
-                      height: "365px",
-                      width: "auto",
-                      boxShadow:
-                        "3px 4px 2px 2px rgba(0, 0, 0, 0.1), 3px 6px 3px 6px rgba(0, 0, 0, 0.06)",
+                      backgroundColor: "rgba(0, 0, 0, 0.4)",
+                      padding: "8px",
+                      position: "absolute",
+                      bottom: "0",
+                      left: "0",
+                      right: "0",
+                      color: "white",
+                      height: "96.5%",
+                      marginBottom: "5px",
+                      display: "flex",
+                      alignItems: "flex-end",
+                      justifyContent: "space-between",
                     }}
                   >
-                    <div className="cardImg">
-                      <img
-                        src={item.url_Image}
-                        alt=""
-                        style={{ height: "95%", width: "100%" }}
-                      />
-                    </div>
-                    <div className="cardInfor">
-                      <div className="cardName">
-                        <div>
-                          <span style={{ fontWeight: "bold" }}>
-                            {item.name}
-                          </span>
-                        </div>
-                        <div>
-                          By{" "}
-                          <span style={{ fontWeight: "bold" }}>
-                            {item.user_Name}
-                          </span>
-                        </div>
-                      </div>
-                      <div className="cardPrice">
-                        <div>
-                          <strong>{item.price}</strong>
-                        </div>
-                      </div>
-                    </div>
+                    <section
+                      style={{
+                        margin: "10px",
+                      }}
+                    >
+                      <p>
+                        <span style={{ fontWeight: "bold" }}>
+                          {item && item.name}
+                        </span>
+                      </p>
+                      <p>
+                        By:{" "}
+                        <span style={{ fontWeight: "bold" }}>
+                          {item && item.full_Name}
+                        </span>
+                      </p>
+                    </section>
+                    <section
+                      style={{
+                        margin: "10px",
+                      }}
+                    >
+                      <p>
+                        <span style={{ fontWeight: "bold" }}>
+                          {item && item.price}
+                        </span>
+                        K vnd
+                      </p>
+                    </section>
                   </div>
-                </Link>
+                )}
               </div>
-            ))}
-          </div>
+            </Link>
+          ))}
+        </div>
         </div>
       </div>
     </div>

@@ -66,7 +66,7 @@ export default function CreateArt({ onCreate }) {
       alert("Vui lòng điền đầy đủ thông tin.");
       return;
     }
-
+setIsLoading(true);
     const imgRef = ref(imgDb, `/${v4()}`);
     const snapshot = await uploadBytes(imgRef, imageFile);
     const url = await getDownloadURL(snapshot.ref);
@@ -77,9 +77,8 @@ export default function CreateArt({ onCreate }) {
     formData.append("Description", description);
     formData.append("Price", price);
     formData.append("Url_Image", url); // Không cần thêm file và fileName
-
+    
     try {
-      setIsLoading(true);
       // Gửi yêu cầu POST đến API
       const response = await axios.post(
         `${urlApi}/api/Artwork/create`,
@@ -97,7 +96,7 @@ export default function CreateArt({ onCreate }) {
       setDescription("");
       setPrice("");
       setImageFile("");
-
+      setIsLoading(false);
       console.log("url", response.data);
       alert("Tạo thành công");
       navigate("/profile/shop");
@@ -109,8 +108,6 @@ export default function CreateArt({ onCreate }) {
       alert("Hãy kiểm tra lại thông tin nhập vào!");
       console.error("Đã có lỗi xảy ra khi gửi yêu cầu API:", error.message);
       console.log(formData);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -158,7 +155,7 @@ export default function CreateArt({ onCreate }) {
               <div className="popupInput">
                 <input
                   type="text"
-                  placeholder="Enter name of artwork"
+                  placeholder="Enter name of artwork *"
                   onChange={(e) => handleName(e.target.value)}
                 />
               </div>
@@ -168,14 +165,14 @@ export default function CreateArt({ onCreate }) {
                 style={{ margin: "0 0 5px 0", width: "100%" }}
               >
                 <InputLabel id="demo-simple-select-helper-label">
-                  Category
+                  Category *
                 </InputLabel>
                 <Select
                   labelId="demo-simple-select-helper-label"
                   id="demo-simple-select-helper"
                   value={categoryName}
                   onChange={handleCategoryName}
-                  label="Category"
+                  label="Category *"
                 >
                   <MenuItem value={"AI"}>AI</MenuItem>
                   <MenuItem value={"Fantasy"}>Fantasy</MenuItem>
@@ -189,14 +186,14 @@ export default function CreateArt({ onCreate }) {
               <div className="popupInput">
                 <input
                   type="text"
-                  placeholder="Enter description of artwork"
+                  placeholder="Enter description of artwork *"
                   onChange={(e) => handleDescription(e.target.value)}
                 />
               </div>
               <div className="popupInput">
                 <input
                   type="text"
-                  placeholder="Enter price of artwork (K vnd)"
+                  placeholder="Enter price of artwork (K vnd) *"
                   onChange={(e) => handlePrice(e.target.value)}
                 />
               </div>

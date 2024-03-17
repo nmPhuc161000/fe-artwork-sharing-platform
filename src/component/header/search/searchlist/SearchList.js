@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
 import "./SearchList.css";
 import InputLabel from "@mui/material/InputLabel";
@@ -12,7 +12,20 @@ export const SearchList = () => {
   const responseDataArray = Array.isArray(responseData) ? responseData : [];
   const [selectedCategory, setSelectedCategory] = useState(null);
   const categories = ["Dragon", "Galaxy", "AI", "Landscape", "Fantasy", "Home"];
-  const [sortBy, setSortBy] = useState(null); 
+  const [sortBy, setSortBy] = useState(null);
+  const [rowArtWidth, setRowArtWidth] = useState(0);
+
+  useEffect(() => {
+    const updateRowArtWidth = () => {
+      const rowArtElement = document.querySelector('.row-art');
+      if (rowArtElement) {
+        setRowArtWidth(rowArtElement.offsetWidth);
+      }
+    };
+    updateRowArtWidth();
+    window.addEventListener('resize', updateRowArtWidth);
+    return () => window.removeEventListener('resize', updateRowArtWidth);
+  }, []);
 
   const handleCategoryClick = (category) => {
     setSelectedCategory((prevCategory) =>
@@ -38,6 +51,8 @@ export const SearchList = () => {
     return 0; // Không sắp xếp
   });
 
+  const [hoveredItem, setHoveredItem] = useState(null);
+
   return (
     <div>
       <div
@@ -47,11 +62,15 @@ export const SearchList = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          height: "40px"
+          height: "40px",
         }}
       >
         <div style={{ width: "90%", height: "100%" }}>
-        <FormControl sx={{ m: 1, minWidth: 120, margin: 0}} style={{height: "100%"}} size="small">
+          <FormControl
+            sx={{ m: 1, minWidth: 120, margin: 0 }}
+            style={{ height: "100%" }}
+            size="small"
+          >
             <InputLabel id="demo-select-small-label">Sort Price</InputLabel>
             <Select
               labelId="demo-select-small-label"
@@ -60,7 +79,7 @@ export const SearchList = () => {
               label="Sort"
               onChange={handleSortByClick}
               sx={{ backgroundColor: "white" }}
-              style={{height: "100%"}}
+              style={{ height: "100%" }}
             >
               <MenuItem value={""}>None</MenuItem>
               <MenuItem value={"asc"}>Increase</MenuItem>
@@ -80,7 +99,7 @@ export const SearchList = () => {
                 padding: "5px 15px",
                 cursor: "pointer",
                 height: "100%",
-                fontSize: "17px"
+                fontSize: "17px",
               }}
             >
               {category}
@@ -89,57 +108,97 @@ export const SearchList = () => {
         </div>
       </div>
       <div
-        className="searchdropdown"
         style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(19%, 1fr))",
-          gap: "15px",
-          justifyContent: "center", // Để căn giữa
-          width: "90%",
-          margin: "0 auto", // Để thẻ div nằm giữa trang
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
-        {sortedItems
-          .map((item) => (
-            <div key={item.id} style={{ height: "365px" }}>
-              <Link
-                to={item && item.id ? `/detail/${item.id}` : "/fallback-path"}
-                style={{ color: "black" }}
+        <div
+          className="row-art"
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            flexDirection: "row",
+            width: "96%",
+          }}
+        >
+          {sortedItems.map((item) => (
+            <Link
+              to={item && item.id ? `/detail/${item.id}` : "/fallback-path"}
+              style={{ color: "black", display: "block" }}
+            >
+              <div
+                key={item.id}
+                className="col-art"
+                style={{ margin: "0 4px", position: "relative" }}
+                onMouseEnter={() => item && setHoveredItem(item)}
+                onMouseLeave={() => setHoveredItem(null)}
               >
-                {/* <CardHome item={item}/> */}
-                <div
-                  className="cardSearchList"
+                <img
+                  src={item.url_Image}
+                  alt=""
                   style={{
-                    boxShadow:
-                      "3px 4px 2px 2px rgba(0, 0, 0, 0.1), 3px 6px 3px 6px rgba(0, 0, 0, 0.06)",
+                    marginTop: "4px",
+                    maxWidth: rowArtWidth > 0 ? `${rowArtWidth / 3}px` : "100%",
+                    height: "255px",
+                    objectFit: "cover",
                   }}
-                >
-                  <div className="cardImg" style={{height:"75%", width:"100%"}}>
-                    <img
-                      src={item.url_Image}
-                      alt=""
-                      style={{ height: "100%", width: "100%" }}
-                    />
+                />
+
+                {hoveredItem === item && (
+                  <div
+                    className="image-info"
+                    style={{
+                      backgroundColor: "rgba(0, 0, 0, 0.4)",
+                      padding: "8px",
+                      position: "absolute",
+                      bottom: "0",
+                      left: "0",
+                      right: "0",
+                      color: "white",
+                      height: "96.5%",
+                      marginBottom: "5px",
+                      display: "flex",
+                      alignItems: "flex-end",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <section
+                      style={{
+                        margin: "10px",
+                      }}
+                    >
+                      <p>
+                        <span style={{ fontWeight: "bold" }}>
+                          {item && item.name}
+                        </span>
+                      </p>
+                      <p>
+                        By:{" "}
+                        <span style={{ fontWeight: "bold" }}>
+                          {item && item.full_Name}
+                        </span>
+                      </p>
+                    </section>
+                    <section
+                      style={{
+                        margin: "10px",
+                      }}
+                    >
+                      <p>
+                        <span style={{ fontWeight: "bold" }}>
+                          {item && item.price}
+                        </span>
+                        K vnd
+                      </p>
+                    </section>
                   </div>
-                  <div className="cardInfor">
-                    <div className="cardName">
-                      <div>
-                        <strong>{item.name}</strong>
-                      </div>
-                      <div>
-                        By <strong>{item.full_Name}</strong>
-                      </div>
-                    </div>
-                    <div className="cardPrice">
-                      <div>
-                        <strong>{item.price}</strong>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            </div>
+                )}
+              </div>
+            </Link>
           ))}
+        </div>
       </div>
     </div>
   );
