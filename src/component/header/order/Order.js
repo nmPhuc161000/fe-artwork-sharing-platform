@@ -98,6 +98,17 @@ export default function Order() {
     navigate(`/profile/mylog/${note.id}`);
   };
 
+  useEffect(() => {
+    const storedUnreadCount = localStorage.getItem("unreadCount");
+    if (storedUnreadCount) {
+      setUnreadCount(parseInt(storedUnreadCount));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("unreadCount", unreadCount); // Lưu giá trị `unreadCount` vào Local Storage mỗi khi nó thay đổi
+  }, [unreadCount]);
+
   function formatTimeAgo(createdAt) {
     const timeDifference = new Date() - new Date(createdAt);
     const hours = Math.floor(timeDifference / (1000 * 60 * 60));
@@ -144,7 +155,11 @@ export default function Order() {
                             </div>
                           </section>
                           <section>
-                            <p style={{ textAlign: "left", maxWidth: "357.3px" }}>{note.text}</p>
+                            <p
+                              style={{ textAlign: "left", maxWidth: "357.3px" }}
+                            >
+                              {note.text}
+                            </p>
                           </section>
                         </div>
                       </li>
