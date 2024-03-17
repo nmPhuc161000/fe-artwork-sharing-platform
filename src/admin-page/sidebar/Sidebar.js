@@ -44,7 +44,7 @@ export default function Sidebar() {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        height: "89%"
+        height: "90%"
       }}>
         <ul className="side-menu top">
           <li class="active">

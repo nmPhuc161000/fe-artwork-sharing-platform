@@ -1,7 +1,17 @@
-.table thead{
-    height: 60px;
+.table {
+    max-height: 445px;
+  overflow-y: auto;
+  position: relative;
+}
+
+.table thead th{
+    position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 2;
 }
 
 .table th, .table td{
     text-align: center;
 }
+

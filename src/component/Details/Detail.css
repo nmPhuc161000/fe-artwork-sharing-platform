@@ -13,6 +13,7 @@
   /* Hình ảnh sẽ không vượt quá kích thước của phần tử cha */
   height: 100%;
   /* Hình ảnh sẽ không vượt quá kích thước của phần tử cha */
+  object-fit: cover;
 }
 
 .container-card {

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -46,6 +45,7 @@ export default function Cancel({ item, isActive, isDeleted }) {
           },
         }
       );
+      window.location.reload();
       console.log(response);
       setOpen(false);
     } catch (error) {

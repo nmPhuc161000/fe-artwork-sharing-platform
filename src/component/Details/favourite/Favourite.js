@@ -6,8 +6,8 @@ import axios from "axios";
 
 export default function Favourite({itemData}) {
   const [isFavorite, setIsFavorite] = useState(false);
-  const [dataFavourite, setDataFavourite] = useState([]);
   const token = localStorage.getItem("token");
+  const id = localStorage.getItem("favouriteId")
 
   useEffect(() => {
     // Retrieve the saved favorite state from localStorage on component mount
@@ -29,20 +29,19 @@ export default function Favourite({itemData}) {
             },
           }
         ).then((response) => {
-          setDataFavourite(response);
+          localStorage.setItem("favouriteId", response.data.favouriteId);
         });
         console.log("Added to favorites successfully");
       } else {
-        // await axios.delete(
-        //   `${urlApi}/api/Favourite/remove-artwork?favourite_Id=${dataFavourite.favourite_id}`,
-        //   {
-        //     headers: {
-        //       Authorization: `Bearer ${token}`,
-        //     },
-        //   }
-        // );
-        // console.log("Removed from favorites successfully");
-        setIsFavorite(true);
+        await axios.delete(
+          `${urlApi}/api/Favourite/remove-artwork?favourite_Id=${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log("Removed from favorites successfully");
       }
 
       const newFavoriteState = !isFavorite;

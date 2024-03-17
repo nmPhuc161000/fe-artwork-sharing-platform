@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { CardHome } from "../cardhome/CardHome";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -9,7 +8,7 @@ import Select from "@mui/material/Select";
 export const ListArtwork = ({ itemData }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const categories = ["Dragon", "Galaxy", "AI", "Landscape", "Fantasy", "Home"];
-  const [sortBy, setSortBy] = useState(null); 
+  const [sortBy, setSortBy] = useState(null);
 
   const handleCategoryClick = (category) => {
     setSelectedCategory((prevCategory) =>
@@ -35,8 +34,15 @@ export const ListArtwork = ({ itemData }) => {
     return 0; // Không sắp xếp
   });
 
+  const [hoveredItem, setHoveredItem] = useState(null);
+
   return (
-    <div className="container-fluid">
+    <div
+      className="container-fluid"
+      style={{
+        boxSizing: "border-box",
+      }}
+    >
       <div
         className="category-bar"
         style={{
@@ -47,7 +53,11 @@ export const ListArtwork = ({ itemData }) => {
         }}
       >
         <div style={{ width: "90%", marginBottom: "5px", height: "40px" }}>
-          <FormControl sx={{ m: 1, minWidth: 120, margin: 0}} style={{height: "100%"}} size="small">
+          <FormControl
+            sx={{ m: 1, minWidth: 120, margin: 0 }}
+            style={{ height: "100%" }}
+            size="small"
+          >
             <InputLabel id="demo-select-small-label">Sort Price</InputLabel>
             <Select
               labelId="demo-select-small-label"
@@ -56,7 +66,7 @@ export const ListArtwork = ({ itemData }) => {
               label="Sort"
               onChange={handleSortByClick}
               sx={{ backgroundColor: "white" }}
-              style={{height: "100%"}}
+              style={{ height: "100%" }}
             >
               <MenuItem value={""}>None</MenuItem>
               <MenuItem value={"asc"}>Increase</MenuItem>
@@ -76,7 +86,7 @@ export const ListArtwork = ({ itemData }) => {
                 padding: "5px 15px",
                 cursor: "pointer",
                 height: "100%",
-                fontSize: "17px"
+                fontSize: "17px",
               }}
             >
               {category}
@@ -86,24 +96,96 @@ export const ListArtwork = ({ itemData }) => {
       </div>
       <div
         style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(19%, 1fr))",
-          gap: "15px",
-          justifyContent: "center", // Để căn giữa
-          width: "90%",
-          margin: "0 auto", // Để thẻ div nằm giữa trang
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
-        {sortedItems.map((item) => (
-          <div key={item.id} style={{ height: "365px" }}>
+        <div
+          className="row-art"
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            flexDirection: "row",
+            width: "93%",
+          }}
+        >
+          {sortedItems.map((item) => (
             <Link
               to={item && item.id ? `/detail/${item.id}` : "/fallback-path"}
-              style={{ color: "black" }}
+              style={{ color: "black", display: "block" }}
             >
-              <CardHome item={item} />
+              <div
+                key={item.id}
+                className="col-art"
+                style={{ margin: "0 4px", position: "relative" }}
+                onMouseEnter={() => item && setHoveredItem(item)}
+                onMouseLeave={() => setHoveredItem(null)}
+              >
+                <img
+                  src={item.url_Image}
+                  alt=""
+                  style={{
+                    marginTop: "4px",
+                    maxWidth: "100%",
+                    height: "255px",
+                    objectFit: "cover",
+                  }}
+                />
+
+                {hoveredItem === item && (
+                  <div
+                    className="image-info"
+                    style={{
+                      backgroundColor: "rgba(0, 0, 0, 0.4)",
+                      padding: "8px",
+                      position: "absolute",
+                      bottom: "0",
+                      left: "0",
+                      right: "0",
+                      color: "white",
+                      height: "96.5%",
+                      marginBottom: "5px",
+                      display: "flex",
+                      alignItems: "flex-end",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <section
+                      style={{
+                        margin: "10px",
+                      }}
+                    >
+                      <p>
+                        <span style={{ fontWeight: "bold" }}>
+                          {item && item.name}
+                        </span>
+                      </p>
+                      <p>
+                        By:{" "}
+                        <span style={{ fontWeight: "bold" }}>
+                          {item && item.full_Name}
+                        </span>
+                      </p>
+                    </section>
+                    <section
+                      style={{
+                        margin: "10px",
+                      }}
+                    >
+                      <p>
+                        <span style={{ fontWeight: "bold" }}>
+                          {item && item.price}
+                        </span>
+                        K vnd
+                      </p>
+                    </section>
+                  </div>
+                )}
+              </div>
             </Link>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
