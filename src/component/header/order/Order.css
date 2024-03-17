@@ -8,7 +8,7 @@
   cursor: pointer;
 }
 
-.badge{
+.badge {
   width: 25px;
   height: 25px;
   position: absolute;
@@ -19,8 +19,8 @@
   border-radius: 50%;
   font-size: 12px;
   display: flex;
-    align-items: center;
-    justify-content: center;
+  align-items: center;
+  justify-content: center;
 }
 
 .order-dropdown .dropdown {
@@ -34,6 +34,7 @@
   border-radius: 5px;
   max-height: 400px; /* Đặt chiều cao cố định */
   overflow-y: auto;
+  z-index: 3;
 }
 
 .order-dropdown .dropdown li {

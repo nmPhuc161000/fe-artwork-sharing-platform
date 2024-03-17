@@ -57,8 +57,6 @@ export default function Request({ userById }) {
           },
         }
       );
-
-      console.log(response.data);
       if (response.status === 200) {
         alert("Send successful!");
         setText("");

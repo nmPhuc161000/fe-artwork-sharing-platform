@@ -32,6 +32,7 @@ export default function ButtonStatus({ id }) {
         }
       );
       console.log(response);
+      alert("Accept request successful!")
     } catch (error) {
       console.log(error.request);
     }

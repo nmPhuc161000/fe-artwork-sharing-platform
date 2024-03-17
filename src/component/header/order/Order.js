@@ -98,17 +98,6 @@ export default function Order() {
     navigate(`/profile/mylog/${note.id}`);
   };
 
-  useEffect(() => {
-    const storedUnreadCount = localStorage.getItem("unreadCount");
-    if (storedUnreadCount) {
-      setUnreadCount(parseInt(storedUnreadCount));
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("unreadCount", unreadCount); // Lưu giá trị `unreadCount` vào Local Storage mỗi khi nó thay đổi
-  }, [unreadCount]);
-
   function formatTimeAgo(createdAt) {
     const timeDifference = new Date() - new Date(createdAt);
     const hours = Math.floor(timeDifference / (1000 * 60 * 60));
@@ -117,7 +106,7 @@ export default function Order() {
   return (
     <div className="order-dropdown" ref={avatarRef}>
       <div className="order" onClick={() => setOpen(!open)}>
-        <Icon style={{ width: "100%", fontSize: "30px" }}>
+        <Icon style={{ width: "50px", fontSize: "30px" }}>
           notificationsactive
         </Icon>
         {unreadCount > 0 && <div className="badge">{unreadCount}</div>}
@@ -155,11 +144,7 @@ export default function Order() {
                             </div>
                           </section>
                           <section>
-                            <p
-                              style={{ textAlign: "left", maxWidth: "357.3px" }}
-                            >
-                              {note.text}
-                            </p>
+                            <p style={{ textAlign: "left", maxWidth: "357.3px" }}>{note.text}</p>
                           </section>
                         </div>
                       </li>
@@ -178,3 +163,4 @@ export default function Order() {
     </div>
   );
 }
+

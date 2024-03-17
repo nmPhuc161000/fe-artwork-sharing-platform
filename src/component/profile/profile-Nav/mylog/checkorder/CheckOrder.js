@@ -31,6 +31,14 @@ export default function CheckOrder({ id }) {
     const hours = Math.floor(timeDifference / (1000 * 60 * 60));
     return `${hours} hours ago`;
   }
+
+  const getStatus = (isActive, isDeleted) => {
+    if (isDeleted) {
+      return "Bị từ chối";
+    } else {
+      return !isActive ? "Được chấp nhận" : "Đang xử lý";
+    }
+  };
   return (
     <div className="checkorder">
       <div className="title">
@@ -45,6 +53,9 @@ export default function CheckOrder({ id }) {
         <section>
           <p style={{ textAlign: "right" }}>
             {formatTimeAgo(dataRequestById.createdAt)}
+          </p>
+          <p style={{ textAlign: "right" }}>
+          {getStatus(dataRequestById.isActive, dataRequestById.isDeleted)}
           </p>
         </section>
       </div>
