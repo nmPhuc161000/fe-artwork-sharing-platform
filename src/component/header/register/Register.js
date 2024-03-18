@@ -15,6 +15,7 @@ export default function Register() {
   const [address, setAddress] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [inputType, setInputType] = useState("password");
+  const [isLoading, setIsLoading] = useState(false);
 
   const urlLogo =
     "https://firebasestorage.googleapis.com/v0/b/artwork-platform.appspot.com/o/logo%2Ffeed6075-55fd-4fb3-98d4-946d30029eda?alt=media&token=a3dd9363-73f3-4aec-ae32-264c761a0c0f";
@@ -54,7 +55,7 @@ export default function Register() {
       alert("Vui lòng điền đầy đủ thông tin.");
       return;
     }
-
+    setIsLoading(true);
     const data = {
       UserName: userName,
       FullName: fullName,
@@ -76,9 +77,9 @@ export default function Register() {
       alert(response.data);
     } catch (error) {
       // Xử lý lỗi
-      alert(error.response.data);
+      alert(error.message);
       console.error("Đã có lỗi xảy ra khi gửi yêu cầu API:", error);
-      console.log(data);
+      console.log(error.message);
     }
   };
 
@@ -147,7 +148,7 @@ export default function Register() {
           </div>
           <div className="signUp">
             <button type="submit" onClick={() => handleSave()}>
-              Create
+              <span>{isLoading ? "Regis..." : "Regis"}</span>
             </button>
           </div>
           <div className="loginInRegis">

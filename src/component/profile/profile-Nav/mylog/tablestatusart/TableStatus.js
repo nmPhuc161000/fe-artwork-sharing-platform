@@ -1,13 +1,24 @@
 import React, { useEffect, useState } from "react";
-import './TableStatus.css';
+import "./TableStatus.css";
 import axios from "axios";
 import urlApi from "../../../../../configAPI/UrlApi";
 import { Checkbox, Icon } from "react-materialize";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Slide from "@mui/material/Slide";
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 export default function TableStatus() {
   const [artworks, setArtworks] = useState([]);
   const [selectedArtworks, setSelectedArtworks] = useState([]);
   const [isAnyArtworkSelected, setIsAnyArtworkSelected] = useState(false);
+  const [open, setOpen] = React.useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -43,6 +54,13 @@ export default function TableStatus() {
       return isActive ? "Được chấp nhận" : "Đang xử lý";
     }
   };
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handleSelectArtwork = (artworkId) => {
     const isSelected = selectedArtworks.includes(artworkId);
@@ -67,6 +85,7 @@ export default function TableStatus() {
         }
       );
       console.log(response.data);
+      setOpen(false);
     } catch (error) {
       console.error(error.request);
     }
@@ -82,16 +101,39 @@ export default function TableStatus() {
             <th>Price</th>
             <th>Reason Refuse</th>
             <th>Status</th>
-            <th style={{
-                width: "85px"
-            }}>
+            <th
+              style={{
+                width: "85px",
+              }}
+            >
               {isAnyArtworkSelected ? (
-                <Icon
-                  onClick={handleDeleteSelectedArtworks}
-                  style={{ cursor: "pointer" }}
-                >
-                  delete
-                </Icon>
+                <React.Fragment>
+                  <Icon onClick={handleClickOpen} style={{ cursor: "pointer" }}>
+                    delete
+                  </Icon>
+                  <Dialog
+                    open={open}
+                    TransitionComponent={Transition}
+                    keepMounted
+                    onClose={handleClose}
+                    aria-describedby="alert-dialog-slide-description"
+                  >
+                    <DialogTitle>
+                      {"Delete Artwork"}
+                    </DialogTitle>
+                    <DialogContent>
+                      <DialogContentText id="alert-dialog-slide-description">
+                        Are you want to delete this artwork ?
+                      </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                      <Button onClick={handleClose}>Disagree</Button>
+                      <Button onClick={handleDeleteSelectedArtworks}>
+                        Delete
+                      </Button>
+                    </DialogActions>
+                  </Dialog>
+                </React.Fragment>
               ) : (
                 "Select"
               )}

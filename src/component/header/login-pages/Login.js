@@ -12,6 +12,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loginError, setLoginError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -27,6 +28,7 @@ export default function Login() {
   const navigate = useNavigate();
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsLoading(true);
     try {
       const response = await axios.post(`${urlApi}/api/Auth/login`, {
         username,
@@ -44,6 +46,7 @@ export default function Login() {
       const { newToken } = response.data;
       localStorage.setItem("token", newToken);
       alert("Login successful");
+      setIsLoading(false);
     } catch (error) {
       alert("Login fail! Please re-enter!!!");
       console.error("An error occurred while sending the API request:", error.request);
@@ -87,7 +90,7 @@ export default function Login() {
             <Link to="/recovery-password">Quên mật khẩu?</Link>
           </div>
           <div className="signIn">
-            <button type="submit">Login</button>
+            <button type="submit"><span>{isLoading ? "Login..." : "Login"}</span></button>
           </div>
           <div className="signUp">
             <h6>Bạn chưa có tài khoản?</h6>
