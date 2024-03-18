@@ -6,6 +6,7 @@ import HeaderAdmin from '../headeradmin/HeaderAdmin';
 import './HomeAdmin.css'
 import { Routes, Route } from 'react-router-dom';
 import Product from '../product/Product';
+import Creator from '../creator/Creator';
 
 export default function HomeAdmin() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -32,6 +33,7 @@ export default function HomeAdmin() {
       <Routes>
         <Route path='dashboard' element={<Admin />}/>
         <Route path='product' element={<Product/>}/>
+        <Route path='creator' element={<Creator/>}/>
       </Routes>
       
     </div>

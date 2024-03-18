@@ -13,14 +13,15 @@
 
 .container-payment {
 	display: flex;
-  width: 100%; 
-  max-width: 1200px; 
-  margin: 0 auto;
-  border: 1px solid #ccc;
-  border-radius: 7px;
-  background: transparent;
-  backdrop-filter: blur(100px);
+	width: 100%;
+	max-width: 1200px;
+	margin: 0 auto;
+	border: 1px solid #ccc;
+	border-radius: 7px;
+	background: transparent;
+	backdrop-filter: blur(100px);
 }
+
 .methods {
 	padding: 10px 0;
 }
@@ -70,13 +71,18 @@
 	justify-content: center;
 	align-items: center;
 }
+
 .right p {
 	font-weight: bold;
 }
+
 .right .price-info p {
-	font-size: 18px; /* Kích thước chữ */
-	font-weight: bold; /* Độ đậm */
-	text-transform: uppercase; /* Chuyển đổi sang chữ in hoa */
+	font-size: 18px;
+	/* Kích thước chữ */
+	font-weight: bold;
+	/* Độ đậm */
+	text-transform: uppercase;
+	/* Chuyển đổi sang chữ in hoa */
 }
 
 .details {
@@ -91,10 +97,11 @@
 	flex-direction: column;
 	flex: 1;
 }
-  
+
 
 .card-details {
 	padding: 0 80px;
+	margin-top: 100px;
 }
 
 .card-details .c-number {
@@ -122,7 +129,7 @@
 	margin: 10px 0;
 }
 
-.c-details .cc-exp,
+/* .c-details .cc-exp,
 .c-details .cvv-box {
 	border: 1px solid #aaa;
 	margin-top: 10px;
@@ -132,14 +139,14 @@
 	display: flex;
 	justify-content: space-between;
 	width: 108px;
-}
+} */
 
 .card-details button {
-	width: 100%;
+	width: 100%;;
 	border: none;
 	height: 50px;
 	border-radius: 3px;
-	margin-top: 30px;
+	margin-top: 100px;
 	font-size: 18px;
 	color: #444;
 	background-color: greenyellow;
@@ -163,20 +170,38 @@
 	height: 50px;
 	margin-top: 10px;
 }
+
 .details-img {
 	width: 100%;
-    height: 400px;
+	height: 400px;
 }
+
 .details-img img {
 	width: 100%;
-    height: 400px;
+	height: 400px;
 	object-fit: scale-down;
-    object-position: 50%;
+	object-position: 50%;
 }
 
 .total {
 	display: flex;
 	align-items: center;
-	justify-content: space-between; /* Đẩy phần tử sang hai bên */
+	justify-content: space-between;
+	/* Đẩy phần tử sang hai bên */
 	margin-top: 50px;
+}
+
+.center .name {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.center .pay button {
+	background: none;
+	font-weight: bold; /* Làm cho chữ đậm */
+	max-width: 120px;
+	/* Đặt giới hạn chiều rộng tối đa cho nút */
+}
+
+.zalopay-logo {
+	width: 100%;
 }

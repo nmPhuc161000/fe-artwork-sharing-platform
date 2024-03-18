@@ -22,7 +22,6 @@ function App() {
   const [isRegisterPage, setIsRegisterPage] = useState(location.pathname === "/regis");
   const [isRecoveryPage, setIsRecoveryPage] = useState(location.pathname === "/recovery-password");
   const [isEmailOTP, setIsEmailOTP] = useState(location.pathname === "/emailOTP");
-  const [isPayment, setIsPayment] = useState(location.pathname === "/payment");
   const [showFooter, setShowFooter] = useState(true);
   const [showHeader, setShowHeader] = useState(true);
   const isHomeAdmin = location.pathname.startsWith("/home-admin");
@@ -32,7 +31,6 @@ function App() {
     setIsRegisterPage(location.pathname === "/regis");
     setIsRecoveryPage(location.pathname === "/recovery-password");
     setIsEmailOTP(location.pathname === "/emailOTP");
-    setIsPayment(location.pathname === "/payment");
   }, [location]);
 
   useEffect(() => {
@@ -41,7 +39,6 @@ function App() {
       !isRegisterPage &&
       !isRecoveryPage &&
       !isEmailOTP &&
-      !isPayment &&
       !isHomeAdmin
     );
     setShowHeader(
@@ -51,7 +48,7 @@ function App() {
       !isEmailOTP &&
       !isHomeAdmin
     );
-  }, [location, isLoginPage, isRegisterPage, isRecoveryPage, isEmailOTP, isPayment, isHomeAdmin]);
+  }, [location, isLoginPage, isRegisterPage, isRecoveryPage, isEmailOTP, isHomeAdmin]);
 
   const [userById, setUserById] = useState([]);
   
@@ -92,7 +89,6 @@ function App() {
           isRecoveryPage={isRecoveryPage}
           isEmailOTP={isEmailOTP}
           isHomeAdmin={isHomeAdmin}
-          isPayment={isPayment}
         />
       )}
     </div>
