@@ -19,7 +19,8 @@ export default function DeleteSent({ note, setUpdateDe }) {
       console.log(response);
       setUpdateDe(response);
     } catch (error) {
-        console.error(error.message);
+        console.error(error.response.data);
+        alert(error.response.data)
     }
   };
   return (

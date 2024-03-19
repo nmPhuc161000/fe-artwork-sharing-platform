@@ -28,6 +28,12 @@ export default function Login() {
   const navigate = useNavigate();
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if(!username || !password){
+      alert("Please enter complete information");
+      setIsLoading(false);
+      return;
+    }
+    event.preventDefault();
     setIsLoading(true);
     try {
       const response = await axios.post(`${urlApi}/api/Auth/login`, {
@@ -48,8 +54,8 @@ export default function Login() {
       alert("Login successful");
       setIsLoading(false);
     } catch (error) {
-      alert("Login fail! Please re-enter!!!");
-      console.error("An error occurred while sending the API request:", error.request);
+      alert(error.response.data);
+      console.error("An error occurred while sending the API request:", error.response.data);
       setLoginError(true);
     }
   };

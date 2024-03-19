@@ -1,17 +1,21 @@
 .table {
-    max-height: 445px;
+  max-height: 445px;
   overflow-y: auto;
   position: relative;
 }
 
-.table thead th{
-    position: sticky;
+.table table{
+  table-layout: fixed;
+}
+
+.table thead th {
+  position: sticky;
   top: 0;
   background-color: white;
-  z-index: 2;
+  z-index: 1;
 }
 
-.table th, .table td{
-    text-align: center;
+.table th,
+.table td {
+  text-align: center;
 }
-

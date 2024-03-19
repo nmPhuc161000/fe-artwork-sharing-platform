@@ -29,7 +29,7 @@ function Footer({ isLoginPage, isRegisterPage,isRecoveryPage, isEmailOTP, isPaym
           </ul>
         </div>
         <div className="footer-col">
-          <h4>Contact us.</h4>
+          <h4>Contact us</h4>
           <ul>
             <li><p>Address: Lô E2a-7, Đường D1, Đ. D1, Long Thạnh Mỹ, Thành Phố Thủ Đức, Thành phố Hồ Chí Minh 700000</p></li>
             <li><p>Phone No: +84 123 456789</p></li>

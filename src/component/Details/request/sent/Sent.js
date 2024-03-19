@@ -4,8 +4,8 @@ import urlApi from "../../../../configAPI/UrlApi";
 import axios from "axios";
 import DeleteSent from "./deleteSent/DeleteSent";
 
-export default function Sent({username, updateData}) {
-    const [hasData, setHasData] = useState(false);
+export default function Sent({ username, updateData }) {
+  const [hasData, setHasData] = useState(false);
   const [sent, setSent] = useState([]);
   const token = localStorage.getItem("token");
   const [updateDe, setUpdateDe] = useState([]);
@@ -37,6 +37,15 @@ export default function Sent({username, updateData}) {
         });
     }
   }, [updateData, updateDe]);
+
+  const getStatus = (isActive, isDeleted) => {
+    if (isDeleted) {
+      return "Bị từ chối";
+    } else {
+      return !isActive ? "Được chấp nhận" : "Đang xử lý";
+    }
+  };
+
   return (
     <React.Fragment>
       {hasData && sent.length > 0 ? (
@@ -44,16 +53,29 @@ export default function Sent({username, updateData}) {
           {sent.map((note) => (
             <li key={note} className="liSent">
               <div id="div1">
-                <section style={{display: "flex"}}>
-                  <img src={urlNoAva} alt="" style={{marginTop: "10px"}}/>
-                  <div style={{ margin: "0 0 0 12px" }}>
-                    <section style={{textAlign: "left"}}>From: <strong>{username.fullName}</strong></section>
-                    <section style={{textAlign: "left"}}>To: <strong>{note.fullName_Receivier}</strong></section>
+                <section style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                  <div style={{ display: "flex"}}>
+                    <img src={urlNoAva} alt="" style={{ marginTop: "10px" }} />
+                    <div style={{ margin: "0 0 0 12px" }}>
+                      <section style={{ textAlign: "left" }}>
+                        From: <strong>{username.nickName}</strong>
+                      </section>
+                      <section style={{ textAlign: "left" }}>
+                        To: <strong>{note.fullName_Receivier}</strong>
+                      </section>
+                    </div>
                   </div>
+                  <div><strong>{getStatus(note.isActive, note.isDeleted)}</strong></div>
                 </section>
-                <section style={{display: "flex", alignItems: "center", justifyContent: "space-between"}} >
-                  <p style={{textAlign: "left"}}>{note.text}</p>
-                  <DeleteSent note={note} setUpdateDe={setUpdateDe}/>
+                <section
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <p style={{ textAlign: "left" }}>{note.text}</p>
+                  <DeleteSent note={note} setUpdateDe={setUpdateDe} />
                 </section>
               </div>
             </li>

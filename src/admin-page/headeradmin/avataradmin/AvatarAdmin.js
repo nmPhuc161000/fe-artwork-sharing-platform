@@ -54,7 +54,7 @@ const Avatar = () => {
           const userInfo = response.data.userInfo;
           localStorage.setItem('user', JSON.stringify(userInfo))
 
-          setUsername(userInfo.fullName);
+          setUsername(userInfo.nickName);
         })
         .catch((error) => {
           // Xử lý lỗi nếu có

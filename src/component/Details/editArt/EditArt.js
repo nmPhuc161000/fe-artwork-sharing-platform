@@ -17,6 +17,7 @@ export default function EditArt({ itemData }) {
   const [categoryName, setCategoryName] = useState(
     itemData.category_Name || ""
   );
+  console.log(categoryName);
   const [description, setDescription] = useState(itemData.description || "");
   const [price, setPrice] = useState(itemData.price || "");
   const [image, setImage] = useState(itemData.url_Image || "");
@@ -98,6 +99,7 @@ export default function EditArt({ itemData }) {
       console.log("Update artwork successful:", response.data);
       alert("Update Artwork successful!");
       navigate(`/detail/${itemData.id}`);
+      setIsPopupOpen(false);
     } catch (error) {
       // Handle errors
       console.log(editData);
@@ -106,10 +108,10 @@ export default function EditArt({ itemData }) {
   };
   return (
     <div>
-      <a href="#popupEdit">
+      <a href="#popupEdit" onClick={() => setIsPopupOpen(true)}>
         <Icon className="iconEdit">edit</Icon>
       </a>
-
+      {isPopupOpen && (
       <div id="popupEdit" className="overlay">
         <div className="popup">
           <div className="iconclose">
@@ -142,13 +144,14 @@ export default function EditArt({ itemData }) {
                 id="demo-simple-select-helper"
                 value={categoryName}
                 onChange={handleCategoryName}
-                label="Category"
+                label="Category *"
               >
                 <MenuItem value={"AI"}>AI</MenuItem>
                 <MenuItem value={"Fantasy"}>Fantasy</MenuItem>
                 <MenuItem value={"Galaxy"}>Galaxy</MenuItem>
                 <MenuItem value={"Landscape"}>Landscape</MenuItem>
                 <MenuItem value={"Dragon"}>Dragon</MenuItem>
+                <MenuItem value={"Home"}>Home</MenuItem>
               </Select>
             </FormControl>
 
@@ -166,14 +169,33 @@ export default function EditArt({ itemData }) {
                 onChange={(e) => handlePrice(e.target.value)}
               />
             </div>
-            <div className="popupInput">
-              <input
-                type="file"
-                onChange={(e) => handleImageFile(e)}
-                accept="image/*"
-              />
-              {image && <div style={{ fontSize: "10px", width: "90%" }}>{image}
-              </div>}
+            <div className="popupInput" style={{ flexDirection: "column" }}>
+              {image && (
+                <div
+                  style={{
+                    fontSize: "10px",
+                    width: "250px",
+                    height: "150px",
+                    textAlign: "center",
+                  }}
+                >
+                  <img
+                    src={image}
+                    alt=""
+                    style={{
+                      height: "100%",
+                      width: "auto",
+                    }}
+                  />
+                </div>
+              )}
+              <div>
+                <input
+                  type="file"
+                  onChange={(e) => handleImageFile(e)}
+                  accept="image/*"
+                />
+              </div>
             </div>
             <div className="popupButton">
               <button onClick={() => handleEdit()}>Update</button>
@@ -181,6 +203,7 @@ export default function EditArt({ itemData }) {
           </div>
         </div>
       </div>
+      )}
     </div>
   );
 }
