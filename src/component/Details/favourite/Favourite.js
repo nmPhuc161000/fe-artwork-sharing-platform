@@ -29,7 +29,8 @@ export default function Favourite({itemData}) {
             },
           }
         ).then((response) => {
-          localStorage.setItem("favouriteId", response.data.favouriteId);
+          localStorage.setItem("favouriteId", response.data.favourite_Id);
+          console.log(response.data);
         });
         console.log("Added to favorites successfully");
       } else {

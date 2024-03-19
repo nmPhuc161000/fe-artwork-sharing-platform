@@ -61,6 +61,7 @@
 .table-data-product .order table {
   width: 100%;
   border-collapse: collapse;
+  table-layout: fixed;
 }
 
 .table-data-product .order table th {

@@ -45,7 +45,7 @@ export default function Favourites() {
         >
           {favourites.map((item) => (
             <Link
-              to={item && item.id ? `/detail/${item.id}` : "/fallback-path"}
+              to={item && item.artwork_Id ? `/detail/${item.artwork_Id}` : "/fallback-path"}
               style={{ color: "black", display: "block" }}
             >
               <div

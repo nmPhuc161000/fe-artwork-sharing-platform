@@ -13,19 +13,6 @@ export const SearchList = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const categories = ["Dragon", "Galaxy", "AI", "Landscape", "Fantasy", "Home"];
   const [sortBy, setSortBy] = useState(null);
-  const [rowArtWidth, setRowArtWidth] = useState(0);
-
-  useEffect(() => {
-    const updateRowArtWidth = () => {
-      const rowArtElement = document.querySelector('.row-art');
-      if (rowArtElement) {
-        setRowArtWidth(rowArtElement.offsetWidth);
-      }
-    };
-    updateRowArtWidth();
-    window.addEventListener('resize', updateRowArtWidth);
-    return () => window.removeEventListener('resize', updateRowArtWidth);
-  }, []);
 
   const handleCategoryClick = (category) => {
     setSelectedCategory((prevCategory) =>
@@ -120,6 +107,7 @@ export const SearchList = () => {
             display: "flex",
             flexWrap: "wrap",
             flexDirection: "row",
+            justifyContent: "center",
             width: "96%",
           }}
         >
@@ -140,8 +128,8 @@ export const SearchList = () => {
                   alt=""
                   style={{
                     marginTop: "4px",
-                    maxWidth: rowArtWidth > 0 ? `${rowArtWidth / 3}px` : "100%",
-                    height: "255px",
+                    maxWidth: "100%",
+                    height: "300px",
                     objectFit: "cover",
                   }}
                 />
@@ -188,9 +176,8 @@ export const SearchList = () => {
                     >
                       <p>
                         <span style={{ fontWeight: "bold" }}>
-                          {item && item.price}
+                          ${item && item.price}
                         </span>
-                        K vnd
                       </p>
                     </section>
                   </div>

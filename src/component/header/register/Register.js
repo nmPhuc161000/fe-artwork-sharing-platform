@@ -8,7 +8,7 @@ import axios from "axios";
 
 export default function Register() {
   const [userName, setUserName] = useState("");
-  const [fullName, setFullName] = useState("");
+  const [nickName, setNickName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phoneNo, setPhone] = useState("");
@@ -21,7 +21,7 @@ export default function Register() {
     "https://firebasestorage.googleapis.com/v0/b/artwork-platform.appspot.com/o/logo%2Ffeed6075-55fd-4fb3-98d4-946d30029eda?alt=media&token=a3dd9363-73f3-4aec-ae32-264c761a0c0f";
 
   const handleFullNameChange = (value) => {
-    setFullName(value);
+    setNickName(value);
   };
 
   const handleEmailChange = (value) => {
@@ -51,14 +51,16 @@ export default function Register() {
   const navigate = useNavigate();
 
   const handleSave = async () => {
-    if (!fullName || !email || !userName || !password || !phoneNo) {
+    
+    if (!nickName || !email || !userName || !password || !phoneNo) {
       alert("Vui lòng điền đầy đủ thông tin.");
+      setIsLoading(false);
       return;
     }
     setIsLoading(true);
     const data = {
       UserName: userName,
-      FullName: fullName,
+      NickName: nickName,
       Email: email,
       Password: password,
       PhoneNo: phoneNo,
@@ -77,9 +79,9 @@ export default function Register() {
       alert(response.data);
     } catch (error) {
       // Xử lý lỗi
-      alert(error.message);
       console.error("Đã có lỗi xảy ra khi gửi yêu cầu API:", error);
-      console.log(error.message);
+      alert(error.response.data);
+      setIsLoading(false);
     }
   };
 
@@ -98,14 +100,14 @@ export default function Register() {
               <div className="group-i">
                 <input
                   type="text"
-                  placeholder="Fullname (*)"
+                  placeholder="Nick name (*)"
                   onChange={(e) => handleFullNameChange(e.target.value)}
                 />
               </div>
               <div className="group-i">
                 <input
                   type="text"
-                  placeholder="Username (*)"
+                  placeholder="User name (*)"
                   onChange={(e) => handleUserNameChange(e.target.value)}
                 />
               </div>

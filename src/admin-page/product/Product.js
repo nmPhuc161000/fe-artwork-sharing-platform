@@ -11,9 +11,8 @@ export default function Product() {
   useEffect(() => {
     const productData = async () => {
       try {
-        const response = await axios.post(
+        const response = await axios.get(
           `${urlApi}/api/Admin/get-artwork-for-admin`,
-          {},
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -37,8 +36,8 @@ export default function Product() {
     }
   };
 
-  const toggleFullscreen = () => {
-    const imageElement = document.querySelector(".order img"); // Lấy phần tử ảnh
+  const toggleFullscreen = (event) => {
+    const imageElement = event.target; // Lấy phần tử ảnh được click
     if (imageElement) {
       // Kiểm tra xem trình duyệt có hỗ trợ API fullscreen không
       if (imageElement.requestFullscreen) {
@@ -56,6 +55,7 @@ export default function Product() {
       alert("Image element not found.");
     }
   };
+  
   return (
     <main className="main-container">
       <div className="main-title">

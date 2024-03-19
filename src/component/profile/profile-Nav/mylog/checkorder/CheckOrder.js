@@ -7,6 +7,7 @@ import ButtonStatus from "./buttonStatus/ButtonStatus";
 export default function CheckOrder({ id }) {
   const [dataRequestById, setDataRequestById] = useState([]);
   const token = localStorage.getItem("token");
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const axiosData = async () => {
       try {
@@ -20,6 +21,7 @@ export default function CheckOrder({ id }) {
         );
         console.table(response.data);
         setDataRequestById(response.data);
+        setIsLoading(false);
       } catch (error) {
         console.error(error.request);
       }
@@ -39,6 +41,19 @@ export default function CheckOrder({ id }) {
       return !isActive ? "Được chấp nhận" : "Đang xử lý";
     }
   };
+
+  if (isLoading) {
+    return <div>You don't have any order</div>;
+  };
+
+  // Nếu không có dữ liệu, hiển thị thông báo
+  if (!dataRequestById) {
+    return <div>Không có tin nhắn từ người khác</div>;
+  };
+
+  const isActive = dataRequestById.isActive; 
+  const isDeleted = dataRequestById.isDeleted
+
   return (
     <div className="checkorder">
       <div className="title">
@@ -55,7 +70,7 @@ export default function CheckOrder({ id }) {
             {formatTimeAgo(dataRequestById.createdAt)}
           </p>
           <p style={{ textAlign: "right" }}>
-          {getStatus(dataRequestById.isActive, dataRequestById.isDeleted)}
+            {getStatus(dataRequestById.isActive, dataRequestById.isDeleted)}
           </p>
         </section>
       </div>
@@ -65,7 +80,7 @@ export default function CheckOrder({ id }) {
           <p>{dataRequestById.text}</p>
         </section>
       </div>
-        <ButtonStatus id= {id}/>
+      <ButtonStatus id={id} isActive = {isActive} isDeleted = {isDeleted}/>
     </div>
   );
 }

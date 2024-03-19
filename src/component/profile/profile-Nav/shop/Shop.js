@@ -94,7 +94,7 @@ export const Shop = () => {
                       </div>
                       <div className="cardPrice">
                         <div>
-                          <strong>{item.price}</strong>K vnd
+                          <strong>${item.price}</strong>
                         </div>
                       </div>
                     </div>

@@ -7,7 +7,7 @@ import axios from "axios";
 
 const Avatar = () => {
   const [open, setOpen] = useState(false);
-  const [username, setUsername] = useState([]);
+  const [nickName, setNickName] = useState([]);
   const avatarRef = useRef(null);
   const urlNoAva =
     "https://firebasestorage.googleapis.com/v0/b/artwork-platform.appspot.com/o/logo%2F499638df-cf1c-4ee7-9abf-fb51e875e6dc?alt=media&token=367643f5-8904-4be8-97a0-a794e6b76bd0";
@@ -53,7 +53,7 @@ const Avatar = () => {
           const userInfo = response.data.userInfo;
           localStorage.setItem('user', JSON.stringify(userInfo))
 
-          setUsername(userInfo.fullName);
+          setNickName(userInfo.nickName);
         })
         .catch((error) => {
           // Xử lý lỗi nếu có
@@ -77,7 +77,7 @@ const Avatar = () => {
             <div className="dropdown">
               <div className="userName" style={{ textAlign: "left" }}>
                 <span style={{ fontWeight: "bold", margin: "0 10px" }}>
-                  {username}
+                  {nickName}
                 </span>
               </div>
               <ul>

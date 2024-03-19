@@ -193,9 +193,10 @@ setIsLoading(true);
               <div className="popupInput">
                 <input
                   type="text"
-                  placeholder="Enter price of artwork (K vnd) *"
+                  placeholder="Enter price of artwork ($) *"
                   onChange={(e) => handlePrice(e.target.value)}
                 />
+                <span style={{fontWeight: "bold"}}>$</span>
               </div>
               <div className="popupInput">
                 <input

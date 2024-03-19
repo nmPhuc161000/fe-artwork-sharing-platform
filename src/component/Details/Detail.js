@@ -105,7 +105,7 @@ export default function Detail({ setUserById }) {
     }
   };
   //call api để xét tên người dùng
-  const [userData, setUserData] = useState({});
+  const [userData, setUserData] = useState([]);
   const fetchUserData = async () => {
     try {
       const response = await axios.post(
@@ -167,7 +167,7 @@ export default function Detail({ setUserById }) {
             <Link to={`/payment/${encodeURIComponent(itemData.url_Image)}/${itemData.price}`}>
               <button>
                 <Icon>paid</Icon>
-                <span>Thanh toán</span>
+                <span>Payment ${itemData.price}</span>
               </button>
             </Link>
           ) : (
@@ -238,7 +238,7 @@ export default function Detail({ setUserById }) {
                 day: "numeric",
               })}
             </p>
-            {userData.userInfo?.fullName === itemData.full_Name && (
+            {userData.userInfo?.nickName === itemData.full_Name && (
               <div style={{ display: "flex", gap: "10px" }}>
                 <DeleteArt ID={ID} />
                 <EditArt itemData={itemData} />
