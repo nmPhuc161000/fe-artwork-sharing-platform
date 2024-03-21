@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import axios from "axios";
+import Swal from 'sweetalert2';
 
 export default function Login() {
   const urlLogo =
@@ -12,7 +13,6 @@ export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [loginError, setLoginError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleUsernameChange = (event) => {
@@ -26,7 +26,9 @@ export default function Login() {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
   const navigate = useNavigate();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!username || !password) {
@@ -52,15 +54,27 @@ export default function Login() {
       }
       const { newToken } = response.data;
       localStorage.setItem("token", newToken);
-      alert("Login successful");
-      setIsLoading(false);
+      // Hiển thị thông báo thành công khi đăng nhập thành công
+      Swal.fire({
+        icon: 'success',
+        title: 'Login successful!',
+        showConfirmButton: false,
+        timer: 2000 // Tắt sau 2 giây
+      });
     } catch (error) {
-      alert(error.response.data);
       console.error(
         "An error occurred while sending the API request:",
         error.response.data
       );
-      setLoginError(true);
+      // Hiển thị thông báo lỗi khi đăng nhập thất bại
+      Swal.fire({
+        icon: 'error',
+        title: 'Login failed!',
+        text: error.response.data.message
+      });
+    }
+    finally {
+      setIsLoading(false); // Đặt isLoading thành false sau khi xử lý hoàn tất
     }
   };
 
@@ -102,7 +116,7 @@ export default function Login() {
               <span>{isLoading ? "Login..." : "Login"}</span>
             </button>
           </div>
-          <div className="signUp">
+          <div className="signUp-lg">
             <h6>Bạn chưa có tài khoản?</h6>
             <Link to={`/regis`}>
               <button>Sign UP</button>

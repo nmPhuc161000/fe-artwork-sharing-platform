@@ -22,21 +22,23 @@ export default function Sidebar() {
 
   useEffect(() => {
     const allSideMenu = document.querySelectorAll(".side-menu.top li a");
-    allSideMenu.forEach((item) => {
-      const li = item.parentElement;
+    if (allSideMenu.length > 0) {
+      allSideMenu.forEach((item) => {
+        const li = item.parentElement;
 
-      item.addEventListener("click", function () {
-        allSideMenu.forEach((i) => {
-          i.parentElement.classList.remove("active");
+        item.addEventListener("click", function () {
+          allSideMenu.forEach((i) => {
+            i.parentElement.classList.remove("active");
+          });
+          li.classList.add("active");
         });
-        li.classList.add("active");
       });
-    });
-  }, []);
+    }
+  }, [])
 
   return (
     <section id="sidebar" className="sidebar">
-      <a href="/home-admin" className="brand">
+      <a className="brand">
         <BsEmojiSmile className="bx bxs-smile" />
         <span className="text">AdminHub</span>
       </a>
@@ -72,10 +74,10 @@ export default function Sidebar() {
             </a>
           </li>
           <li>
-            <a href="#">
+          <Link to={"/home-admin/creator"}>
               <BsPeopleFill className="bx bxs-cogs" />
               <span className="text">Creator</span>
-            </a>
+            </Link>
           </li>
         </ul>
         <ul className="side-menu">
