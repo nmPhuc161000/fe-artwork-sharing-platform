@@ -8,6 +8,7 @@ export default function CheckOrder({ id }) {
   const [dataRequestById, setDataRequestById] = useState([]);
   const token = localStorage.getItem("token");
   const [isLoading, setIsLoading] = useState(true);
+  const [updateOrder, setUpdateOrder] = useState([]);
   useEffect(() => {
     const axiosData = async () => {
       try {
@@ -27,7 +28,7 @@ export default function CheckOrder({ id }) {
       }
     };
     axiosData();
-  }, []);
+  }, [updateOrder]);
   function formatTimeAgo(data) {
     const timeDifference = new Date() - new Date(data);
     const hours = Math.floor(timeDifference / (1000 * 60 * 60));
@@ -59,10 +60,10 @@ export default function CheckOrder({ id }) {
       <div className="title">
         <section>
           <p style={{ textAlign: "left" }}>
-            From: {dataRequestById.fullName_Sender}
+            From: {dataRequestById.nickName_Sender}
           </p>
           <p style={{ textAlign: "left" }}>
-            To: {dataRequestById.fullName_Receivier}
+            To: {dataRequestById.nickName_Receivier}
           </p>
         </section>
         <section>
@@ -76,11 +77,16 @@ export default function CheckOrder({ id }) {
       </div>
       <div className="text">
         <section>
-          <p>{dataRequestById.fullName_Sender} said: </p>
+          <p>{dataRequestById.nickName_Sender} said: </p>
           <p>{dataRequestById.text}</p>
         </section>
       </div>
-      <ButtonStatus id={id} isActive = {isActive} isDeleted = {isDeleted}/>
+      {isActive ? (
+        <ButtonStatus setUpdateOrder={setUpdateOrder} id={id} isActive = {isActive} isDeleted = {isDeleted}/>
+      ) : (
+        <div>hello</div>
+      )}
+      
     </div>
   );
 }

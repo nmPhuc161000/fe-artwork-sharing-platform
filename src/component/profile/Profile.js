@@ -13,6 +13,7 @@ function Profile() {
   const [userIsUpdate, setUsetIsUpdate] = useState("");
   const token = localStorage.getItem("token");
   const userInfor = user.userInfo;
+  console.log(userInfor);
   useEffect(() => {
     const fetchUserData = async () => {
       try {

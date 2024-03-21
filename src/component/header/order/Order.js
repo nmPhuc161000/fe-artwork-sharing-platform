@@ -139,7 +139,7 @@ export default function Order() {
                                 {formatTimeAgo(note.createdAt)}
                               </div>
                               <div style={{ textAlign: "left" }}>
-                                From: <strong>{note.fullName_Sender}</strong>
+                                From: <strong>{note.nickName_Sender}</strong>
                               </div>
                             </div>
                           </section>

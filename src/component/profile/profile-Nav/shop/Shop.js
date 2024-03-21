@@ -88,7 +88,7 @@ export const Shop = () => {
                         <div>
                           By{" "}
                           <span style={{ fontWeight: "bold" }}>
-                            {item.full_Name}
+                            {item.nick_Name}
                           </span>
                         </div>
                       </div>

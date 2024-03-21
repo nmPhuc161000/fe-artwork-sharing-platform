@@ -165,14 +165,14 @@ export default function Detail({ setUserById }) {
         <div className="product-download">
           {isLoggedIn ? (
             <Link to={`/payment/${encodeURIComponent(itemData.url_Image)}/${itemData.price}`}>
-              <button>
+              <button onClick={() => handleDownloadClick(navigate, location)}>
                 <Icon>paid</Icon>
                 <span>Payment ${itemData.price}</span>
               </button>
             </Link>
           ) : (
             <Link to="/login">
-              <button>
+              <button onClick={() => handleDownloadClick(navigate, location)}>
                 <Icon>paid</Icon>
                 <span>Thanh toán</span>
               </button>
@@ -225,7 +225,7 @@ export default function Detail({ setUserById }) {
             </p>
             <p>
               Artist:{" "}
-              <span style={{ fontWeight: "bold" }}>{itemData.full_Name}</span>
+              <span style={{ fontWeight: "bold" }}>{itemData.nick_Name}</span>
             </p>
             {/* Thông tin về tác giả */}
           </div>
@@ -238,7 +238,7 @@ export default function Detail({ setUserById }) {
                 day: "numeric",
               })}
             </p>
-            {userData.userInfo?.nickName === itemData.full_Name && (
+            {userData.userInfo?.nickName === itemData.nick_Name && (
               <div style={{ display: "flex", gap: "10px" }}>
                 <DeleteArt ID={ID} />
                 <EditArt itemData={itemData} />

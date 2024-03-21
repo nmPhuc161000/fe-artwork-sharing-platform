@@ -85,6 +85,7 @@ export default function TableStatus() {
         }
       );
       console.log(response.data);
+      window.location.reload();
       setOpen(false);
     } catch (error) {
       console.error(error.request);

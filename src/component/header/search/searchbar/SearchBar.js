@@ -70,7 +70,7 @@ export default function SearchBar() {
           label="Search By"
         >
           <MenuItem value="">Name Artwork</MenuItem>
-          <MenuItem value={"user_name"}>Creator Name</MenuItem>
+          <MenuItem value={"nick_name"}>Creator Name</MenuItem>
         </Select>
       </FormControl>
     </div>

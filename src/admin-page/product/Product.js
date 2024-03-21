@@ -84,7 +84,7 @@ export default function Product() {
             <tbody>
               {dataProduct.map((item) => (
                 <tr>
-                  <td>{item.full_Name}</td>
+                  <td>{item.nick_Name}</td>
                   <td onClick={toggleFullscreen}>
                     <img src={item.url_Image} alt="image" />
                   </td>

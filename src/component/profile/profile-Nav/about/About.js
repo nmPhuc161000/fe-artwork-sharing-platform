@@ -5,13 +5,13 @@ import axios from "axios";
 
 export default function About({ userInfor, onUpdate }) {
   const [isEditing, setIsEditing] = useState(false);
-  const [fullName, setFullName] = useState(userInfor.fullName || "");
+  const [nickName, setNickName] = useState(userInfor.nickName || "");
   const [email, setEmail] = useState(userInfor.email || "");
   const [phoneNumber, setPhone] = useState(userInfor.phoneNumber || "");
   const [address, setAddress] = useState(userInfor.address || "");
 
   const handleFullNameChange = (value) => {
-    setFullName(value);
+    setNickName(value);
   };
 
   const handleEmailChange = (value) => {
@@ -29,7 +29,7 @@ export default function About({ userInfor, onUpdate }) {
   const token = localStorage.getItem("token");
   const handleSaveClick = () => {
     const userData = {
-      fullName: fullName,
+      nickName: nickName,
       email: email,
       phoneNo: phoneNumber,
       address: address,
@@ -50,7 +50,8 @@ export default function About({ userInfor, onUpdate }) {
         onUpdate(response.data);
       })
       .catch((error) => {
-        console.error("Error:", error);
+        console.error("Error:", error.request);
+        alert(error.request.response)
       });
   };
   const handleEditClick = () => {
@@ -67,8 +68,8 @@ export default function About({ userInfor, onUpdate }) {
             {!isEditing ? (
               <ul>
                 <li>
-                  <label htmlFor="fullName">Full Name:</label>
-                  <div className="info-input">{userInfor.fullName}</div>
+                  <label htmlFor="fullName">Nick Name:</label>
+                  <div className="info-input">{userInfor.nickName}</div>
                 </li>
                 <li>
                   <label htmlFor="userName">Email:</label>
@@ -97,22 +98,26 @@ export default function About({ userInfor, onUpdate }) {
               <div>
                 <input
                   type="text"
-                  value={fullName}
+                  value={nickName}
+                  placeholder="Nick name"
                   onChange={(e) => handleFullNameChange(e.target.value)}
                 />
                 <input
                   type="text"
                   value={email}
+                  placeholder="Email"
                   onChange={(e) => handleEmailChange(e.target.value)}
                 />
                 <input
                   type="text"
                   value={address}
+                  placeholder="Address"
                   onChange={(e) => handleAddressChange(e.target.value)}
                 />
                 <input
                   type="text"
                   value={phoneNumber}
+                  placeholder="Phone number"
                   onChange={(e) => handlePhoneNumberChange(e.target.value)}
                 />
                 <div style={{ textAlign: "right" }}>

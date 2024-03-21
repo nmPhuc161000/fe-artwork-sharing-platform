@@ -61,7 +61,7 @@ export default function Sent({ username, updateData }) {
                         From: <strong>{username.nickName}</strong>
                       </section>
                       <section style={{ textAlign: "left" }}>
-                        To: <strong>{note.fullName_Receivier}</strong>
+                        To: <strong>{note.nickName_Receivier}</strong>
                       </section>
                     </div>
                   </div>

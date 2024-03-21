@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ButtonStatus.css";
 import axios from "axios";
 import urlApi from "../../../../../../configAPI/UrlApi";
 
-export default function ButtonStatus({ id, isActive, isDeleted }) {
+export default function ButtonStatus({ id, isActive, isDeleted, setUpdateOrder }) {
+  
   const token = localStorage.getItem("token");
   const handleCancel = async () => {
     try {
@@ -17,6 +18,7 @@ export default function ButtonStatus({ id, isActive, isDeleted }) {
         }
       );
       console.log(response);
+      setUpdateOrder(response);
     } catch (error) {
       console.log(error.request);
     }
@@ -34,6 +36,7 @@ export default function ButtonStatus({ id, isActive, isDeleted }) {
         }
       );
       console.log(response);
+      setUpdateOrder(response)
       alert("Accept request successful!");
     } catch (error) {
       console.log(error.request);
@@ -44,10 +47,10 @@ export default function ButtonStatus({ id, isActive, isDeleted }) {
       <button
         className="cancel"
         onClick={() => handleCancel()}
-        disabled={isActive || isDeleted}
+        disabled={!isActive || isDeleted}
         style={{
-          backgroundColor: isActive ? "#FFCAD4" : isDeleted ? "red" : "inherit",
-          color: isActive || isDeleted ? "white" : "inherit",
+          backgroundColor: !isActive ? "#FFCAD4" : isDeleted ? "red" : "inherit",
+          color: !isActive || isDeleted ? "white" : "inherit",
         }}
       >
         Cancel
@@ -55,10 +58,10 @@ export default function ButtonStatus({ id, isActive, isDeleted }) {
       <button
         className="custom-btn btn-3"
         onClick={() => handleAccept()}
-        disabled={isActive || isDeleted}
+        disabled={!isActive || isDeleted}
         style={{
-          backgroundColor: isActive ? "rgba(2, 126, 251, 1);" : isDeleted ? "#FFCAD4" : "inherit",
-          color: isDeleted || isActive ? "white" : "inherit",
+          backgroundColor: !isActive ? "rgba(2, 126, 251, 1);" : isDeleted ? "#FFCAD4" : "inherit",
+          color: !isDeleted || isActive ? "white" : "inherit",
         }}
       >
         <span>Accept</span>

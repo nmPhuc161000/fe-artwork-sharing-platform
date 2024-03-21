@@ -57,11 +57,10 @@ export default function Accept({ item, isActive, isDeleted }) {
         <Icon>done</Icon>
       </Button>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Box cancel artwork</DialogTitle>
+        <DialogTitle>Box accept artwork</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            To subscribe to this website, please enter your email address here.
-            We will send updates occasionally.
+            Do you want to accept this image?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
