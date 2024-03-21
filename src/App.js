@@ -15,6 +15,7 @@ import ChangePassword from "./component/change-password/ChangePassword";
 import EmailOTP from "./component/header/emailOTP/EmailOTP";
 import HomeAdmin from "./admin-page/homeadmin/HomeAdmin";
 import Request from "./component/Details/request/Request";
+import { CSSTransition } from "react-transition-group";
 
 function App() {
   const location = useLocation();
@@ -51,7 +52,7 @@ function App() {
   }, [location, isLoginPage, isRegisterPage, isRecoveryPage, isEmailOTP, isHomeAdmin]);
 
   const [userById, setUserById] = useState([]);
-  
+
   return (
     <div className="App">
       {showHeader && (
@@ -64,24 +65,55 @@ function App() {
         />
       )}
       <Routes>
-        <Route path="/" element={<Home />}></Route>
+        <Route path="/"></Route>
         {isHomeAdmin && (
           <Route path="/home-admin/*" element={<HomeAdmin />}></Route>
         )}
         {/* header */}
-        <Route path="/login" element={<Login />}></Route>
+        <Route path="/login"></Route>
         <Route path="/recovery-password" element={<RecoveryPassword />}></Route>
         <Route path="/emailOTP" element={<EmailOTP />}></Route>
-        <Route path="/regis" element={<Register />}></Route>
+        <Route path="/regis"></Route>
         <Route path="/searchlist" element={<SearchList />}></Route>
         {/* detail */}
-        <Route path="/detail/:ID" element={<Detail setUserById={setUserById}/>}></Route>
+        <Route path="/detail/:ID" element={<Detail setUserById={setUserById} />}></Route>
         <Route path="/payment/:imageUrl/:price" element={<Payment />}></Route>
-        <Route path="/request" element={<Request userById={userById}/>}></Route>
+        <Route path="/request" element={<Request userById={userById} />}></Route>
         {/* profile */}
         <Route path="/profile/*" element={<Profile />}></Route>
         <Route path="/changepassword" element={<ChangePassword />}></Route>
       </Routes>
+      <CSSTransition
+        in={location.pathname === '/'}
+        timeout={300}
+        classNames="fade"
+        unmountOnExit
+      >
+        <div>
+          <Home />
+        </div>
+      </CSSTransition>
+      <CSSTransition
+        in={isLoginPage}
+        timeout={300}
+        classNames="fade"
+        unmountOnExit
+      >
+        <div className="login-page">
+          <Login />
+        </div>
+      </CSSTransition>
+      <CSSTransition
+        in={isRegisterPage}
+        timeout={300}
+        classNames="fade"
+        unmountOnExit
+      >
+        <div className="register-page">
+          <Register />
+        </div>
+      </CSSTransition>
+
       {showFooter && !isHomeAdmin && (
         <Footer
           isLoginPage={isLoginPage}

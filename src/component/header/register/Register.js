@@ -115,13 +115,13 @@ export default function Register() {
     <>
       <div className="regisPage">
         <div className="register">
-          <div className="logoLogin">
+          <div className="logoRegis">
             <Link to={`/`}>
               <img src={urlLogo} alt="Logo" />
             </Link>
           </div>
           <div className="title">Register Now!</div>
-          <div className="group">
+          <div className="group-regis">
             <div className="group-left">
               <div className="group-i">
                 <input
@@ -182,7 +182,7 @@ export default function Register() {
               <span>{isLoading ? "Regis..." : "Regis"}</span>
             </button>
           </div>
-          <div className="loginInRegis">
+          <div className="loginIn">
             <h6>Bạn đã có tài khoản?</h6>
             <Link to={`/login`}>
               <button>Login</button>

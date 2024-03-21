@@ -102,7 +102,7 @@ export default function Login() {
               <span>{isLoading ? "Login..." : "Login"}</span>
             </button>
           </div>
-          <div className="signUp">
+          <div className="signUp-lg">
             <h6>Bạn chưa có tài khoản?</h6>
             <Link to={`/regis`}>
               <button>Sign UP</button>
