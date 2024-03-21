@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import "./TableStatus.css";
 import axios from "axios";
 import urlApi from "../../../../../configAPI/UrlApi";
-import DeleteIcon from '@mui/icons-material/Delete';
-import Checkbox from '@mui/material/Checkbox';
+import DeleteIcon from "@mui/icons-material/Delete";
+import Checkbox from "@mui/material/Checkbox";
+import IconButton from "@mui/material/IconButton";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -14,6 +17,7 @@ import Slide from "@mui/material/Slide";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
+const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 export default function TableStatus() {
   const [artworks, setArtworks] = useState([]);
@@ -106,11 +110,15 @@ export default function TableStatus() {
             <th
               style={{
                 width: "85px",
+                height: "60px"
               }}
             >
               {isAnyArtworkSelected ? (
                 <React.Fragment>
-                  <DeleteIcon onClick={handleClickOpen} style={{ cursor: "pointer" }}/>
+                  <DeleteIcon
+                    onClick={handleClickOpen}
+                    style={{ cursor: "pointer" }}
+                  />
                   <Dialog
                     open={open}
                     TransitionComponent={Transition}
@@ -118,9 +126,7 @@ export default function TableStatus() {
                     onClose={handleClose}
                     aria-describedby="alert-dialog-slide-description"
                   >
-                    <DialogTitle>
-                      {"Delete Artwork"}
-                    </DialogTitle>
+                    <DialogTitle>{"Delete Artwork"}</DialogTitle>
                     <DialogContent>
                       <DialogContentText id="alert-dialog-slide-description">
                         Are you want to delete this artwork ?
@@ -155,7 +161,13 @@ export default function TableStatus() {
               <td>{item.reasonRefuse}</td>
               <td>{getStatus(item.isActive, item.isDeleted)}</td>
               <td>
-                <Checkbox onChange={() => handleSelectArtwork(item.id)} />
+                <IconButton onClick={() => handleSelectArtwork(item.id)}>
+                  {selectedArtworks.includes(item.id) ? (
+                    <CheckBoxIcon style={{color: "#9195F6"}}/>
+                  ) : (
+                    <CheckBoxOutlineBlankIcon />
+                  )}
+                </IconButton>
               </td>
             </tr>
           ))}
