@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./DeleteArt.css";
-import { Icon } from "react-materialize";
+import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
 
 export default function DeleteArt({ ID }) {
@@ -33,7 +33,7 @@ export default function DeleteArt({ ID }) {
   return (
     <div>
       <a href="#popupDelete">
-        <Icon className="iconDelete">delete</Icon>
+        <DeleteIcon className="iconDelete" />
       </a>
 
       {/* popup delete */}

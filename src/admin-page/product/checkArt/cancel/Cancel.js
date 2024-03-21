@@ -5,7 +5,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { Icon } from "react-materialize";
+import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
 import urlApi from "../../../../configAPI/UrlApi";
 
@@ -64,7 +64,7 @@ export default function Cancel({ item, isActive, isDeleted }) {
           color: isActive || isDeleted ? "white" : "inherit",
         }}
       >
-        <Icon>close</Icon>
+        <CloseIcon />
       </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Box cancel artwork</DialogTitle>

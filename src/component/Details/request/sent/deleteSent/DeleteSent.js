@@ -1,6 +1,6 @@
 import React from "react";
 import "./DeleteSent.css";
-import { Icon } from "react-materialize";
+import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
 import urlApi from "../../../../../configAPI/UrlApi";
 
@@ -19,14 +19,14 @@ export default function DeleteSent({ note, setUpdateDe }) {
       console.log(response);
       setUpdateDe(response);
     } catch (error) {
-        console.error(error.response.data);
-        alert(error.response.data)
+      console.error(error.response.data);
+      alert(error.response.data);
     }
   };
   return (
     <div className="deSentReq" onClick={() => handleDeSentReq()}>
       <button>
-        <Icon>delete</Icon>
+        <DeleteIcon />
       </button>
     </div>
   );

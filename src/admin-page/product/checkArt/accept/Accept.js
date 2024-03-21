@@ -5,7 +5,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { Icon } from "react-materialize";
+import DoneIcon from "@mui/icons-material/Done";
 import axios from "axios";
 import urlApi from "../../../../configAPI/UrlApi";
 
@@ -50,11 +50,15 @@ export default function Accept({ item, isActive, isDeleted }) {
         onClick={handleClickOpen}
         disabled={isActive || isDeleted}
         style={{
-          backgroundColor: isActive ? "lightgreen" : isDeleted ? "grey" : "inherit",
+          backgroundColor: isActive
+            ? "lightgreen"
+            : isDeleted
+            ? "grey"
+            : "inherit",
           color: isDeleted || isActive ? "white" : "inherit",
         }}
       >
-        <Icon>done</Icon>
+        <DoneIcon />
       </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Box accept artwork</DialogTitle>

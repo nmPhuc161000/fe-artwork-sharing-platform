@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { Icon, Modal, Button, Textarea } from "react-materialize";
+import CommentIcon from "@mui/icons-material/Comment";
+import FullscreenIcon from "@mui/icons-material/Fullscreen";
+import MailIcon from "@mui/icons-material/Mail";
+import PaidIcon from "@mui/icons-material/Paid";
 import { Link } from "react-router-dom";
 import "./Detail.css";
 import urlApi from "../../configAPI/UrlApi";
@@ -24,16 +27,16 @@ export default function Detail({ setUserById }) {
     }
   }, [token]);
 
-  const handleCommentChange = (event) => {
-    setComment(event.target.value);
-  };
+  // const handleCommentChange = (event) => {
+  //   setComment(event.target.value);
+  // };
 
-  const handleCommentSubmit = () => {
-    // Logic for submitting comment
-    console.log("Comment submitted:", comment);
-    // Close the modal after submitting comment
-    setIsCommentModalOpen(false);
-  };
+  // const handleCommentSubmit = () => {
+  //   // Logic for submitting comment
+  //   console.log("Comment submitted:", comment);
+  //   // Close the modal after submitting comment
+  //   setIsCommentModalOpen(false);
+  // };
 
   const toggleFullscreen = () => {
     const imageElement = document.querySelector(".product-tumb img"); // Lấy phần tử ảnh
@@ -142,11 +145,11 @@ export default function Detail({ setUserById }) {
         <div className="product-comment">
           {/* Clicking on the icon opens the comment modal */}
           <button onClick={() => setIsCommentModalOpen(true)}>
-            <Icon>comment</Icon>
+            <CommentIcon />
             <span>Comment</span>
           </button>
           {/* Modal displayed when isCommentModalOpen state is true */}
-          <Modal
+          {/* <Modal
             open={isCommentModalOpen}
             actions={[
               <Button onClick={handleCommentSubmit} modal="close" waves="light">
@@ -160,20 +163,24 @@ export default function Detail({ setUserById }) {
               value={comment}
               onChange={handleCommentChange}
             />
-          </Modal>
+          </Modal> */}
         </div>
         <div className="product-download">
           {isLoggedIn ? (
-            <Link to={`/payment/${encodeURIComponent(itemData.url_Image)}/${itemData.price}`}>
+            <Link
+              to={`/payment/${encodeURIComponent(itemData.url_Image)}/${
+                itemData.price
+              }`}
+            >
               <button onClick={() => handleDownloadClick(navigate, location)}>
-                <Icon>paid</Icon>
+                <PaidIcon />
                 <span>Payment ${itemData.price}</span>
               </button>
             </Link>
           ) : (
             <Link to="/login">
               <button onClick={() => handleDownloadClick(navigate, location)}>
-                <Icon>paid</Icon>
+                <PaidIcon />
                 <span>Thanh toán</span>
               </button>
             </Link>
@@ -185,14 +192,14 @@ export default function Detail({ setUserById }) {
             onClick={() => handleRequest(navigate, location)}
             href={isLoggedIn ? "/request" : "/login"}
           >
-            <Icon>mail</Icon>
+            <MailIcon />
             <span>Request</span>
           </button>
         </div>
         {/* request */}
         <div className="product-fullscreen">
           <button onClick={toggleFullscreen}>
-            <Icon>fullscreen</Icon>
+            <FullscreenIcon />
             <span>Fullscreen</span>
           </button>
         </div>

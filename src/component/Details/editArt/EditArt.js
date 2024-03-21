@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./EditArt.css";
 import urlApi from "../../../configAPI/UrlApi";
-import { Icon } from "react-materialize";
+import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -109,7 +109,7 @@ export default function EditArt({ itemData }) {
   return (
     <div>
       <a href="#popupEdit" onClick={() => setIsPopupOpen(true)}>
-        <Icon className="iconEdit">edit</Icon>
+        <EditIcon className="iconEdit" />
       </a>
       {isPopupOpen && (
         <div id="popupEdit" className="overlay">

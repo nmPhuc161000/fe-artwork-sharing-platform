@@ -1,7 +1,7 @@
 import axios from "axios";
 import "./Order.css";
 import React, { useEffect, useRef, useState } from "react";
-import { Icon } from "react-materialize";
+import NotificationsIcon from "@mui/icons-material/Notifications";
 import urlApi from "../../../configAPI/UrlApi";
 import { useNavigate } from "react-router-dom";
 
@@ -106,9 +106,7 @@ export default function Order() {
   return (
     <div className="order-dropdown" ref={avatarRef}>
       <div className="order" onClick={() => setOpen(!open)}>
-        <Icon style={{ width: "50px", fontSize: "30px" }}>
-          notificationsactive
-        </Icon>
+        <NotificationsIcon style={{ width: "50px", fontSize: "30px" }} />
         {unreadCount > 0 && <div className="badge">{unreadCount}</div>}
       </div>
       {isLoggedIn && (
@@ -144,7 +142,11 @@ export default function Order() {
                             </div>
                           </section>
                           <section>
-                            <p style={{ textAlign: "left", maxWidth: "357.3px" }}>{note.text}</p>
+                            <p
+                              style={{ textAlign: "left", maxWidth: "357.3px" }}
+                            >
+                              {note.text}
+                            </p>
                           </section>
                         </div>
                       </li>
@@ -163,4 +165,3 @@ export default function Order() {
     </div>
   );
 }
-

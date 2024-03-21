@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { Icon } from "react-materialize";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import "./Register.css";
 import urlApi from "../../../configAPI/UrlApi";
 import axios from "axios";
@@ -143,9 +144,7 @@ export default function Register() {
                   onChange={(e) => handlePasswordChange(e.target.value)}
                 />
                 <button type="button" onClick={togglePasswordVisibility}>
-                  <Icon className="toggle-password-icon">
-                    {showPassword ? "visibility_off" : "visibility"}
-                  </Icon>
+                  {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
                 </button>
               </div>
             </div>
@@ -174,7 +173,9 @@ export default function Register() {
             </div>
           </div>
           <div className="Error" style={{}}>
-            {errorMessage && <p style={{ color: "#e79494", margin: "0" }}>{errorMessage}</p>}
+            {errorMessage && (
+              <p style={{ color: "#e79494", margin: "0" }}>{errorMessage}</p>
+            )}
           </div>
           <div className="signUp">
             <button type="submit" onClick={() => handleSave()}>
