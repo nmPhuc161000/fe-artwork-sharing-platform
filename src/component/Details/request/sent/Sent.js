@@ -53,8 +53,14 @@ export default function Sent({ username, updateData }) {
           {sent.map((note) => (
             <li key={note} className="liSent">
               <div id="div1">
-                <section style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                  <div style={{ display: "flex"}}>
+                <section
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <div style={{ display: "flex" }}>
                     <img src={urlNoAva} alt="" style={{ marginTop: "10px" }} />
                     <div style={{ margin: "0 0 0 12px" }}>
                       <section style={{ textAlign: "left" }}>
@@ -65,7 +71,14 @@ export default function Sent({ username, updateData }) {
                       </section>
                     </div>
                   </div>
-                  <div><strong>{getStatus(note.isActive, note.isDeleted)}</strong></div>
+                  <div>
+                    <p style={{ margin: "0", marginBottom: "5px" }}>
+                      <strong>
+                        {getStatus(note.isActive, note.isDeleted)}
+                      </strong>
+                    </p>
+                    {!note.isActive && <strong>{note.statusRequest}</strong>}
+                  </div>
                 </section>
                 <section
                   style={{

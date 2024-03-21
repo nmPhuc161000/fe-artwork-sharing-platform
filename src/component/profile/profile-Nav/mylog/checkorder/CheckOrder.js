@@ -3,6 +3,7 @@ import "./CheckOrder.css";
 import axios from "axios";
 import urlApi from "../../../../../configAPI/UrlApi";
 import ButtonStatus from "./buttonStatus/ButtonStatus";
+import UpdateStaus from "./updateStatus/UpdateStaus";
 
 export default function CheckOrder({ id }) {
   const [dataRequestById, setDataRequestById] = useState([]);
@@ -84,7 +85,7 @@ export default function CheckOrder({ id }) {
       {isActive ? (
         <ButtonStatus setUpdateOrder={setUpdateOrder} id={id} isActive = {isActive} isDeleted = {isDeleted}/>
       ) : (
-        <div>hello</div>
+        <UpdateStaus setUpdateOrder={setUpdateOrder} dataRequestById={dataRequestById}/>
       )}
       
     </div>

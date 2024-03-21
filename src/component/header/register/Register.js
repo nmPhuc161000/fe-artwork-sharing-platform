@@ -16,6 +16,7 @@ export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [inputType, setInputType] = useState("password");
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const urlLogo =
     "https://firebasestorage.googleapis.com/v0/b/artwork-platform.appspot.com/o/logo%2Ffeed6075-55fd-4fb3-98d4-946d30029eda?alt=media&token=a3dd9363-73f3-4aec-ae32-264c761a0c0f";
@@ -36,12 +37,19 @@ export default function Register() {
     setPassword(value);
   };
   const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword); // Cập nhật trạng thái showPassword
+    setShowPassword(!showPassword);
     setInputType(inputType === "password" ? "text" : "password");
   };
 
-  const handlePhoneNoChange = (value) => {
-    setPhone(value);
+  const handlePhoneNoChange = (e) => {
+    const input = e.target.value;
+    const phoneNumber = input.replace(/\D/g, "");
+    if (phoneNumber !== input) {
+      setErrorMessage("Please enter only numbers.");
+    } else {
+      setErrorMessage("");
+    }
+    setPhone(phoneNumber);
   };
 
   const handleAddressChange = (value) => {
@@ -51,9 +59,29 @@ export default function Register() {
   const navigate = useNavigate();
 
   const handleSave = async () => {
-    
     if (!nickName || !email || !userName || !password || !phoneNo) {
       alert("Vui lòng điền đầy đủ thông tin.");
+      setIsLoading(false);
+      return;
+    }
+    // Validation Password
+
+    // Validation Email
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@gmail.com$/;
+    if (!emailPattern.test(email)) {
+      alert("Vui lòng nhập đúng định dạng email Gmail.");
+      setIsLoading(false);
+      return;
+    }
+
+    if (
+      password.length < 8 ||
+      !/[A-Z]/.test(password) ||
+      !/[!@#$%^&*(),.?":{}|<>]/.test(password)
+    ) {
+      alert(
+        "Mật khẩu phải có ít nhất 8 ký tự, bao gồm ít nhất một chữ hoa và một ký tự đặc biệt."
+      );
       setIsLoading(false);
       return;
     }
@@ -69,10 +97,7 @@ export default function Register() {
 
     try {
       // Gửi yêu cầu POST đến API
-      const response = await axios.post(
-        `${urlApi}/api/Auth/register`,
-        data
-      );
+      const response = await axios.post(`${urlApi}/api/Auth/register`, data);
 
       console.log(response.data);
       navigate("/login");
@@ -80,7 +105,7 @@ export default function Register() {
     } catch (error) {
       // Xử lý lỗi
       console.error("Đã có lỗi xảy ra khi gửi yêu cầu API:", error);
-      alert(error.response.data);
+      alert(error.response);
       setIsLoading(false);
     }
   };
@@ -124,7 +149,7 @@ export default function Register() {
                 </button>
               </div>
             </div>
-            <div className="group-right"> 
+            <div className="group-right">
               <div className="group-i">
                 <input
                   type="text"
@@ -141,12 +166,15 @@ export default function Register() {
               </div>
               <div className="group-i">
                 <input
-                  type="text"
+                  type="tel"
                   placeholder="Phone number (*)"
-                  onChange={(e) => handlePhoneNoChange(e.target.value)}
+                  onChange={handlePhoneNoChange}
                 />
               </div>
             </div>
+          </div>
+          <div className="Error" style={{}}>
+            {errorMessage && <p style={{ color: "#e79494", margin: "0" }}>{errorMessage}</p>}
           </div>
           <div className="signUp">
             <button type="submit" onClick={() => handleSave()}>

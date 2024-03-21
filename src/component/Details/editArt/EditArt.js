@@ -112,97 +112,97 @@ export default function EditArt({ itemData }) {
         <Icon className="iconEdit">edit</Icon>
       </a>
       {isPopupOpen && (
-      <div id="popupEdit" className="overlay">
-        <div className="popup">
-          <div className="iconclose">
-            <a
-              className="close"
-              href="#"
-              style={{ color: "black", textDecoration: "none" }}
-            >
-              &times;
-            </a>
-          </div>
-          <div className="popupCreate">
-            <div className="popupInput">
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => handleName(e.target.value)}
-              />
-            </div>
-
-            <FormControl
-              sx={{ m: 1, minWidth: 120 }}
-              style={{ margin: "0 0 5px 0", width: "100%" }}
-            >
-              <InputLabel id="demo-simple-select-helper-label">
-                {categoryName}
-              </InputLabel>
-              <Select
-                labelId="demo-simple-select-helper-label"
-                id="demo-simple-select-helper"
-                value={categoryName}
-                onChange={handleCategoryName}
-                label="Category *"
+        <div id="popupEdit" className="overlay">
+          <div className="popup">
+            <div className="iconclose">
+              <a
+                className="close"
+                href="#"
+                style={{ color: "black", textDecoration: "none" }}
               >
-                <MenuItem value={"AI"}>AI</MenuItem>
-                <MenuItem value={"Fantasy"}>Fantasy</MenuItem>
-                <MenuItem value={"Galaxy"}>Galaxy</MenuItem>
-                <MenuItem value={"Landscape"}>Landscape</MenuItem>
-                <MenuItem value={"Dragon"}>Dragon</MenuItem>
-                <MenuItem value={"Home"}>Home</MenuItem>
-              </Select>
-            </FormControl>
-
-            <div className="popupInput">
-              <input
-                type="text"
-                value={description}
-                onChange={(e) => handleDescription(e.target.value)}
-              />
+                &times;
+              </a>
             </div>
-            <div className="popupInput">
-              <input
-                type="text"
-                value={price}
-                onChange={(e) => handlePrice(e.target.value)}
-              />
-            </div>
-            <div className="popupInput" style={{ flexDirection: "column" }}>
-              {image && (
-                <div
-                  style={{
-                    fontSize: "10px",
-                    width: "250px",
-                    height: "150px",
-                    textAlign: "center",
-                  }}
-                >
-                  <img
-                    src={image}
-                    alt=""
-                    style={{
-                      height: "100%",
-                      width: "auto",
-                    }}
-                  />
-                </div>
-              )}
-              <div>
+            <div className="popupCreate">
+              <div className="popupInput">
                 <input
-                  type="file"
-                  onChange={(e) => handleImageFile(e)}
-                  accept="image/*"
+                  type="text"
+                  value={name}
+                  onChange={(e) => handleName(e.target.value)}
                 />
               </div>
-            </div>
-            <div className="popupButton">
-              <button onClick={() => handleEdit()}>Update</button>
+
+              <FormControl
+                sx={{ m: 1, minWidth: 120 }}
+                style={{ margin: "0 0 5px 0", width: "100%" }}
+              >
+                <InputLabel id="demo-simple-select-helper-label">
+                  Category *
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-helper-label"
+                  id="demo-simple-select-helper"
+                  value={categoryName}
+                  onChange={handleCategoryName}
+                  label="Category *"
+                >
+                  <MenuItem value={"AI"}>AI</MenuItem>
+                  <MenuItem value={"Fantasy"}>Fantasy</MenuItem>
+                  <MenuItem value={"Galaxy"}>Galaxy</MenuItem>
+                  <MenuItem value={"Landscape"}>Landscape</MenuItem>
+                  <MenuItem value={"Dragon"}>Dragon</MenuItem>
+                  <MenuItem value={"Home"}>Home</MenuItem>
+                </Select>
+              </FormControl>
+
+              <div className="popupInput">
+                <input
+                  type="text"
+                  value={description}
+                  onChange={(e) => handleDescription(e.target.value)}
+                />
+              </div>
+              <div className="popupInput">
+                <input
+                  type="text"
+                  value={price}
+                  onChange={(e) => handlePrice(e.target.value)}
+                />
+              </div>
+              <div className="popupInput" style={{ flexDirection: "column" }}>
+                {image && (
+                  <div
+                    style={{
+                      fontSize: "10px",
+                      width: "250px",
+                      height: "150px",
+                      textAlign: "center",
+                    }}
+                  >
+                    <img
+                      src={image}
+                      alt=""
+                      style={{
+                        height: "100%",
+                        width: "auto",
+                      }}
+                    />
+                  </div>
+                )}
+                <div>
+                  <input
+                    type="file"
+                    onChange={(e) => handleImageFile(e)}
+                    accept="image/*"
+                  />
+                </div>
+              </div>
+              <div className="popupButton">
+                <button onClick={() => handleEdit()}>Update</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
       )}
     </div>
   );
