@@ -6,6 +6,7 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import "./Register.css";
 import urlApi from "../../../configAPI/UrlApi";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 export default function Register() {
   const [userName, setUserName] = useState("");
@@ -61,16 +62,21 @@ export default function Register() {
 
   const handleSave = async () => {
     if (!nickName || !email || !userName || !password || !phoneNo) {
-      alert("Vui lòng điền đầy đủ thông tin.");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please fill in all required fields!",
+      });
       setIsLoading(false);
       return;
     }
-    // Validation Password
-
-    // Validation Email
     const emailPattern = /^[a-zA-Z0-9._%+-]+@gmail.com$/;
     if (!emailPattern.test(email)) {
-      alert("Vui lòng nhập đúng định dạng email Gmail.");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please enter a valid Gmail email address!",
+      });
       setIsLoading(false);
       return;
     }
@@ -80,9 +86,12 @@ export default function Register() {
       !/[A-Z]/.test(password) ||
       !/[!@#$%^&*(),.?":{}|<>]/.test(password)
     ) {
-      alert(
-        "Mật khẩu phải có ít nhất 8 ký tự, bao gồm ít nhất một chữ hoa và một ký tự đặc biệt."
-      );
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text:
+          "Password must contain at least 8 characters, including one uppercase letter and one special character!",
+      });
       setIsLoading(false);
       return;
     }
@@ -99,14 +108,21 @@ export default function Register() {
     try {
       // Gửi yêu cầu POST đến API
       const response = await axios.post(`${urlApi}/api/Auth/register`, data);
-
+      Swal.fire({
+        icon: "success",
+        title: "Success!",
+        text: response.data.message,
+      });
       console.log(response.data);
       navigate("/login");
-      alert(response.data);
     } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Nickname,username or email already exists...",
+        text: error.response.data.message,
+      });
       // Xử lý lỗi
       console.error("Đã có lỗi xảy ra khi gửi yêu cầu API:", error);
-      alert(error.response);
       setIsLoading(false);
     }
   };
