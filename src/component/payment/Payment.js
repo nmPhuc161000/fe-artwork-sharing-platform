@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import './Payment.css';
-import { PayPalButton } from "react-paypal-button-v2";
+// import { PayPalButton } from "react-paypal-button-v2";
 
 const Payment = ({ item }) => {
   const { imageUrl, price } = useParams();
@@ -44,7 +44,7 @@ const Payment = ({ item }) => {
           {showPaymentInfo && (
             <div className="card-details">
               <h4>You’ll be redirected to PayPal to complete this payment.</h4>
-                <PayPalButton
+                {/* <PayPalButton
                   amount="0.01"
                   // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
                   onSuccess={(details, data) => {
@@ -57,7 +57,7 @@ const Payment = ({ item }) => {
                       })
                     });
                   }}
-                />
+                /> */}
             </div>
           )}
         </div>
@@ -74,7 +74,7 @@ const Payment = ({ item }) => {
           <div className='total'>
             <p>Total: </p>
             <div className='price'>
-              <strong>{price}K VND</strong>
+              <strong>${price}</strong>
             </div>
           </div>
         </div>

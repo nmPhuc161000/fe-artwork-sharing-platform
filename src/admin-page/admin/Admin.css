@@ -44,6 +44,11 @@
   flex-direction: column;
   color: white;
 }
+.text-ad p{
+  font-size: 20px; /* Kích thước lớn hơn */
+  font-weight: bold; /* Chữ đậm */
+}
+
 
 .card_icon {
   width: 80px;

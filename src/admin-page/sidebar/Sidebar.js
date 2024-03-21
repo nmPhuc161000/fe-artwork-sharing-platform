@@ -38,7 +38,7 @@ export default function Sidebar() {
 
   return (
     <section id="sidebar" className="sidebar">
-      <a href="/home-admin" className="brand">
+      <a className="brand">
         <BsEmojiSmile className="bx bxs-smile" />
         <span className="text">AdminHub</span>
       </a>
