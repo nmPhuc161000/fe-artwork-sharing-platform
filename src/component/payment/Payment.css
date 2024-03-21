@@ -187,9 +187,7 @@
 	background: none;
 	font-weight: bold; /* Làm cho chữ đậm */
 	max-width: 120px;
-	/* Đặt giới hạn chiều rộng tối đa cho nút */
 }
-
 .zalopay-logo {
 	width: 100%;
 }

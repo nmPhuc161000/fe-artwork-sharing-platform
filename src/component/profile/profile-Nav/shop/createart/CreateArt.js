@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./CreatrArt.css";
 import urlApi from "../../../../../configAPI/UrlApi";
-import { Icon } from "react-materialize";
+import AddIcon from '@mui/icons-material/Add';
 import axios from "axios";
 import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
@@ -127,7 +127,7 @@ setIsLoading(true);
           <div className="createArt">
             <div className="cartcreate">
               <div>
-                <Icon>add</Icon>
+                <AddIcon/>
               </div>
               <span>Create a new artwork</span>
               <p>

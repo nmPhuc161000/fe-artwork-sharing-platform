@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./SearchBar.css";
 import urlApi from "../../../../configAPI/UrlApi";
-import { Icon } from "react-materialize";
+import SearchIcon from '@mui/icons-material/Search';
 import axios from "axios";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -50,7 +50,7 @@ export default function SearchBar() {
 
   return (
     <div className="searchBar">
-      <Icon style={{ marginLeft: "10px" }}>search</Icon>
+      <SearchIcon style={{ marginLeft: "10px" }}/>
       <input
         placeholder="Search"
         value={inputValue}
@@ -70,7 +70,7 @@ export default function SearchBar() {
           label="Search By"
         >
           <MenuItem value="">Name Artwork</MenuItem>
-          <MenuItem value={"user_name"}>Creator Name</MenuItem>
+          <MenuItem value={"nick_name"}>Creator Name</MenuItem>
         </Select>
       </FormControl>
     </div>

@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./TableStatus.css";
 import axios from "axios";
 import urlApi from "../../../../../configAPI/UrlApi";
-import { Checkbox, Icon } from "react-materialize";
+import DeleteIcon from '@mui/icons-material/Delete';
+import Checkbox from '@mui/material/Checkbox';
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -85,6 +86,7 @@ export default function TableStatus() {
         }
       );
       console.log(response.data);
+      window.location.reload();
       setOpen(false);
     } catch (error) {
       console.error(error.request);
@@ -108,9 +110,7 @@ export default function TableStatus() {
             >
               {isAnyArtworkSelected ? (
                 <React.Fragment>
-                  <Icon onClick={handleClickOpen} style={{ cursor: "pointer" }}>
-                    delete
-                  </Icon>
+                  <DeleteIcon onClick={handleClickOpen} style={{ cursor: "pointer" }}/>
                   <Dialog
                     open={open}
                     TransitionComponent={Transition}

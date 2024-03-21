@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import "./Login.css";
 import urlApi from "../../../configAPI/UrlApi";
 import { Link, useNavigate } from "react-router-dom";
-import { Icon } from "react-materialize";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import axios from "axios";
 
 export default function Login() {
@@ -28,7 +29,7 @@ export default function Login() {
   const navigate = useNavigate();
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if(!username || !password){
+    if (!username || !password) {
       alert("Please enter complete information");
       setIsLoading(false);
       return;
@@ -55,7 +56,10 @@ export default function Login() {
       setIsLoading(false);
     } catch (error) {
       alert(error.response.data);
-      console.error("An error occurred while sending the API request:", error.response.data);
+      console.error(
+        "An error occurred while sending the API request:",
+        error.response.data
+      );
       setLoginError(true);
     }
   };
@@ -87,16 +91,16 @@ export default function Login() {
               onChange={handlePasswordChange}
             />
             <button type="button" onClick={togglePasswordVisibility}>
-              <Icon className="toggle-password-icon">
-                {showPassword ? "visibility_off" : "visibility"}
-              </Icon>
+              {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
             </button>
           </div>
           <div className="recoveryPage">
             <Link to="/recovery-password">Quên mật khẩu?</Link>
           </div>
           <div className="signIn">
-            <button type="submit"><span>{isLoading ? "Login..." : "Login"}</span></button>
+            <button type="submit">
+              <span>{isLoading ? "Login..." : "Login"}</span>
+            </button>
           </div>
           <div className="signUp">
             <h6>Bạn chưa có tài khoản?</h6>

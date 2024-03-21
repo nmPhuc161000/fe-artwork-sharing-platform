@@ -108,7 +108,7 @@ export const ListArtwork = ({ itemData }) => {
             flexWrap: "wrap",
             flexDirection: "row",
             justifyContent: "center",
-            width: "95%",
+            width: "100%",
           }}
         >
           {sortedItems.map((item) => (
@@ -129,7 +129,7 @@ export const ListArtwork = ({ itemData }) => {
                   style={{
                     marginTop: "4px",
                     maxWidth: "100%",
-                    height: "300px",
+                    height: "255px",
                     objectFit: "cover",
                   }}
                 />
@@ -165,7 +165,7 @@ export const ListArtwork = ({ itemData }) => {
                       <p>
                         By:{" "}
                         <span style={{ fontWeight: "bold" }}>
-                          {item && item.full_Name}
+                          {item && item.nick_Name}
                         </span>
                       </p>
                     </section>

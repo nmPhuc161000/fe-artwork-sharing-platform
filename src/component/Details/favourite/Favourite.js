@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./Favourite.css";
-import urlApi from '../../../configAPI/UrlApi'
-import { Icon } from "react-materialize";
+import urlApi from "../../../configAPI/UrlApi";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import axios from "axios";
 
-export default function Favourite({itemData}) {
+export default function Favourite({ itemData }) {
   const [isFavorite, setIsFavorite] = useState(false);
   const token = localStorage.getItem("token");
-  const id = localStorage.getItem("favouriteId")
+  const id = localStorage.getItem("favouriteId");
 
   useEffect(() => {
     // Retrieve the saved favorite state from localStorage on component mount
@@ -20,18 +21,20 @@ export default function Favourite({itemData}) {
   const toggleFavorite = async () => {
     try {
       if (!isFavorite) {
-        await axios.post(
-          `${urlApi}/api/Favourite/add-favourite?artwork_Id=${itemData.id}`,
-          {},  // Add an empty object for the request body
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        ).then((response) => {
-          localStorage.setItem("favouriteId", response.data.favourite_Id);
-          console.log(response.data);
-        });
+        await axios
+          .post(
+            `${urlApi}/api/Favourite/add-favourite?artwork_Id=${itemData.id}`,
+            {}, // Add an empty object for the request body
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then((response) => {
+            localStorage.setItem("favouriteId", response.data.favourite_Id);
+            console.log(response.data);
+          });
         console.log("Added to favorites successfully");
       } else {
         await axios.delete(
@@ -58,13 +61,13 @@ export default function Favourite({itemData}) {
       {/* Hiển thị nút favorite hoặc nút add vào yêu thích tùy thuộc vào trạng thái isFavorite */}
       {isFavorite ? (
         <button onClick={toggleFavorite}>
-          <Icon>favorite</Icon>{" "}
+          <FavoriteIcon />
           {/* Icon hiển thị khi sản phẩm đã được thêm vào yêu thích */}
           <span>In Favorites</span>
         </button>
       ) : (
         <button onClick={toggleFavorite}>
-          <Icon>favorite_border</Icon>{" "}
+          <FavoriteBorderIcon />
           {/* Icon hiển thị khi sản phẩm chưa được thêm vào yêu thích */}
           <span>Add to Favourites</span>
         </button>

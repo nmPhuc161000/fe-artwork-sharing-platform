@@ -68,7 +68,7 @@ export default function Request({ userById }) {
         );
       }
     } catch (error) {
-      console.error("Error", error);
+      console.error("Error", error.request);
       alert("Failed to send!");
     }
   };
@@ -88,7 +88,6 @@ export default function Request({ userById }) {
         .then((response) => {
           const userInfo = response.data.userInfo;
           setUsername(userInfo);
-
           setEmail(userInfo.email || "");
           setPhoneNo(userInfo.phoneNumber || "");
         })
@@ -134,7 +133,7 @@ export default function Request({ userById }) {
                       <input
                         placeholder="To"
                         type="text"
-                        value={userById.full_Name}
+                        value={userById.nick_Name}
                       />
 
                       <input
