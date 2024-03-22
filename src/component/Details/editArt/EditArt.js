@@ -7,12 +7,13 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import BackupIcon from "@mui/icons-material/Backup";
 import { useNavigate } from "react-router-dom";
 import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
 import { imgDb } from "../../../configFirebase/config";
 
-export default function EditArt({ itemData }) {
+export default function EditArt({ itemData, setUpdateState }) {
   const [name, setName] = useState(itemData.name || "");
   const [categoryName, setCategoryName] = useState(
     itemData.category_Name || ""
@@ -24,9 +25,20 @@ export default function EditArt({ itemData }) {
   const [imageFile, setImageFile] = useState(null);
   const [imgUrl, setImgUrl] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [remainingCharacters, setRemainingCharacters] = useState(60);
+
+  useEffect(() => {
+    // Cập nhật số ký tự còn lại khi component được render và name đã được thiết lập
+    setRemainingCharacters(60 - name.length);
+  }, [name]);
 
   const handleName = (value) => {
-    setName(value);
+    if (value.length <= 60) {
+      const updatedName = value.slice(0, 60);
+      setName(updatedName);
+      setRemainingCharacters(60 - updatedName.length);
+    }
   };
 
   const handleCategoryName = (event) => {
@@ -52,6 +64,19 @@ export default function EditArt({ itemData }) {
     }
   };
 
+  const handleDrop = (e) => {
+    e.preventDefault();
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+      const file = files[0];
+      setImageFile(file);
+    }
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
   useEffect(() => {
     listAll(ref(imgDb, "")).then(async (imgs) => {
       const urls = await Promise.all(
@@ -67,8 +92,10 @@ export default function EditArt({ itemData }) {
   const token = localStorage.getItem("token");
 
   const navigate = useNavigate();
+
   const handleEdit = async () => {
     let url = itemData.url_Image || "";
+    setIsLoading(true);
     if (imageFile) {
       const imgRef = ref(imgDb, `/${v4()}`);
       const snapshot = await uploadBytes(imgRef, imageFile);
@@ -98,8 +125,9 @@ export default function EditArt({ itemData }) {
       // Handle the response as needed
       console.log("Update artwork successful:", response.data);
       alert("Update Artwork successful!");
-      navigate(`/detail/${itemData.id}`);
+      navigate("/profile/mylog/:id");
       setIsPopupOpen(false);
+      setUpdateState(response);
     } catch (error) {
       // Handle errors
       console.log(editData);
@@ -115,6 +143,7 @@ export default function EditArt({ itemData }) {
         <div id="popupEdit" className="overlay">
           <div className="popup">
             <div className="iconclose">
+              <span style={{ marginLeft: "10px" }}>Edit your artwork</span>
               <a
                 className="close"
                 href="#"
@@ -123,82 +152,152 @@ export default function EditArt({ itemData }) {
                 &times;
               </a>
             </div>
+
             <div className="popupCreate">
-              <div className="popupInput">
-                <input
-                  type="text"
-                  value={name}
-                  onChange={(e) => handleName(e.target.value)}
-                />
-              </div>
-
-              <FormControl
-                sx={{ m: 1, minWidth: 120 }}
-                style={{ margin: "0 0 5px 0", width: "100%" }}
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-around",
+                  alignItems: "center",
+                  border: "none",
+                }}
               >
-                <InputLabel id="demo-simple-select-helper-label">
-                  Category *
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-helper-label"
-                  id="demo-simple-select-helper"
-                  value={categoryName}
-                  onChange={handleCategoryName}
-                  label="Category *"
+                <section
+                  style={{
+                    width: "300px",
+                  }}
+                  onDrop={(e) => handleDrop(e)}
+                  onDragOver={(e) => handleDragOver(e)}
                 >
-                  <MenuItem value={"AI"}>AI</MenuItem>
-                  <MenuItem value={"Fantasy"}>Fantasy</MenuItem>
-                  <MenuItem value={"Galaxy"}>Galaxy</MenuItem>
-                  <MenuItem value={"Landscape"}>Landscape</MenuItem>
-                  <MenuItem value={"Dragon"}>Dragon</MenuItem>
-                  <MenuItem value={"Home"}>Home</MenuItem>
-                </Select>
-              </FormControl>
-
-              <div className="popupInput">
-                <input
-                  type="text"
-                  value={description}
-                  onChange={(e) => handleDescription(e.target.value)}
-                />
-              </div>
-              <div className="popupInput">
-                <input
-                  type="text"
-                  value={price}
-                  onChange={(e) => handlePrice(e.target.value)}
-                />
-              </div>
-              <div className="popupInput" style={{ flexDirection: "column" }}>
-                {image && (
                   <div
-                    style={{
-                      fontSize: "10px",
-                      width: "250px",
-                      height: "150px",
-                      textAlign: "center",
-                    }}
+                    className="popupImage"
+                    onClick={(e) =>
+                      document.querySelector(".input-img").click()
+                    }
                   >
-                    <img
-                      src={image}
-                      alt=""
-                      style={{
-                        height: "100%",
-                        width: "auto",
-                      }}
+                    <input
+                      type="file"
+                      onChange={(e) => handleImageFile(e)}
+                      accept="image/*"
+                      hidden
+                      className="input-img"
+                    />
+                    {image ? (
+                      <img
+                        src={image}
+                        alt=""
+                        style={{
+                          width: "310px",
+                          height: "250px",
+                          objectFit: "cover",
+                          objectPosition: "50% 50%",
+                        }}
+                      />
+                    ) : (
+                      <div
+                        className="imgNew"
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <BackupIcon
+                          sx={{ fontSize: 40 }}
+                          style={{ color: "#1475cf" }}
+                        />
+                        <span>Drop or click here to upload your image</span>
+                      </div>
+                    )}
+                  </div>
+                </section>
+
+                <section
+                  style={{
+                    width: "350px",
+                    height: "250px",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-around",
+                  }}
+                >
+                  <div className="popupInput">
+                    <input
+                      type="text"
+                      value={name}
+                      onChange={(e) => handleName(e.target.value)}
+                      maxLength={60}
+                    />
+                    <span style={{ fontWeight: "600", color: "#838592" }}>
+                      {remainingCharacters}
+                    </span>
+                  </div>
+
+                  <FormControl
+                    sx={{ m: 1, minWidth: 120 }}
+                    style={{ margin: "0 0 5px 0", width: "100%" }}
+                  >
+                    <InputLabel id="demo-simple-select-helper-label">
+                      Category *
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-helper-label"
+                      id="demo-simple-select-helper"
+                      value={categoryName}
+                      onChange={handleCategoryName}
+                      label="Category *"
+                    >
+                      <MenuItem value={"AI"}>AI</MenuItem>
+                      <MenuItem value={"Fantasy"}>Fantasy</MenuItem>
+                      <MenuItem value={"Galaxy"}>Galaxy</MenuItem>
+                      <MenuItem value={"Landscape"}>Landscape</MenuItem>
+                      <MenuItem value={"Dragon"}>Dragon</MenuItem>
+                      <MenuItem value={"Home"}>Home</MenuItem>
+                    </Select>
+                  </FormControl>
+                  <div className="popupInput">
+                    <input
+                      type="text"
+                      value={price}
+                      onChange={(e) => handlePrice(e.target.value)}
                     />
                   </div>
-                )}
-                <div>
-                  <input
-                    type="file"
-                    onChange={(e) => handleImageFile(e)}
-                    accept="image/*"
-                  />
-                </div>
+                </section>
               </div>
-              <div className="popupButton">
-                <button onClick={() => handleEdit()}>Update</button>
+
+              <div
+                className="popupInput"
+                style={{ border: "none", flexDirection: "column", marginTop: "15px", }}
+              >
+                <section
+                  style={{
+                    width: "95%",
+                    border: "0.5px solid #c9cacf",
+                    borderRadius: "5px",
+                    paddingLeft: "20px",
+                  }}
+                >
+                  <textarea
+                    type="text"
+                    placeholder="Enter description of artwork *"
+                    value={description}
+                    onChange={(e) => handleDescription(e.target.value)}
+                    style={{
+                      border: "none",
+                      height: "150px",
+                      marginTop: "10px",
+                      outline: "none",
+                      resize: "vertical",
+                    }}
+                  />
+                </section>
+              </div>
+
+              <div className="popupButtonCreate">
+                <button onClick={() => handleEdit()}>
+                  <span>{isLoading ? "Update..." : "Update"}</span>
+                </button>
               </div>
             </div>
           </div>
