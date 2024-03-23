@@ -4,6 +4,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
 export const ListArtwork = ({ itemData }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -94,44 +95,21 @@ export const ListArtwork = ({ itemData }) => {
           ))}
         </div>
       </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <div
-          className="row-art"
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            flexDirection: "row",
-            justifyContent: "center",
-            width: "100%",
-          }}
-        >
-          {sortedItems.map((item) => (
-            <Link
-              to={item && item.id ? `/detail/${item.id}` : "/fallback-path"}
-              style={{ color: "black", display: "block" }}
-            >
-              <div
-                key={item.id}
-                className="col-art"
-                style={{ margin: "0 4px", position: "relative" }}
+      
+      <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }} style={{display: "flex", justifyContent: "center", alignItems: "center", marginTop: "25px"}}>
+          <Masonry columnsCount={3} gutter="10px" style={{width: "96%", gap : "0"}}>
+            {sortedItems.map((item, index) => (
+              <Link
+                to={item && item.id ? `/detail/${item.id}` : "/fallback-path"}
+                style={{ color: "black", display: "block",  margin: "0 4px", position: "relative"  }}
                 onMouseEnter={() => item && setHoveredItem(item)}
                 onMouseLeave={() => setHoveredItem(null)}
               >
                 <img
                   src={item.url_Image}
+                  key={index}
                   alt=""
-                  style={{
-                    marginTop: "4px",
-                    maxWidth: "100%",
-                    height: "255px",
-                    objectFit: "cover",
-                  }}
+                  style={{width: "100%", display: "block"}}
                 />
 
                 {hoveredItem === item && (
@@ -145,8 +123,7 @@ export const ListArtwork = ({ itemData }) => {
                       left: "0",
                       right: "0",
                       color: "white",
-                      height: "96.5%",
-                      marginBottom: "5px",
+                      height: "100%",
                       display: "flex",
                       alignItems: "flex-end",
                       justifyContent: "space-between",
@@ -177,16 +154,15 @@ export const ListArtwork = ({ itemData }) => {
                       <p>
                         <span style={{ fontWeight: "bold" }}>
                           ${item && item.price}
-                        </span>                       
+                        </span>
                       </p>
                     </section>
                   </div>
                 )}
-              </div>
-            </Link>
-          ))}
-        </div>
-      </div>
+              </Link>
+            ))}
+          </Masonry>
+        </ResponsiveMasonry>
     </div>
   );
 };
