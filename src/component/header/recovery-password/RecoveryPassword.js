@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './RecoveryPassword.css'; // Import CSS file
 import { Link, useNavigate } from 'react-router-dom';
 import urlApi from '../../../configAPI/UrlApi';
+import Swal from 'sweetalert2';
 
 const RecoveryPassword = () => {
     const urlLogo = "https://firebasestorage.googleapis.com/v0/b/artwork-platform.appspot.com/o/logo%2Ffeed6075-55fd-4fb3-98d4-946d30029eda?alt=media&token=a3dd9363-73f3-4aec-ae32-264c761a0c0f";
@@ -48,7 +49,15 @@ const RecoveryPassword = () => {
                 });
     
                 if (response.ok) {
-                    alert('Password reset successfully.');
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Password reset successfully!',
+                        showConfirmButton: false,
+                        timer: 1500 // Tắt sau 1.5 giây
+                    }).then(() => {
+                        // Chuyển hướng về trang login
+                        navigate('/login');
+                    });
                 } else {
                     const errorData = await response.json(); // Trích xuất dữ liệu lỗi từ phản hồi
                     alert(errorData.errors || 'Failed to reset password. Please try again.'); // Hiển thị thông điệp lỗi
@@ -58,7 +67,13 @@ const RecoveryPassword = () => {
             }
         } catch (error) {
             console.error('Error:', error);
-            alert('Failed to reset password. Please try again later.');
+            Swal.fire({
+                icon: 'error',
+                title: 'Failed to reset password',
+                text: 'Please try again.',
+                showConfirmButton: false,
+                timer: 1000
+            });
         }
     };
     
@@ -75,7 +90,7 @@ const RecoveryPassword = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (newPassword !== confirmNewPassword) {
-            setMessage('Passwords do not match.');
+            alert('Passwords do not match.');
             return;
         }
         resetPassword();
@@ -95,7 +110,6 @@ const RecoveryPassword = () => {
                     <div className='group-re'>
                         <input type="email" name="email" placeholder="Email" value={email} onChange={handleChange} required />
                     </div>
-                    {message && <p className="message">{message}</p>}
                     <div className='group-re'>
                         <input type="text" name="otp" placeholder="OTP" value={otp} onChange={handleChange} required />
                         <button type="button" onClick={handleSendOTP}>Send OTP</button>
