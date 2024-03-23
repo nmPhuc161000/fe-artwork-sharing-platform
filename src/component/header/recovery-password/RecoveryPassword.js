@@ -1,25 +1,84 @@
 import React, { useState } from 'react';
 import './RecoveryPassword.css'; // Import CSS file
 import { Link, useNavigate } from 'react-router-dom';
+import urlApi from '../../../configAPI/UrlApi';
 
 const RecoveryPassword = () => {
     const urlLogo = "https://firebasestorage.googleapis.com/v0/b/artwork-platform.appspot.com/o/logo%2Ffeed6075-55fd-4fb3-98d4-946d30029eda?alt=media&token=a3dd9363-73f3-4aec-ae32-264c761a0c0f";
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
+    const [otp, setOtp] = useState('');
+    const [newPassword, setNewPassword] = useState('');
+    const [confirmNewPassword, setConfirmNewPassword] = useState('');
     const navigate = useNavigate();
 
     const handleChange = (e) => {
-        setEmail(e.target.value);
+        const { name, value } = e.target;
+        if (name === 'email') setEmail(value);
+        else if (name === 'otp') setOtp(value);
+        else if (name === 'newPassword') setNewPassword(value);
+        else if (name === 'confirmNewPassword') setConfirmNewPassword(value);
+    };
+    const sendOTP = async () => {
+        try {
+            const response = await fetch(`${urlApi}/api/Auth/send-password-reset-code?email=${email}`, {
+                method: 'POST'
+            });
+            if (response.ok) {
+                const data = await response.text(); // Nhận dữ liệu dưới dạng văn bản
+                console.log(data); // Log dữ liệu phản hồi từ server
+                setMessage('');
+            } else {
+                setMessage('Failed to send OTP');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            setMessage('Failed to send OTP');
+        }
+    };
+    const resetPassword = async () => {
+        try {
+            if (email && otp) {
+                const response = await fetch(`${urlApi}/api/Auth/reset-password?email=${email}&otp=${otp}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ password: newPassword, confirmPassword: confirmNewPassword })
+                });
+    
+                if (response.ok) {
+                    alert('Password reset successfully.');
+                } else {
+                    const errorData = await response.json(); // Trích xuất dữ liệu lỗi từ phản hồi
+                    alert(errorData.errors || 'Failed to reset password. Please try again.'); // Hiển thị thông điệp lỗi
+                }
+            } else {
+                alert('Please enter both email and OTP.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Failed to reset password. Please try again later.');
+        }
+    };
+    
+
+
+    const handleSendOTP = async () => {
+        if (!email) {
+            setMessage('Please enter your email.');
+            return;
+        }
+        sendOTP();
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Gửi email khôi phục mật khẩu
-        // Ở đây bạn có thể sử dụng một API hoặc một phương thức xử lý khôi phục mật khẩu khác
-        // Ví dụ: fetch('/api/reset-password', { method: 'POST', body: { email }})
-        setMessage(`An email with instructions to reset your password has been sent to ${email}.`);
-        setEmail('');
-        navigate('/emailOTP')
+        if (newPassword !== confirmNewPassword) {
+            setMessage('Passwords do not match.');
+            return;
+        }
+        resetPassword();
     };
 
     return (
@@ -33,17 +92,28 @@ const RecoveryPassword = () => {
                 <div className="title">Recover Your Password</div>
                 <p className='recovery-password-remind'>Enter your email and we’ll send a link to reset your password.</p>
                 <form onSubmit={handleSubmit}>
-                    <div className='group'>
-                        <input type="text" placeholder="Email" value={email} onChange={handleChange} required /> {/* Thêm class cho input */}
+                    <div className='group-re'>
+                        <input type="email" name="email" placeholder="Email" value={email} onChange={handleChange} required />
+                    </div>
+                    {message && <p className="message">{message}</p>}
+                    <div className='group-re'>
+                        <input type="text" name="otp" placeholder="OTP" value={otp} onChange={handleChange} required />
+                        <button type="button" onClick={handleSendOTP}>Send OTP</button>
+                    </div>
+                    <div className='group-re'>
+                        <input type="password" name="newPassword" placeholder="New Password" onChange={handleChange} required />
+                    </div>
+                    <div className='group-re'>
+                        <input type="password" name="confirmNewPassword" placeholder="Confirm New Password" onChange={handleChange} required />
                     </div>
                     <div className='change'>
-                        <button type="submit">Send Email</button> {/* Thêm class cho button */}
+                        <button type="submit">Reset Password</button>
                     </div>
-                    <div className='loginInRegis'>
+                    <div className='loginInRegis-re'>
                         <h6>Bạn đã có tài khoản?</h6>
                         <Link to={`/login`}><button>Login</button></Link>
                     </div>
-                    <div className='signUp'>
+                    <div className='signUp-re'>
                         <h6>Bạn chưa có tài khoản?</h6>
                         <Link to={`/regis`}><button>Sign UP</button></Link>
                     </div>
