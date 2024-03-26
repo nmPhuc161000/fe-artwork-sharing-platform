@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './RecoveryPassword.css'; // Import CSS file
 import { Link, useNavigate } from 'react-router-dom';
 import urlApi from '../../../configAPI/UrlApi';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
 const RecoveryPassword = () => {
     const urlLogo = "https://firebasestorage.googleapis.com/v0/b/artwork-platform.appspot.com/o/logo%2Ffeed6075-55fd-4fb3-98d4-946d30029eda?alt=media&token=a3dd9363-73f3-4aec-ae32-264c761a0c0f";
@@ -11,7 +12,21 @@ const RecoveryPassword = () => {
     const [otp, setOtp] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
+    const [disableSend, setDisableSend] = useState(false); // State để kiểm soát việc khoá nút "Send OTP"
+    const [countdown, setCountdown] = useState(0); // State để theo dõi thời gian đếm ngược
     const navigate = useNavigate();
+    useEffect(() => {
+        let timer;
+        if (countdown > 0) {
+            timer = setTimeout(() => {
+                setCountdown(countdown - 1); // Giảm thời gian đếm ngược
+            }, 1000);
+        } else {
+            setDisableSend(false); // Mở khoá nút "Send OTP" khi thời gian đếm ngược kết thúc
+        }
+        return () => clearTimeout(timer);
+    }, [countdown]);
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -22,33 +37,32 @@ const RecoveryPassword = () => {
     };
     const sendOTP = async () => {
         try {
-            const response = await fetch(`${urlApi}/api/Auth/send-password-reset-code?email=${email}`, {
-                method: 'POST'
-            });
-            if (response.ok) {
-                const data = await response.text(); // Nhận dữ liệu dưới dạng văn bản
-                console.log(data); // Log dữ liệu phản hồi từ server
+            setDisableSend(true);
+            const response = await axios.post(`${urlApi}/api/Auth/send-password-reset-code?email=${email}`);
+            if (response.status === 200) {
+                console.log(response.data); // Log dữ liệu phản hồi từ server
                 setMessage('');
+                setCountdown(10); // Đặt thời gian đếm ngược về 10s
             } else {
                 setMessage('Failed to send OTP');
+                setDisableSend(false);
             }
         } catch (error) {
             console.error('Error:', error);
-            setMessage('Failed to send OTP');
+            alert('Failed to send OTP');
+            setDisableSend(false);
         }
     };
+
     const resetPassword = async () => {
         try {
             if (email && otp) {
-                const response = await fetch(`${urlApi}/api/Auth/reset-password?email=${email}&otp=${otp}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ password: newPassword, confirmPassword: confirmNewPassword })
+                const response = await axios.post(`${urlApi}/api/Auth/reset-password?email=${email}&otp=${otp}`, {
+                    password: newPassword,
+                    confirmPassword: confirmNewPassword
                 });
-    
-                if (response.ok) {
+
+                if (response.status === 200) {
                     Swal.fire({
                         icon: 'success',
                         title: 'Password reset successfully!',
@@ -59,7 +73,7 @@ const RecoveryPassword = () => {
                         navigate('/login');
                     });
                 } else {
-                    const errorData = await response.json(); // Trích xuất dữ liệu lỗi từ phản hồi
+                    const errorData = response.data; // Trích xuất dữ liệu lỗi từ phản hồi
                     alert(errorData.errors || 'Failed to reset password. Please try again.'); // Hiển thị thông điệp lỗi
                 }
             } else {
@@ -76,12 +90,12 @@ const RecoveryPassword = () => {
             });
         }
     };
-    
+
 
 
     const handleSendOTP = async () => {
         if (!email) {
-            setMessage('Please enter your email.');
+            alert('Please enter your email.');
             return;
         }
         sendOTP();
@@ -112,7 +126,9 @@ const RecoveryPassword = () => {
                     </div>
                     <div className='group-re'>
                         <input type="text" name="otp" placeholder="OTP" value={otp} onChange={handleChange} required />
-                        <button type="button" onClick={handleSendOTP}>Send OTP</button>
+                        <button type="button" onClick={handleSendOTP} disabled={disableSend || countdown > 0}>
+                            {countdown > 0 ? `Resend in ${countdown}s` : 'Send OTP'}
+                        </button>
                     </div>
                     <div className='group-re'>
                         <input type="password" name="newPassword" placeholder="New Password" onChange={handleChange} required />
