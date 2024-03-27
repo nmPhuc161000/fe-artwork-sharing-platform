@@ -1,19 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import './Payment.css';
-// import { PayPalButton } from "react-paypal-button-v2";
+import urlApi from '../../configAPI/UrlApi';
+import axios from 'axios';
 
 const Payment = ({ item }) => {
   const { imageUrl, price } = useParams();
-  console.log("Image URL:", imageUrl);
-  console.log("Price:", price);
-
   const [imageSize, setImageSize] = useState(null);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [showPaymentInfo, setShowPaymentInfo] = useState(false);
-  const handleButtonClick = () => {
-    setShowPaymentInfo(true);
+  
+  const token = localStorage.getItem("token");
+  const handlePaypalClick = () => {
+    setShowPaymentInfo(true); // Hiển thị thông tin khi nhấn vào logo Paypal
   };
+  const handleProceedToPayment = async () => {
+    try {
+      const response = await axios.post(
+        `${urlApi}/api/Payment/create-payment?amount=${price}`,
+        {},
+        {
+          headers: {
+            // Thêm thông tin xác thực nếu cần
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+      const data = response.data;
+      const approveLink = data.order.links.find(link => link.rel === "approve");
+      if (approveLink) {
+        window.location.href = approveLink.href;
+      } else {
+        console.error("No approve link found in the response.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
 
   useEffect(() => {
     console.log("Payment component mounted");
@@ -25,7 +49,7 @@ const Payment = ({ item }) => {
       };
       img.src = decodeURIComponent(imageUrl);
     }
-    
+
 
     loadImage();
   }, [imageUrl]);
@@ -37,27 +61,18 @@ const Payment = ({ item }) => {
           {/* <hr style={{ border: '1px solid #ccc', margin: '0 15px' }} /> */}
           <h3>Choose Payment Method</h3>
           <div className='pay'>
-            <button onClick={handleButtonClick}>
+            <button onClick={handlePaypalClick}>
               <img src="https://i.ibb.co/KVF3mr1/paypal.png" alt="ZaloPay Logo" className="zalopay-logo" />
               <p className='name'>Paypal</p></button>
           </div>
-          {showPaymentInfo && (
+          {showPaymentInfo && ( /* Hiển thị thông tin khi showPaymentInfo là true */
             <div className="card-details">
               <h4>You’ll be redirected to PayPal to complete this payment.</h4>
-                {/* <PayPalButton
-                  amount="0.01"
-                  // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
-                  onSuccess={(details, data) => {
-                    alert("Transaction completed by " + details.payer.name.given_name);
-                    // OPTIONAL: Call your server to save the transaction
-                    return fetch("/paypal-transaction-complete", {
-                      method: "post",
-                      body: JSON.stringify({
-                        orderID: data.orderID
-                      })
-                    });
-                  }}
-                /> */}
+              <div>
+                <button onClick={handleProceedToPayment}>
+                  Proceed to Payment
+                </button>
+              </div>
             </div>
           )}
         </div>
@@ -74,7 +89,7 @@ const Payment = ({ item }) => {
           <div className='total'>
             <p>Total: </p>
             <div className='price'>
-              <strong>${price}</strong>
+              <strong>{price}$</strong>
             </div>
           </div>
         </div>
