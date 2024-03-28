@@ -169,9 +169,7 @@ export default function Detail({ setUserById }) {
         <div className="product-download">
           {isLoggedIn ? (
             <Link
-              to={`/payment/${encodeURIComponent(itemData.url_Image)}/${
-                itemData.price
-              }`}
+              to={`/payment`}
             >
               <button onClick={() => handleDownloadClick(navigate, location)}>
                 <PaidIcon />
