@@ -5,8 +5,7 @@ import urlApi from "../../configAPI/UrlApi";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-const Payment = ({ userById }) => {
-  const { imageUrl, price } = useParams();
+const Payment = ({ userById, setStatusPay }) => {
   const [imageSize, setImageSize] = useState(null);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [showPaymentInfo, setShowPaymentInfo] = useState(false);
@@ -20,7 +19,7 @@ const Payment = ({ userById }) => {
     // Hiển thị thông tin khi nhấn vào logo Paypal
     try {
       const response = await axios.post(
-        `${urlApi}/api/Payment/create-payment?amount=${userById.price}`,
+        `${urlApi}/api/Payment/create-payment?amount=${userById.price}&artwork_Id=${userById.id}`,
         {},
         {
           headers: {
@@ -61,7 +60,9 @@ const Payment = ({ userById }) => {
       console.error("No approve link found in the response.");
     }
   };
+
   const navigate = useNavigate();
+
   useEffect(() => {
     let intervalId;
     const dataCapture = async () => {
@@ -83,17 +84,12 @@ const Payment = ({ userById }) => {
         if (callApi) {
           dataCapture();
         }
-      }, 7000); // 10 seconds interval
-
-      // Đảm bảo gọi API ngay khi useEffect được gọi lần đầu tiên
+      }, 7000);
       if (callApi) {
         dataCapture();
       }
     };
-
     startInterval();
-
-    // Clear interval khi component unmount hoặc callApi thay đổi
     return () => clearInterval(intervalId);
   });
 
@@ -123,10 +119,12 @@ const Payment = ({ userById }) => {
               showConfirmButton: false,
               timer: 4000,
               confirmButtonText: 'OK',
-              didClose: () => {
-                navigate(`/detail/${userById.id}`);
-              },
+              // didClose: () => {
+              //   navigate(`/detail/${userById.id}`);
+              // },
             });
+            setStatusPay(response.data.status);
+            console.log("data: ", response.data);
           } else if(response.data.status !== "COMPLETED") {
             Swal.fire({
               icon: "error",
@@ -143,6 +141,35 @@ const Payment = ({ userById }) => {
       };
       dataCapture();
     }
+  }, [status]);
+
+  useEffect(() => {
+    let intervalId;
+    const dataCapture = async () => {
+      try {
+        const response = await axios.post(`${urlApi}/api/Payment/capture-payment?orderId=${dataPay.order.id}&artwork_Id=${userById.id}`,{}, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+        console.log("db: ",response.data.status);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    const startInterval = () => {
+      intervalId = setInterval(() => {
+        if (callApi) {
+          dataCapture();
+        }
+      }, 7000);
+      if (callApi) {
+        dataCapture();
+      }
+    };
+    startInterval();
+    return () => clearInterval(intervalId);
   }, [status]);
 
   useEffect(() => {
