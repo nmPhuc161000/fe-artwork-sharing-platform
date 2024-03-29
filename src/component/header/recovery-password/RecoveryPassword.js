@@ -41,7 +41,7 @@ const RecoveryPassword = () => {
             const response = await axios.post(`${urlApi}/api/Auth/send-password-reset-code?email=${email}`);
             if (response.status === 200) {
                 console.log(response.data); // Log dữ liệu phản hồi từ server
-                setMessage('');
+                alert('Please check your to take OPT!');
                 setCountdown(10); // Đặt thời gian đếm ngược về 10s
             } else {
                 setMessage('Failed to send OTP');

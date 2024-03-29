@@ -18,7 +18,7 @@ export default function Detail({ setUserById }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [updateState, setUpdateState] = useState([]);
   const token = localStorage.getItem("token");
-  
+
   const urlNoAva =
     "https://firebasestorage.googleapis.com/v0/b/artwork-platform.appspot.com/o/logo%2F499638df-cf1c-4ee7-9abf-fb51e875e6dc?alt=media&token=367643f5-8904-4be8-97a0-a794e6b76bd0";
 
@@ -168,9 +168,7 @@ export default function Detail({ setUserById }) {
         </div>
         <div className="product-download">
           {isLoggedIn ? (
-            <Link
-              to={`/payment`}
-            >
+            <Link to={`/payment`}>
               <button onClick={() => handleDownloadClick(navigate, location)}>
                 <PaidIcon />
                 <span>Payment ${itemData.price}</span>
@@ -244,11 +242,18 @@ export default function Detail({ setUserById }) {
                 day: "numeric",
               })}
             </p>
-            {userData.userInfo?.nickName === itemData.nick_Name && (
-              <div style={{ display: "flex", gap: "10px" }}>
-                <DeleteArt ID={ID} />
-                <EditArt itemData={itemData} setUpdateState={setUpdateState}/>
-              </div>
+            {/* {statusPay && statusPay.id === itemData.id ? (
+              <div>myname</div>
+            ) : ( */}
+              {userData.userInfo?.nickName === itemData.nick_Name && (
+                <div style={{ display: "flex", gap: "10px" }}>
+                  <DeleteArt ID={ID} />
+                  <EditArt
+                    itemData={itemData}
+                    setUpdateState={setUpdateState}
+                  />
+                </div>
+              // )
             )}
           </div>
         </div>

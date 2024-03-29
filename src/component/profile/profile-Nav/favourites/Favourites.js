@@ -29,6 +29,7 @@ export default function Favourites() {
     favouritesData();
   }, []);
   const [hoveredItem, setHoveredItem] = useState(null);
+  console.log(favourites);
   return (
     <div className="favourite">
       {/* hàm tạo ảnh và thêm thông tin */}
@@ -53,7 +54,7 @@ export default function Favourites() {
           >
             {favourites.map((item, index) => (
               <Link
-                to={item && item.id ? `/detail/${item.id}` : "/fallback-path"}
+                to={item && item.artwork_Id ? `/detail/${item.artwork_Id}` : "/fallback-path"}
                 style={{
                   color: "black",
                   display: "block",

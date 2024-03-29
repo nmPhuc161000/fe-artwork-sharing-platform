@@ -6,25 +6,24 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 const Payment = ({ userById }) => {
-  const { imageUrl, price } = useParams();
   const [imageSize, setImageSize] = useState(null);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [showPaymentInfo, setShowPaymentInfo] = useState(false);
   const [dataPay, setDataPay] = useState(null);
-  const [callApi, setCallApi] = useState(false);
+  const [selfLink, setSelfLink] = useState("");
+  const [approveLink, setApproveLink] = useState("");
   const [status, setStatus] = useState([]);
 
   const token = localStorage.getItem("token");
 
+  //Create payment
   const handlePaypalClick = async () => {
-    // Hiển thị thông tin khi nhấn vào logo Paypal
     try {
       const response = await axios.post(
-        `${urlApi}/api/Payment/create-payment?amount=${userById.price}`,
+        `${urlApi}/api/Payment/create-payment?artwork_Id=${userById.id}`,
         {},
         {
           headers: {
-            // Thêm thông tin xác thực nếu cần
             Authorization: `Bearer ${token}`,
           },
         }
@@ -34,39 +33,38 @@ const Payment = ({ userById }) => {
       const selfLink = response.data.order.links.find(
         (link) => link.rel === "self"
       );
-      setCallApi(selfLink);
+      setSelfLink(selfLink);
+      const approveLink = response.data.order.links.find(
+        (link) => link.rel === "approve"
+      );
+      setApproveLink(approveLink);
     } catch (error) {
       console.error("Error:", error);
     }
   };
 
+  //open popup (link 2)
   const handleProceedToPayment = async () => {
-    const approveLink = dataPay.order.links.find(
-      (link) => link.rel === "approve"
-    );
-
     if (approveLink) {
-      // Thiết lập kích thước và vị trí của cửa sổ popup
       const popupWidth = 600;
       const popupHeight = 400;
       const left = window.screenX + (window.innerWidth - popupWidth) / 2;
       const top = window.screenY + (window.innerHeight - popupHeight) / 2;
-
-      // Các thuộc tính của cửa sổ popup
       const popupOptions = `width=${popupWidth},height=${popupHeight},left=${left},top=${top},resizable,scrollbars=yes,status=1`;
-
-      // Mở liên kết trong cửa sổ popup
       window.open(approveLink.href, "_blank", popupOptions);
     } else {
       console.error("No approve link found in the response.");
     }
   };
+
   const navigate = useNavigate();
+
+  //self link (link 1)
   useEffect(() => {
     let intervalId;
     const dataCapture = async () => {
       try {
-        const response = await axios.get(callApi.href, {
+        const response = await axios.get(selfLink.href, {
           headers: {
             Authorization: `Bearer ${dataPay.accessToken}`,
             "Content-Type": "application/json",
@@ -80,59 +78,52 @@ const Payment = ({ userById }) => {
     };
     const startInterval = () => {
       intervalId = setInterval(() => {
-        if (callApi) {
+        if (selfLink) {
           dataCapture();
         }
-      }, 7000); // 10 seconds interval
-
-      // Đảm bảo gọi API ngay khi useEffect được gọi lần đầu tiên
-      if (callApi) {
+      }, 7000);
+      if (selfLink) {
         dataCapture();
       }
     };
-
     startInterval();
-
-    // Clear interval khi component unmount hoặc callApi thay đổi
     return () => clearInterval(intervalId);
   });
 
+  //capture-payment(save data + capture)
   useEffect(() => {
-    if (status === "APPROVED") {
-      const captureLink = dataPay.order.links.find(
-        (link) => link.rel === "capture"
-      );
-
+    if (dataPay) {
       const dataCapture = async () => {
         try {
           const response = await axios.post(
-            captureLink.href,
+            `${urlApi}/api/Payment/capture-payment?orderId=${dataPay.order.id}&artwork_Id=${userById.id}`,
             {},
             {
               headers: {
-                Authorization: `Bearer ${dataPay.accessToken}`,
+                Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
               },
             }
           );
           console.log(response);
-          if (response.data.status === "COMPLETED") {
+          if (response) {
             Swal.fire({
               icon: "success",
               title: "Payment successful!",
               showConfirmButton: false,
               timer: 4000,
-              confirmButtonText: 'OK',
+              confirmButtonText: "OK",
               didClose: () => {
                 navigate(`/detail/${userById.id}`);
               },
             });
-          } else if(response.data.status !== "COMPLETED") {
+            console.log("data: ", response.data);
+          } else {
             Swal.fire({
               icon: "error",
               title: "Payment failed!",
-              text: 'There was an error processing your payment.',
-              confirmButtonText: 'OK',
+              text: "There was an error processing your payment.",
+              confirmButtonText: "OK",
               showConfirmButton: false,
               timer: 4000,
             });

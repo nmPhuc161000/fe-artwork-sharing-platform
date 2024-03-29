@@ -47,7 +47,6 @@ function App() {
   }, [location, isLoginPage, isRegisterPage, isRecoveryPage, isHomeAdmin]);
 
   const [userById, setUserById] = useState([]);
-
   return (
     <div className="App">
       {showHeader && (
@@ -69,9 +68,9 @@ function App() {
         <Route path="/regis"></Route>
         <Route path="/searchlist" element={<SearchList />}></Route>
         {/* detail */}
-        <Route path="/detail/:ID" element={<Detail setUserById={setUserById} />}></Route>
+        <Route path="/detail/:ID" element={<Detail setUserById={setUserById}/>}></Route>
         <Route path="/payment" element={<Payment userById={userById}/>}></Route>
-        <Route path="/request" element={<Request userById={userById} />}></Route>
+        <Route path="/request" element={<Request userById={userById}/>}></Route>
         {/* profile */}
         <Route path="/profile/*" element={<Profile />}></Route>
         <Route path="/changepassword" element={<ChangePassword />}></Route>
