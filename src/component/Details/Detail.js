@@ -12,7 +12,7 @@ import EditArt from "./editArt/EditArt";
 import DeleteArt from "./deleteArt/DeleteArt";
 import Favourite from "./favourite/Favourite";
 
-export default function Detail({ setUserById }) {
+export default function Detail({ setUserById, statusPay }) {
   const [comment, setComment] = useState("");
   const [isCommentModalOpen, setIsCommentModalOpen] = useState(false); // State để điều khiển việc hiển thị modal comment
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -134,6 +134,8 @@ export default function Detail({ setUserById }) {
     fetchUserData();
   }, [updateState]);
 
+  console.log(statusPay);
+
   return (
     <div className="container-card">
       <div className="product-card">
@@ -242,10 +244,10 @@ export default function Detail({ setUserById }) {
                 day: "numeric",
               })}
             </p>
-            {/* {statusPay && statusPay.id === itemData.id ? (
+            {statusPay && statusPay.id === itemData.id ? (
               <div>myname</div>
-            ) : ( */}
-              {userData.userInfo?.nickName === itemData.nick_Name && (
+            ) : (
+              userData.userInfo?.nickName === itemData.nick_Name && (
                 <div style={{ display: "flex", gap: "10px" }}>
                   <DeleteArt ID={ID} />
                   <EditArt
@@ -253,7 +255,7 @@ export default function Detail({ setUserById }) {
                     setUpdateState={setUpdateState}
                   />
                 </div>
-              // )
+              )
             )}
           </div>
         </div>

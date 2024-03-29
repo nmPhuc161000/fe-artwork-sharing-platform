@@ -92,7 +92,7 @@ const Payment = ({ userById }) => {
 
   //capture-payment(save data + capture)
   useEffect(() => {
-    if (dataPay) {
+    if (status === "APPROVED") {
       const dataCapture = async () => {
         try {
           const response = await axios.post(
@@ -130,6 +130,7 @@ const Payment = ({ userById }) => {
           }
         } catch (error) {
           console.log(error);
+          console.log(error.response.data);
         }
       };
       dataCapture();
