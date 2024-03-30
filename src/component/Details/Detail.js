@@ -4,6 +4,7 @@ import CommentIcon from "@mui/icons-material/Comment";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import MailIcon from "@mui/icons-material/Mail";
 import PaidIcon from "@mui/icons-material/Paid";
+import DownloadIcon from "@mui/icons-material/Download";
 import { Link } from "react-router-dom";
 import "./Detail.css";
 import urlApi from "../../configAPI/UrlApi";
@@ -11,6 +12,7 @@ import axios from "axios";
 import EditArt from "./editArt/EditArt";
 import DeleteArt from "./deleteArt/DeleteArt";
 import Favourite from "./favourite/Favourite";
+import { imgDb } from "../../configFirebase/config";
 
 export default function Detail({ setUserById }) {
   const [comment, setComment] = useState("");
@@ -18,7 +20,8 @@ export default function Detail({ setUserById }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [updateState, setUpdateState] = useState([]);
   const token = localStorage.getItem("token");
-  
+  const [isPaid, setIsPaid] = useState(false);
+
   const urlNoAva =
     "https://firebasestorage.googleapis.com/v0/b/artwork-platform.appspot.com/o/logo%2F499638df-cf1c-4ee7-9abf-fb51e875e6dc?alt=media&token=367643f5-8904-4be8-97a0-a794e6b76bd0";
 
@@ -61,14 +64,28 @@ export default function Detail({ setUserById }) {
 
   const navigate = useNavigate();
   const location = useLocation();
+  const handleSuccessfulPayment = () => {
+    setIsPaid(true);
+  };
 
-  const handleDownloadClick = (navigate, location) => {
-    console.log("Redirect path:", location.pathname);
-    if (isLoggedIn) {
-      navigate("/payment");
+  const handleDownloadClick = () => {
+    if (isPaid || itemData.price === 0) {
+      imgDb
+        .ref(itemData.url_Image) // Sử dụng phương thức ref với đường dẫn của tệp ảnh
+        .getDownloadURL()
+        .then((url) => {
+          window.open(url, '_blank'); // Mở URL tải xuống trong cửa sổ mới
+        })
+        .catch((error) => {
+          console.error("Error getting download URL:", error);
+        });
     } else {
-      localStorage.setItem("redirectPath", location.pathname);
-      navigate("/login");
+      if (isLoggedIn) {
+        navigate("/payment");
+      } else {
+        localStorage.setItem("redirectPath", location.pathname);
+        navigate("/login");
+      }
     }
   };
 
@@ -168,25 +185,33 @@ export default function Detail({ setUserById }) {
         </div>
         <div className="product-download">
           {isLoggedIn ? (
-            <Link
-              to={`/payment/${encodeURIComponent(itemData.url_Image)}/${
-                itemData.price
-              }`}
-            >
-              <button onClick={() => handleDownloadClick(navigate, location)}>
-                <PaidIcon />
-                <span>Payment ${itemData.price}</span>
-              </button>
-            </Link>
+            <>
+              {itemData.price === 0 || isPaid ? (
+                <button onClick={handleDownloadClick}>
+                  <DownloadIcon />
+                  <span>Download</span>
+                </button>
+              ) : (
+                <Link
+                  to={`/payment/${encodeURIComponent(itemData.url_Image)}/${itemData.price}`}
+                >
+                  <button>
+                    <PaidIcon />
+                    <span>Payment ${itemData.price}</span>
+                  </button>
+                </Link>
+              )}
+            </>
           ) : (
             <Link to="/login">
-              <button onClick={() => handleDownloadClick(navigate, location)}>
+              <button>
                 <PaidIcon />
                 <span>Thanh toán</span>
               </button>
             </Link>
           )}
         </div>
+
         {/* request */}
         <div className="product-request">
           <button
@@ -249,7 +274,7 @@ export default function Detail({ setUserById }) {
             {userData.userInfo?.nickName === itemData.nick_Name && (
               <div style={{ display: "flex", gap: "10px" }}>
                 <DeleteArt ID={ID} />
-                <EditArt itemData={itemData} setUpdateState={setUpdateState}/>
+                <EditArt itemData={itemData} setUpdateState={setUpdateState} />
               </div>
             )}
           </div>

@@ -70,7 +70,7 @@ export default function Login() {
       Swal.fire({
         icon: 'error',
         title: 'Login failed!',
-        text: error.response.data.message
+        text: 'Your username or account is incorrect!',
       });
     }
     finally {

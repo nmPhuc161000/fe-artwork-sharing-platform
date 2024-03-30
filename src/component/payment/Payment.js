@@ -70,7 +70,7 @@ const Payment = ({ item }) => {
               <h4>You’ll be redirected to PayPal to complete this payment.</h4>
               <div>
                 <button onClick={handleProceedToPayment}>
-                  Proceed to Payment
+                  Buy
                 </button>
               </div>
             </div>
