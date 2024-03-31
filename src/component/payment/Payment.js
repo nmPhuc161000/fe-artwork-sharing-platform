@@ -114,10 +114,11 @@ const Payment = ({ userById }) => {
               timer: 4000,
               confirmButtonText: "OK",
               didClose: () => {
-                navigate(`/detail/${userById.id}`);
+                navigate(`/success-page`);
               },
             });
             console.log("data: ", response.data);
+            localStorage.setItem("order_Id", response.data.order_Id)
           } else {
             Swal.fire({
               icon: "error",
@@ -131,6 +132,14 @@ const Payment = ({ userById }) => {
         } catch (error) {
           console.log(error);
           console.log(error.response.data);
+          Swal.fire({
+            icon: "error",
+            title: "Payment failed!",
+            text: "Please check your payment!",
+            confirmButtonText: "OK",
+            showConfirmButton: false,
+            timer: 4000,
+          });
         }
       };
       dataCapture();
@@ -160,8 +169,8 @@ const Payment = ({ userById }) => {
             <button onClick={handlePaypalClick}>
               <img
                 src="https://i.ibb.co/KVF3mr1/paypal.png"
-                alt="ZaloPay Logo"
-                className="zalopay-logo"
+                alt="Paypal Logo"
+                className="paypal-logo"
               />
               <p className="name">Paypal</p>
             </button>

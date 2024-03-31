@@ -11,6 +11,8 @@ import axios from "axios";
 import EditArt from "./editArt/EditArt";
 import DeleteArt from "./deleteArt/DeleteArt";
 import Favourite from "./favourite/Favourite";
+import { imgDb } from "../../configFirebase/config";
+import { getDownloadURL, listAll, ref } from "firebase/storage";
 
 export default function Detail({ setUserById, statusPay }) {
   const [comment, setComment] = useState("");
@@ -62,7 +64,7 @@ export default function Detail({ setUserById, statusPay }) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleDownloadClick = (navigate, location) => {
+  const handlePayment = (navigate, location) => {
     console.log("Redirect path:", location.pathname);
     if (isLoggedIn) {
       navigate("/payment");
@@ -134,7 +136,52 @@ export default function Detail({ setUserById, statusPay }) {
     fetchUserData();
   }, [updateState]);
 
-  console.log(statusPay);
+  //tải ảnh về
+  const [imgUrl, setImgUrl] = useState("");
+  useEffect(() => {
+    listAll(ref(imgDb, "")).then(async (imgs) => {
+      const urls = await Promise.all(
+        imgs.items.map(async (val) => {
+          const url = await getDownloadURL(val);
+          return url;
+        })
+      );
+      setImgUrl(urls);
+    });
+  }, []);
+
+  const downloadImage = () => {
+    let found = false;
+
+    // Lặp qua mỗi URL trong mảng imgUrl
+    imgUrl.forEach((url) => {
+      // Kiểm tra nếu URL từ Firebase khớp với uri_Image của itemData
+      if (url === itemData.url_Image) {
+        // Nếu có sự khớp, đặt found thành true
+        found = true;
+        // Tạo một thẻ <a> ẩn để tải ảnh
+        fetch(url, {
+          mode: "no-cors",
+        })
+          .then((response) => response.blob())
+          .then((blob) => {
+            const blobUrl = window.URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.download = url.replace(/^.*[\\\/]/, '');
+            link.href = blobUrl;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          });
+      }
+    });
+
+    // Kiểm tra nếu không tìm thấy ảnh khớp
+    if (!found) {
+      alert("Ảnh này không tồn tại.");
+      console.log(imgUrl);
+    }
+  };
 
   return (
     <div className="container-card">
@@ -147,7 +194,7 @@ export default function Detail({ setUserById, statusPay }) {
         <Favourite itemData={itemData} />
         <div className="product-comment">
           {/* Clicking on the icon opens the comment modal */}
-          <button onClick={() => setIsCommentModalOpen(true)}>
+          <button onClick={downloadImage}>
             <CommentIcon />
             <span>Comment</span>
           </button>
@@ -171,14 +218,14 @@ export default function Detail({ setUserById, statusPay }) {
         <div className="product-download">
           {isLoggedIn ? (
             <Link to={`/payment`}>
-              <button onClick={() => handleDownloadClick(navigate, location)}>
+              <button onClick={() => handlePayment(navigate, location)}>
                 <PaidIcon />
                 <span>Payment ${itemData.price}</span>
               </button>
             </Link>
           ) : (
             <Link to="/login">
-              <button onClick={() => handleDownloadClick(navigate, location)}>
+              <button onClick={() => handlePayment(navigate, location)}>
                 <PaidIcon />
                 <span>Thanh toán</span>
               </button>

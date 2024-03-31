@@ -153,6 +153,7 @@ export default function CreateArt({ onCreate }) {
       navigate("/login");
     }
   }, [token, navigate]);
+
   return (
     <div className="createart">
       {isLogin && (
