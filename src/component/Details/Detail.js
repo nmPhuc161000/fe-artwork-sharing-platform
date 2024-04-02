@@ -14,7 +14,7 @@ import DeleteArt from "./deleteArt/DeleteArt";
 import Favourite from "./favourite/Favourite";
 import { imgDb } from "../../configFirebase/config";
 
-export default function Detail({ setUserById }) {
+export default function Detail({ setUserById, statusPay }) {
   const [comment, setComment] = useState("");
   const [isCommentModalOpen, setIsCommentModalOpen] = useState(false); // State để điều khiển việc hiển thị modal comment
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -64,9 +64,6 @@ export default function Detail({ setUserById }) {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const handleSuccessfulPayment = () => {
-    setIsPaid(true);
-  };
 
   const handleDownloadClick = () => {
     if (isPaid || itemData.price === 0) {
@@ -150,6 +147,14 @@ export default function Detail({ setUserById }) {
   useEffect(() => {
     fetchUserData();
   }, [updateState]);
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const paidParam = searchParams.get("paid");
+    if (paidParam === "true") {
+      setIsPaid(true);
+    }
+  }, [location.search]);
+  console.log(statusPay);
 
   return (
     <div className="container-card">
@@ -186,20 +191,22 @@ export default function Detail({ setUserById }) {
         <div className="product-download">
           {isLoggedIn ? (
             <>
-              {itemData.price === 0 || isPaid ? (
-                <button onClick={handleDownloadClick}>
-                  <DownloadIcon />
-                  <span>Download</span>
-                </button>
-              ) : (
-                <Link
-                  to={`/payment/${encodeURIComponent(itemData.url_Image)}/${itemData.price}`}
-                >
-                  <button>
-                    <PaidIcon />
-                    <span>Payment ${itemData.price}</span>
-                  </button>
-                </Link>
+              {itemData && ( // Kiểm tra xem itemData đã được định nghĩa chưa
+                <>
+                  {itemData.price === 0 || isPaid ? (
+                    <button onClick={handleDownloadClick}>
+                      <DownloadIcon />
+                      <span>Download</span>
+                    </button>
+                  ) : (
+                    <Link to={`/payment`}>
+                      <button>
+                        <PaidIcon />
+                        <span>Payment ${itemData.price}</span>
+                      </button>
+                    </Link>
+                  )}
+                </>
               )}
             </>
           ) : (
@@ -211,6 +218,7 @@ export default function Detail({ setUserById }) {
             </Link>
           )}
         </div>
+
 
         {/* request */}
         <div className="product-request">

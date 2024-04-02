@@ -3,6 +3,7 @@ import "./Avatar.css";
 import urlApi from "../../../configAPI/UrlApi";
 import PortraitIcon from "@mui/icons-material/Portrait";
 import LockIcon from "@mui/icons-material/Lock";
+import HistoryIcon from "@mui/icons-material/History";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -30,6 +31,9 @@ const Avatar = () => {
     setOpen(false);
     // Thực hiện chuyển hướng đến trang thay đổi mật khẩu
   };
+  const handleTransactionHistory = () => {
+    setOpen(false);
+  }
   const handleOutsideClick = (event) => {
     if (avatarRef.current && !avatarRef.current.contains(event.target)) {
       setOpen(false);
@@ -95,6 +99,16 @@ const Avatar = () => {
                   <li>
                     <PortraitIcon />
                     Profile
+                  </li>
+                </Link>
+                <Link
+                  to={`/history`}
+                  style={{ color: "black" }}
+                  onClick={handleTransactionHistory}
+                >
+                  <li>
+                    <HistoryIcon />
+                     History
                   </li>
                 </Link>
                 <Link

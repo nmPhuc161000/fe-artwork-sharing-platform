@@ -40,7 +40,7 @@ export default function Request({ userById }) {
     phoneNumber: phoneNo,
     text: text,
   };
-
+console.log(userById);
   const handleSend = async () => {
     try {
       if (!text) {
@@ -68,7 +68,7 @@ export default function Request({ userById }) {
         );
       }
     } catch (error) {
-      console.error("Error", error.request);
+      console.error("Error", error);
       alert("Failed to send!");
     }
   };
