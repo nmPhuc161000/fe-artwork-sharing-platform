@@ -134,16 +134,16 @@
 	width: 100%;;
 	border: none;
 	height: 50px;
-	border-radius: 3px;
+	border-radius: 30px;
 	margin-top: 100px;
 	font-size: 18px;
-	color: #444;
-	background-color: greenyellow;
+	font-weight: bold;
+	color: white;
+	background-color: rgb(12, 72, 156);
 }
 
 .card-details button:hover {
-	background-color: #444;
-	color: white;
+	background-color: rgb(47, 134, 255);
 	cursor: pointer;
 }
 

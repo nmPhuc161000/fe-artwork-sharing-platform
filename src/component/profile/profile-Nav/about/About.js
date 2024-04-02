@@ -90,24 +90,28 @@ export default function About({ userInfor, onUpdate }) {
                   </div>
                 </li>
                 <li>
+                  
                   <label htmlFor="address">Phone:</label>
+                  <div>
                   <input
                     type="text"
                     value={phoneNumber}
-                    placeholder="Phone number"
                     onChange={(e) => handlePhoneNumberChange(e.target.value)}
                   />
+                  </div>
                 </li>
               </div>
               <div className="about-right">
                 <li>
                   <label htmlFor="address">Address:</label>
+                  <div>
                   <input
                     type="text"
                     value={address}
                     placeholder="Address"
                     onChange={(e) => handleAddressChange(e.target.value)}
                   />
+                  </div>
                 </li>
                 <li>
                   <label htmlFor="createdAt">Created At:</label>
@@ -123,7 +127,7 @@ export default function About({ userInfor, onUpdate }) {
             </ul>
             <div style={{ textAlign: "right" }}>
               <button onClick={handleSaveClick} className="edit-button">
-                Lưu
+                Save
               </button>
             </div>
           </div>

@@ -13,7 +13,7 @@ const Payment = ({ userById }) => {
   const [selfLink, setSelfLink] = useState("");
   const [approveLink, setApproveLink] = useState("");
   const [status, setStatus] = useState([]);
-
+  const [isPaid, setIsPaid] = useState(false);
   const token = localStorage.getItem("token");
 
   //Create payment
@@ -107,6 +107,7 @@ const Payment = ({ userById }) => {
           );
           console.log(response);
           if (response) {
+            setIsPaid(true);
             Swal.fire({
               icon: "success",
               title: "Payment successful!",
@@ -180,7 +181,7 @@ const Payment = ({ userById }) => {
               <h4>You’ll be redirected to PayPal to complete this payment.</h4>
               <div>
                 <button onClick={handleProceedToPayment}>
-                  Proceed to Payment
+                  Buy
                 </button>
               </div>
             </div>

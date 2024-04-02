@@ -15,19 +15,15 @@ import ChangePassword from "./component/change-password/ChangePassword";
 import HomeAdmin from "./admin-page/homeadmin/HomeAdmin";
 import Request from "./component/Details/request/Request";
 import { CSSTransition } from "react-transition-group";
+import TransactionHistory from "./component/header/transaction-history/TransactionHistory";
 import SuccessPage from "./component/payment/pay-success-page/SuccessPage";
 
 function App() {
   const location = useLocation();
-  const [isLoginPage, setIsLoginPage] = useState(
-    location.pathname === "/login"
-  );
-  const [isRegisterPage, setIsRegisterPage] = useState(
-    location.pathname === "/regis"
-  );
-  const [isRecoveryPage, setIsRecoveryPage] = useState(
-    location.pathname === "/recovery-password"
-  );
+  const [isLoginPage, setIsLoginPage] = useState(location.pathname === "/login");
+  const [isRegisterPage, setIsRegisterPage] = useState(location.pathname === "/regis");
+  const [isRecoveryPage, setIsRecoveryPage] = useState(location.pathname === "/recovery-password");
+  const [isTransaction, setIsTransaction] = useState(location.pathname === "/history");
   const [showFooter, setShowFooter] = useState(true);
   const [showHeader, setShowHeader] = useState(true);
   const isHomeAdmin = location.pathname.startsWith("/home-admin");
@@ -35,17 +31,22 @@ function App() {
   useEffect(() => {
     setIsLoginPage(location.pathname === "/login");
     setIsRegisterPage(location.pathname === "/regis");
+    setIsTransaction(location.pathname === "/history");
     setIsRecoveryPage(location.pathname === "/recovery-password");
   }, [location]);
 
   useEffect(() => {
     setShowFooter(
-      !isLoginPage && !isRegisterPage && !isRecoveryPage && !isHomeAdmin
+      !isLoginPage &&
+      !isRegisterPage &&
+      !isRecoveryPage &&
+      !isTransaction &&
+      !isHomeAdmin
     );
     setShowHeader(
       !isLoginPage && !isRegisterPage && !isRecoveryPage && !isHomeAdmin
     );
-  }, [location, isLoginPage, isRegisterPage, isRecoveryPage, isHomeAdmin]);
+  }, [location, isLoginPage, isRegisterPage, isRecoveryPage, isTransaction, isHomeAdmin]);
 
   const [userById, setUserById] = useState([]);
   return (
@@ -85,6 +86,7 @@ function App() {
         <Route path="/success-page" element={<SuccessPage />}></Route>
         {/* profile */}
         <Route path="/profile/*" element={<Profile />}></Route>
+        <Route path="/history" element={<TransactionHistory />}></Route>
         <Route path="/changepassword" element={<ChangePassword />}></Route>
       </Routes>
       <CSSTransition
@@ -123,6 +125,7 @@ function App() {
           isLoginPage={isLoginPage}
           isRegisterPage={isRegisterPage}
           isRecoveryPage={isRecoveryPage}
+          isTransaction ={isTransaction}
           isHomeAdmin={isHomeAdmin}
         />
       )}
