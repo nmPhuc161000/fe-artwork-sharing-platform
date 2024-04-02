@@ -16,6 +16,7 @@ import HomeAdmin from "./admin-page/homeadmin/HomeAdmin";
 import Request from "./component/Details/request/Request";
 import { CSSTransition } from "react-transition-group";
 import TransactionHistory from "./component/header/transaction-history/TransactionHistory";
+import SuccessPage from "./component/payment/pay-success-page/SuccessPage";
 
 function App() {
   const location = useLocation();
@@ -43,10 +44,7 @@ function App() {
       !isHomeAdmin
     );
     setShowHeader(
-      !isLoginPage &&
-      !isRegisterPage &&
-      !isRecoveryPage &&
-      !isHomeAdmin
+      !isLoginPage && !isRegisterPage && !isRecoveryPage && !isHomeAdmin
     );
   }, [location, isLoginPage, isRegisterPage, isRecoveryPage, isTransaction, isHomeAdmin]);
 
@@ -72,16 +70,27 @@ function App() {
         <Route path="/regis"></Route>
         <Route path="/searchlist" element={<SearchList />}></Route>
         {/* detail */}
-        <Route path="/detail/:ID" element={<Detail setUserById={setUserById}/>}></Route>
-        <Route path="/payment" element={<Payment userById={userById}/>}></Route>
-        <Route path="/request" element={<Request userById={userById}/>}></Route>
+        <Route
+          path="/detail/:ID"
+          element={<Detail setUserById={setUserById} />}
+        ></Route>
+        <Route
+          path="/request"
+          element={<Request userById={userById} />}
+        ></Route>
+        {/* payment */}
+        <Route
+          path="/payment"
+          element={<Payment userById={userById} />}
+        ></Route>
+        <Route path="/success-page" element={<SuccessPage />}></Route>
         {/* profile */}
         <Route path="/profile/*" element={<Profile />}></Route>
         <Route path="/history" element={<TransactionHistory />}></Route>
         <Route path="/changepassword" element={<ChangePassword />}></Route>
       </Routes>
       <CSSTransition
-        in={location.pathname === '/'}
+        in={location.pathname === "/"}
         timeout={300}
         classNames="fade"
         unmountOnExit

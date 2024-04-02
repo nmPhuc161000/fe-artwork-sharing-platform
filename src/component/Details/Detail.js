@@ -4,7 +4,6 @@ import CommentIcon from "@mui/icons-material/Comment";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import MailIcon from "@mui/icons-material/Mail";
 import PaidIcon from "@mui/icons-material/Paid";
-import DownloadIcon from "@mui/icons-material/Download";
 import { Link } from "react-router-dom";
 import "./Detail.css";
 import urlApi from "../../configAPI/UrlApi";
@@ -13,6 +12,7 @@ import EditArt from "./editArt/EditArt";
 import DeleteArt from "./deleteArt/DeleteArt";
 import Favourite from "./favourite/Favourite";
 import { imgDb } from "../../configFirebase/config";
+import { getDownloadURL, listAll, ref } from "firebase/storage";
 
 export default function Detail({ setUserById, statusPay }) {
   const [comment, setComment] = useState("");
@@ -20,7 +20,6 @@ export default function Detail({ setUserById, statusPay }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [updateState, setUpdateState] = useState([]);
   const token = localStorage.getItem("token");
-  const [isPaid, setIsPaid] = useState(false);
 
   const urlNoAva =
     "https://firebasestorage.googleapis.com/v0/b/artwork-platform.appspot.com/o/logo%2F499638df-cf1c-4ee7-9abf-fb51e875e6dc?alt=media&token=367643f5-8904-4be8-97a0-a794e6b76bd0";
@@ -65,24 +64,13 @@ export default function Detail({ setUserById, statusPay }) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleDownloadClick = () => {
-    if (isPaid || itemData.price === 0) {
-      imgDb
-        .ref(itemData.url_Image) // Sử dụng phương thức ref với đường dẫn của tệp ảnh
-        .getDownloadURL()
-        .then((url) => {
-          window.open(url, '_blank'); // Mở URL tải xuống trong cửa sổ mới
-        })
-        .catch((error) => {
-          console.error("Error getting download URL:", error);
-        });
+  const handlePayment = (navigate, location) => {
+    console.log("Redirect path:", location.pathname);
+    if (isLoggedIn) {
+      navigate("/payment");
     } else {
-      if (isLoggedIn) {
-        navigate("/payment");
-      } else {
-        localStorage.setItem("redirectPath", location.pathname);
-        navigate("/login");
-      }
+      localStorage.setItem("redirectPath", location.pathname);
+      navigate("/login");
     }
   };
 
@@ -147,14 +135,53 @@ export default function Detail({ setUserById, statusPay }) {
   useEffect(() => {
     fetchUserData();
   }, [updateState]);
+
+  //tải ảnh về
+  const [imgUrl, setImgUrl] = useState("");
   useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    const paidParam = searchParams.get("paid");
-    if (paidParam === "true") {
-      setIsPaid(true);
+    listAll(ref(imgDb, "")).then(async (imgs) => {
+      const urls = await Promise.all(
+        imgs.items.map(async (val) => {
+          const url = await getDownloadURL(val);
+          return url;
+        })
+      );
+      setImgUrl(urls);
+    });
+  }, []);
+
+  const downloadImage = () => {
+    let found = false;
+
+    // Lặp qua mỗi URL trong mảng imgUrl
+    imgUrl.forEach((url) => {
+      // Kiểm tra nếu URL từ Firebase khớp với uri_Image của itemData
+      if (url === itemData.url_Image) {
+        // Nếu có sự khớp, đặt found thành true
+        found = true;
+        // Tạo một thẻ <a> ẩn để tải ảnh
+        fetch(url, {
+          mode: "no-cors",
+        })
+          .then((response) => response.blob())
+          .then((blob) => {
+            const blobUrl = window.URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.download = url.replace(/^.*[\\\/]/, '');
+            link.href = blobUrl;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          });
+      }
+    });
+
+    // Kiểm tra nếu không tìm thấy ảnh khớp
+    if (!found) {
+      alert("Ảnh này không tồn tại.");
+      console.log(imgUrl);
     }
-  }, [location.search]);
-  console.log(statusPay);
+  };
 
   return (
     <div className="container-card">
@@ -167,7 +194,7 @@ export default function Detail({ setUserById, statusPay }) {
         <Favourite itemData={itemData} />
         <div className="product-comment">
           {/* Clicking on the icon opens the comment modal */}
-          <button onClick={() => setIsCommentModalOpen(true)}>
+          <button onClick={downloadImage}>
             <CommentIcon />
             <span>Comment</span>
           </button>
@@ -190,36 +217,21 @@ export default function Detail({ setUserById, statusPay }) {
         </div>
         <div className="product-download">
           {isLoggedIn ? (
-            <>
-              {itemData && ( // Kiểm tra xem itemData đã được định nghĩa chưa
-                <>
-                  {itemData.price === 0 || isPaid ? (
-                    <button onClick={handleDownloadClick}>
-                      <DownloadIcon />
-                      <span>Download</span>
-                    </button>
-                  ) : (
-                    <Link to={`/payment`}>
-                      <button>
-                        <PaidIcon />
-                        <span>Payment ${itemData.price}</span>
-                      </button>
-                    </Link>
-                  )}
-                </>
-              )}
-            </>
+            <Link to={`/payment`}>
+              <button onClick={() => handlePayment(navigate, location)}>
+                <PaidIcon />
+                <span>Payment ${itemData.price}</span>
+              </button>
+            </Link>
           ) : (
             <Link to="/login">
-              <button>
+              <button onClick={() => handlePayment(navigate, location)}>
                 <PaidIcon />
                 <span>Thanh toán</span>
               </button>
             </Link>
           )}
         </div>
-
-
         {/* request */}
         <div className="product-request">
           <button
@@ -279,11 +291,18 @@ export default function Detail({ setUserById, statusPay }) {
                 day: "numeric",
               })}
             </p>
-            {userData.userInfo?.nickName === itemData.nick_Name && (
-              <div style={{ display: "flex", gap: "10px" }}>
-                <DeleteArt ID={ID} />
-                <EditArt itemData={itemData} setUpdateState={setUpdateState} />
-              </div>
+            {statusPay && statusPay.id === itemData.id ? (
+              <div>myname</div>
+            ) : (
+              userData.userInfo?.nickName === itemData.nick_Name && (
+                <div style={{ display: "flex", gap: "10px" }}>
+                  <DeleteArt ID={ID} />
+                  <EditArt
+                    itemData={itemData}
+                    setUpdateState={setUpdateState}
+                  />
+                </div>
+              )
             )}
           </div>
         </div>

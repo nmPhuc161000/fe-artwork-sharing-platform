@@ -116,7 +116,7 @@
 	justify-content: space-between;
 }
 
-.PaymetPage input {
+.PaymentPage input {
 	border: none;
 	border-radius: 3px;
 	outline: none;
@@ -186,8 +186,9 @@
 .center .pay button {
 	background: none;
 	font-weight: bold; /* Làm cho chữ đậm */
-	max-width: 120px;
+	max-width: 120px;	cursor: pointer;
 }
-.zalopay-logo {
+.paypal-logo {
 	width: 100%;
+
 }
