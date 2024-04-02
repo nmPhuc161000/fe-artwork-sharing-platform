@@ -199,10 +199,8 @@ const Payment = ({ userById }) => {
             </div>
           )}
           <div className="total">
-            <p>Total: </p>
-            <div className="price">
-              <strong>{userById.price}$</strong>
-            </div>
+            <p>Name of artwork: {userById.name}</p>
+            <p>Total: <strong>${userById.price}</strong></p>
           </div>
         </div>
       </div>

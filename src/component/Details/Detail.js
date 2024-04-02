@@ -150,36 +150,26 @@ export default function Detail({ setUserById, statusPay }) {
     });
   }, []);
 
-  const downloadImage = () => {
-    let found = false;
-
-    // Lặp qua mỗi URL trong mảng imgUrl
-    imgUrl.forEach((url) => {
-      // Kiểm tra nếu URL từ Firebase khớp với uri_Image của itemData
-      if (url === itemData.url_Image) {
-        // Nếu có sự khớp, đặt found thành true
-        found = true;
-        // Tạo một thẻ <a> ẩn để tải ảnh
-        fetch(url, {
-          mode: "no-cors",
-        })
-          .then((response) => response.blob())
-          .then((blob) => {
-            const blobUrl = window.URL.createObjectURL(blob);
-            const link = document.createElement("a");
-            link.download = url.replace(/^.*[\\\/]/, '');
-            link.href = blobUrl;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-          });
-      }
-    });
-
-    // Kiểm tra nếu không tìm thấy ảnh khớp
-    if (!found) {
-      alert("Ảnh này không tồn tại.");
-      console.log(imgUrl);
+  const downloadImage = async () => {
+    try {
+      const response = await axios.get(
+        `${urlApi}/api/Artwork/download?firebaseUrl=${itemData.url_Image}`,
+        { responseType: "blob" }
+      );
+      const blob = response.data;
+      // Xác định hậu tố cho tên tệp
+      const filename = `${itemData.name}.jpg`; // thay đổi 'yourfilename.jpg' thành hậu tố mong muốn
+      // Tạo URL cho Blob với hậu tố tệp
+      const imageUrl = URL.createObjectURL(
+        new Blob([blob], { type: "image/jpeg" })
+      );
+      // Tạo một thẻ a ẩn và kích hoạt sự kiện click của nó để tải xuống
+      const link = document.createElement("a");
+      link.href = imageUrl;
+      link.download = filename;
+      link.click();
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -291,20 +281,20 @@ export default function Detail({ setUserById, statusPay }) {
                 day: "numeric",
               })}
             </p>
-            {statusPay && statusPay.id === itemData.id ? (
-              <div>myname</div>
-            ) : (
-              userData.userInfo?.nickName === itemData.nick_Name && (
-                <div style={{ display: "flex", gap: "10px" }}>
-                  <DeleteArt ID={ID} />
-                  <EditArt
-                    itemData={itemData}
-                    setUpdateState={setUpdateState}
-                  />
-                </div>
-              )
+            {userData.userInfo?.nickName === itemData.nick_Name && (
+              <div style={{ display: "flex", gap: "10px" }}>
+                <DeleteArt ID={ID} />
+                <EditArt itemData={itemData} setUpdateState={setUpdateState} />
+              </div>
             )}
           </div>
+        </div>
+
+        <div className="cateDes">
+          <section className="category">
+            <p>Category: </p>
+            <span>{itemData.category_Name}</span>
+          </section>
         </div>
       </div>
     </div>
