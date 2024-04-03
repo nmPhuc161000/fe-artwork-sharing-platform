@@ -33,7 +33,7 @@ const Avatar = () => {
   };
   const handleTransactionHistory = () => {
     setOpen(false);
-  }
+  };
   const handleOutsideClick = (event) => {
     if (avatarRef.current && !avatarRef.current.contains(event.target)) {
       setOpen(false);
@@ -108,7 +108,7 @@ const Avatar = () => {
                 >
                   <li>
                     <HistoryIcon />
-                     History
+                    Transaction history
                   </li>
                 </Link>
                 <Link

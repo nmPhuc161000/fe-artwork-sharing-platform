@@ -13,10 +13,12 @@ import DeleteArt from "./deleteArt/DeleteArt";
 import Favourite from "./favourite/Favourite";
 import { imgDb } from "../../configFirebase/config";
 import { getDownloadURL, listAll, ref } from "firebase/storage";
+import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
+import FileDownloadOffRoundedIcon from "@mui/icons-material/FileDownloadOffRounded";
 
 export default function Detail({ setUserById, statusPay }) {
-  const [comment, setComment] = useState("");
-  const [isCommentModalOpen, setIsCommentModalOpen] = useState(false); // State để điều khiển việc hiển thị modal comment
+  // const [comment, setComment] = useState("");
+  // const [isCommentModalOpen, setIsCommentModalOpen] = useState(false); // State để điều khiển việc hiển thị modal comment
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [updateState, setUpdateState] = useState([]);
   const token = localStorage.getItem("token");
@@ -100,7 +102,7 @@ export default function Detail({ setUserById, statusPay }) {
     };
 
     fetchData();
-  }, [ID]); // Thêm ID vào dependency array để useEffect chạy lại khi ID thay đổi
+  }, [ID, updateState]); // Thêm ID vào dependency array để useEffect chạy lại khi ID thay đổi
 
   const handleAuthorClick = () => {
     if (isLoggedIn) {
@@ -112,43 +114,32 @@ export default function Detail({ setUserById, statusPay }) {
   };
   //call api để xét tên người dùng
   const [userData, setUserData] = useState([]);
-  const fetchUserData = async () => {
-    try {
-      const response = await axios.post(
-        `${urlApi}/api/Auth/me`,
-        {
-          token: token,
-        },
-        {
-          headers: {
-            accept: "text/plain",
-            "Content-Type": "application/json",
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.post(
+          `${urlApi}/api/Auth/me`,
+          {
+            token: token,
           },
-        }
-      );
-      setUserData(response.data);
-      console.log("User data from API: ", response.data);
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-    }
-  };
-  useEffect(() => {
-    fetchUserData();
-  }, [updateState]);
+          {
+            headers: {
+              accept: "text/plain",
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        setUserData(response.data);
+        console.log("User data from API: ", response.data);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
 
-  //tải ảnh về
-  const [imgUrl, setImgUrl] = useState("");
-  useEffect(() => {
-    listAll(ref(imgDb, "")).then(async (imgs) => {
-      const urls = await Promise.all(
-        imgs.items.map(async (val) => {
-          const url = await getDownloadURL(val);
-          return url;
-        })
-      );
-      setImgUrl(urls);
-    });
+    fetchUserData();
   }, []);
+
+  console.log(itemData);
 
   const downloadImage = async () => {
     try {
@@ -184,7 +175,7 @@ export default function Detail({ setUserById, statusPay }) {
         <Favourite itemData={itemData} />
         <div className="product-comment">
           {/* Clicking on the icon opens the comment modal */}
-          <button onClick={downloadImage}>
+          <button>
             <CommentIcon />
             <span>Comment</span>
           </button>
@@ -206,20 +197,33 @@ export default function Detail({ setUserById, statusPay }) {
           </Modal> */}
         </div>
         <div className="product-download">
-          {isLoggedIn ? (
-            <Link to={`/payment`}>
-              <button onClick={() => handlePayment(navigate, location)}>
-                <PaidIcon />
-                <span>Payment ${itemData.price}</span>
-              </button>
-            </Link>
+          {itemData.isPayment === false ? (
+            isLoggedIn ? (
+              <Link to={`/payment`}>
+                <button onClick={() => handlePayment(navigate, location)}>
+                  <PaidIcon />
+                  <span>Payment ${itemData.price}</span>
+                </button>
+              </Link>
+            ) : (
+              <Link to="/login">
+                <button onClick={() => handlePayment(navigate, location)}>
+                  <PaidIcon />
+                  <span>Thanh toán</span>
+                </button>
+              </Link>
+            )
+          ) : userData.userInfo &&
+            userData.userInfo.nickName === itemData.owner || itemData.price === 0 ? (
+            <button onClick={downloadImage}>
+              <DownloadRoundedIcon />
+              <span>Download</span>
+            </button>
           ) : (
-            <Link to="/login">
-              <button onClick={() => handlePayment(navigate, location)}>
-                <PaidIcon />
-                <span>Thanh toán</span>
-              </button>
-            </Link>
+            <button style={{ backgroundColor: "gray" }}>
+              <FileDownloadOffRoundedIcon />
+              <span>Can't Download</span>
+            </button>
           )}
         </div>
         {/* request */}
@@ -281,12 +285,18 @@ export default function Detail({ setUserById, statusPay }) {
                 day: "numeric",
               })}
             </p>
-            {userData.userInfo?.nickName === itemData.nick_Name && (
+            {
+              itemData.isPayment === false ? (userData.userInfo?.nickName === itemData.nick_Name && (
               <div style={{ display: "flex", gap: "10px" }}>
                 <DeleteArt ID={ID} />
                 <EditArt itemData={itemData} setUpdateState={setUpdateState} />
               </div>
-            )}
+            )) : (
+              <div>
+                <p style={{margin: "0"}}>Owner: <span style={{fontWeight: "bold"}}>{itemData.owner}</span></p>
+              </div>
+            )
+            }
           </div>
         </div>
 

@@ -39,7 +39,7 @@ export default function Favourites() {
         </div>
 
         <ResponsiveMasonry
-          columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}
+          columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3, 1200: 4 }}
           style={{
             display: "flex",
             justifyContent: "center",
@@ -54,7 +54,11 @@ export default function Favourites() {
           >
             {favourites.map((item, index) => (
               <Link
-                to={item && item.artwork_Id ? `/detail/${item.artwork_Id}` : "/fallback-path"}
+                to={
+                  item && item.artwork_Id
+                    ? `/detail/${item.artwork_Id}`
+                    : "/fallback-path"
+                }
                 style={{
                   color: "black",
                   display: "block",

@@ -1,17 +1,14 @@
 .transaction-history {
-    overflow-y: auto;
     width: 100%;
     padding: 36px 50px;
     font-family: var(--poppins);
     max-height: calc(100vh - 56px);
-    overflow-y: auto;
 }
 
 .table-body {
     width: 95%;
     max-height: calc(89% - 1.6rem);
     background-color: #fffb;
-    margin: .8rem auto;
     border-radius: .6rem;
     overflow: auto;
 }
@@ -19,7 +16,6 @@
 .table-body table {
     border-collapse: collapse;
     width: 100%;
-    overflow-y: auto; /* Thêm thanh cuộn dọc khi bảng có nhiều hơn kích thước hiển thị */
 }
 
 .table-body table,
@@ -59,8 +55,10 @@ th {
 }
 
 .transaction-history h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
+    font-size: 27px;
+    margin-bottom: 15px;
+    margin-top: 0;
+    font-weight: 600;
 }
 
 .his-status {

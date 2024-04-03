@@ -96,7 +96,7 @@ export const SearchList = () => {
         </div>
       </div>
       <ResponsiveMasonry
-        columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}
+        columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3, 1200: 4 }}
         style={{
           display: "flex",
           justifyContent: "center",
