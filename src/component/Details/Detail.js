@@ -11,8 +11,6 @@ import axios from "axios";
 import EditArt from "./editArt/EditArt";
 import DeleteArt from "./deleteArt/DeleteArt";
 import Favourite from "./favourite/Favourite";
-import { imgDb } from "../../configFirebase/config";
-import { getDownloadURL, listAll, ref } from "firebase/storage";
 import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
 import FileDownloadOffRoundedIcon from "@mui/icons-material/FileDownloadOffRounded";
 
@@ -46,6 +44,7 @@ export default function Detail({ setUserById, statusPay }) {
   const toggleFullscreen = () => {
     const imageElement = document.querySelector(".product-tumb img"); // Lấy phần tử ảnh
     if (imageElement) {
+      imageElement.style.objectFit = 'contain';
       // Kiểm tra xem trình duyệt có hỗ trợ API fullscreen không
       if (imageElement.requestFullscreen) {
         // Nếu fullscreen đang được bật, tắt fullscreen
@@ -213,8 +212,9 @@ export default function Detail({ setUserById, statusPay }) {
                 </button>
               </Link>
             )
-          ) : userData.userInfo &&
-            userData.userInfo.nickName === itemData.owner || itemData.price === 0 ? (
+          ) : (userData.userInfo &&
+              userData.userInfo.nickName === itemData.owner) ||
+            itemData.price === 0 ? (
             <button onClick={downloadImage}>
               <DownloadRoundedIcon />
               <span>Download</span>
@@ -285,25 +285,32 @@ export default function Detail({ setUserById, statusPay }) {
                 day: "numeric",
               })}
             </p>
-            {
-              itemData.isPayment === false ? (userData.userInfo?.nickName === itemData.nick_Name && (
-              <div style={{ display: "flex", gap: "10px" }}>
-                <DeleteArt ID={ID} />
-                <EditArt itemData={itemData} setUpdateState={setUpdateState} />
-              </div>
-            )) : (
+            {itemData.isPayment === false || itemData.price === 0 ? (
+              userData.userInfo?.nickName === itemData.nick_Name && (
+                <div style={{ display: "flex", gap: "10px" }}>
+                  <DeleteArt ID={ID} />
+                  <EditArt
+                    itemData={itemData}
+                    setUpdateState={setUpdateState}
+                  />
+                </div>
+              )
+            ) : (
               <div>
-                <p style={{margin: "0"}}>Owner: <span style={{fontWeight: "bold"}}>{itemData.owner}</span></p>
+                <p style={{ margin: "0" }}>
+                  Owner:{" "}
+                  <span style={{ fontWeight: "bold" }}>{itemData.owner}</span>
+                </p>
               </div>
-            )
-            }
+            )}
           </div>
         </div>
 
         <div className="cateDes">
           <section className="category">
-            <p>Category: </p>
-            <span>{itemData.category_Name}</span>
+            <p>
+              Category: <span>{itemData.category_Name}</span>
+            </p>
           </section>
         </div>
       </div>

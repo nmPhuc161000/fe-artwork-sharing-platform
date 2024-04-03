@@ -115,10 +115,14 @@ export default function Favourites() {
                       }}
                     >
                       <p>
+                      {item && item.price !== 0 ? (
                         <span style={{ fontWeight: "bold" }}>
                           ${item && item.price}
                         </span>
-                      </p>
+                      ) : (
+                        <span style={{ fontWeight: "bold" }}>Free</span>
+                      )}
+                    </p>
                     </section>
                   </div>
                 )}

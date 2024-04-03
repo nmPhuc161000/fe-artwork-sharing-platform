@@ -166,9 +166,13 @@ export const SearchList = () => {
                     }}
                   >
                     <p>
-                      <span style={{ fontWeight: "bold" }}>
-                        ${item && item.price}
-                      </span>
+                      {item && item.price !== 0 ? (
+                        <span style={{ fontWeight: "bold" }}>
+                          ${item && item.price}
+                        </span>
+                      ) : (
+                        <span style={{ fontWeight: "bold" }}>Free</span>
+                      )}
                     </p>
                   </section>
                 </div>

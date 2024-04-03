@@ -129,8 +129,9 @@ export default function EditArt({ itemData, setUpdateState }) {
       setUpdateState(response);
     } catch (error) {
       // Handle errors
-      console.log(editData);
-      console.error("Error updating:", error);
+      console.error("Error updating:", error.response);
+      alert(error.response.data);
+      setIsLoading(false);
     }
   };
   return (

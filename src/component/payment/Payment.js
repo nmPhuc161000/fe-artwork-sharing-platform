@@ -40,6 +40,7 @@ const Payment = ({ userById }) => {
       setApproveLink(approveLink);
     } catch (error) {
       console.error("Error:", error);
+      alert(error.response.data + "!!!")
     }
   };
 
