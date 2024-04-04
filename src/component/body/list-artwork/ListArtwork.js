@@ -5,11 +5,27 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import axios from "axios";
+import urlApi from "../../../configAPI/UrlApi";
 
 export const ListArtwork = ({ itemData }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const categories = ["Dragon", "Galaxy", "AI", "Landscape", "Fantasy", "Home"];
   const [sortBy, setSortBy] = useState(null);
+  const [hoveredItem, setHoveredItem] = useState(null);
+  const [categories, setCategories] = useState([]);
+  useEffect(() => {
+    const categoriesData = async () => {
+      try {
+        const response = await axios.get(
+          `${urlApi}/api/Category/get-all-category`
+        );
+        setCategories(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    categoriesData();
+  }, []);
 
   const handleCategoryClick = (category) => {
     setSelectedCategory((prevCategory) =>
@@ -34,8 +50,6 @@ export const ListArtwork = ({ itemData }) => {
     }
     return 0; // Không sắp xếp
   });
-
-  const [hoveredItem, setHoveredItem] = useState(null);
 
   return (
     <div
@@ -77,9 +91,9 @@ export const ListArtwork = ({ itemData }) => {
           {categories.map((category, index) => (
             <button
               key={index}
-              onClick={() => handleCategoryClick(category)}
+              onClick={() => handleCategoryClick(category.name)}
               style={{
-                fontWeight: category === selectedCategory ? "bold" : "normal",
+                fontWeight: category.name === selectedCategory ? "bold" : "normal",
                 marginLeft: "10px",
                 border: "1px solid #b6b7be",
                 borderRadius: "4px",
@@ -90,7 +104,7 @@ export const ListArtwork = ({ itemData }) => {
                 fontSize: "17px",
               }}
             >
-              {category}
+              {category.name}
             </button>
           ))}
         </div>

@@ -88,7 +88,8 @@ export default function Sent({ username, updateData }) {
                   }}
                 >
                   <p style={{ textAlign: "left" }}>{note.text}</p>
-                  <DeleteSent note={note} setUpdateDe={setUpdateDe} />
+                  {note.isActive && (<DeleteSent note={note} setUpdateDe={setUpdateDe} />)}
+                  
                 </section>
               </div>
             </li>

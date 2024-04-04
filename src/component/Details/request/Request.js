@@ -5,7 +5,6 @@ import axios from "axios";
 import Sent from "./sent/Sent";
 
 export default function Request({ userById }) {
-  console.log(userById.nick_Name);
   const [username, setUsername] = useState([]);
   const [currentTab, setCurrentTab] = useState("unread");
   const [nickName, setNickName] = useState(userById.nick_Name || "");
@@ -14,7 +13,6 @@ export default function Request({ userById }) {
   const [phoneNo, setPhoneNo] = useState(username.phoneNumber || "");
   const [text, setText] = useState("");
   const [updateData, setUpdateData] = useState([]);
-console.log(nickName);
   const token = localStorage.getItem("token");
 
   const handleTabClick = (tab) => {
@@ -74,7 +72,7 @@ console.log(nickName);
       }
     } catch (error) {
       console.error("Error", error);
-      alert("Failed to send!");
+      alert(error.response.data);
     }
   };
 
