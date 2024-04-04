@@ -9,6 +9,7 @@ import axios from "axios";
 import urlApi from "../../../configAPI/UrlApi";
 
 export const ListArtwork = ({ itemData }) => {
+  console.log(itemData);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [sortBy, setSortBy] = useState(null);
   const [hoveredItem, setHoveredItem] = useState(null);
@@ -93,7 +94,8 @@ export const ListArtwork = ({ itemData }) => {
               key={index}
               onClick={() => handleCategoryClick(category.name)}
               style={{
-                fontWeight: category.name === selectedCategory ? "bold" : "normal",
+                fontWeight:
+                  category.name === selectedCategory ? "bold" : "normal",
                 marginLeft: "10px",
                 border: "1px solid #b6b7be",
                 borderRadius: "4px",
@@ -184,9 +186,13 @@ export const ListArtwork = ({ itemData }) => {
                   >
                     <p>
                       {item && item.price !== 0 ? (
-                        <span style={{ fontWeight: "bold" }}>
-                          ${item && item.price}
-                        </span>
+                        item.isPayment === false ? (
+                          <span style={{ fontWeight: "bold" }}>
+                            ${item && item.price}
+                          </span>
+                        ) : (
+                          <span style={{ fontWeight: "bold" }}>Sold</span>
+                        )
                       ) : (
                         <span style={{ fontWeight: "bold" }}>Free</span>
                       )}

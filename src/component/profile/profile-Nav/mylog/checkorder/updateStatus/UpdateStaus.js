@@ -19,6 +19,8 @@ export default function UpdateStaus({ dataRequestById, setUpdateOrder }) {
   );
 
   const completed = dataRequestById.statusRequest;
+  // const isPayment = dataRequestById.isPayment;
+  console.log(dataRequestById);
   const handleStatusRequest = (event) => {
     const selectedOption = event.target.value;
     setStatusRequest(selectedOption);
@@ -47,6 +49,7 @@ export default function UpdateStaus({ dataRequestById, setUpdateOrder }) {
       alert("Change status request successful!");
     } catch (error) {
       console.log(error.request);
+      alert(error.response.data);
     }
   };
 
@@ -58,15 +61,6 @@ export default function UpdateStaus({ dataRequestById, setUpdateOrder }) {
   const [imageFile, setImageFile] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [imgName, setImgName] = useState("No selected image.");
-  const [remainingCharacters, setRemainingCharacters] = useState(60);
-
-  const handleName = (value) => {
-    if (value.length <= 60) {
-      const updatedName = value.slice(0, 60);
-      setName(updatedName);
-      setRemainingCharacters(60 - updatedName.length);
-    }
-  };
 
   const handleDescription = (value) => {
     setDescription(value);
@@ -104,9 +98,8 @@ export default function UpdateStaus({ dataRequestById, setUpdateOrder }) {
     e.preventDefault();
   };
 
-  const navigate = useNavigate();
   const handleSave = async () => {
-    if (!name || !description || !price) {
+    if (!description || !price) {
       alert("Vui lòng điền đầy đủ thông tin.");
       return;
     }
@@ -116,15 +109,14 @@ export default function UpdateStaus({ dataRequestById, setUpdateOrder }) {
     const url = await getDownloadURL(snapshot.ref);
 
     const formData = new FormData();
-    formData.append("Name", name);
-    formData.append("Description", description);
+    formData.append("Text", description);
     formData.append("Price", price);
     formData.append("Url_Image", url); // Không cần thêm file và fileName
 
     try {
       // Gửi yêu cầu POST đến API
       const response = await axios.post(
-        `${urlApi}/api/Artwork/create`,
+        `${urlApi}/api/RequestOrder/send-result-artwork?id=${dataRequestById.id}`,
         formData,
         {
           headers: {
@@ -141,14 +133,13 @@ export default function UpdateStaus({ dataRequestById, setUpdateOrder }) {
       setImageFile("");
       setIsLoading(false);
       console.log("url", response.data);
-      alert("Tạo thành công");
-      navigate("/profile/shop");
+      alert("Send result request successful");
       setIsPopupOpen(false);
     } catch (error) {
       // Xử lý lỗi
       console.log("URL", url);
       alert("Hãy kiểm tra lại thông tin nhập vào!");
-      console.error("Đã có lỗi xảy ra khi gửi yêu cầu API:", error);
+      console.error("Đã có lỗi xảy ra khi gửi yêu cầu API:", error.response);
       console.log(formData);
       setIsLoading(false);
     }
@@ -190,6 +181,7 @@ export default function UpdateStaus({ dataRequestById, setUpdateOrder }) {
       </FormControl>
       <section>
         {completed === "Completed" ? (
+
           <a href="#popupCreate" onClick={() => setIsPopupOpen(true)}>
             <button className="custom-btn btn-3">Send result order</button>
           </a>
@@ -202,6 +194,7 @@ export default function UpdateStaus({ dataRequestById, setUpdateOrder }) {
           </button>
         )}
 
+          {/* open popup */}
         {isPopupOpen && (
           <div id="popupCreate" className="overlay">
             <div className="popup">
@@ -285,17 +278,6 @@ export default function UpdateStaus({ dataRequestById, setUpdateOrder }) {
                       justifyContent: "space-around",
                     }}
                   >
-                    <div className="popupInput">
-                      <input
-                        type="text"
-                        placeholder="Enter name of artwork *"
-                        onChange={(e) => handleName(e.target.value)}
-                        maxLength={60}
-                      />
-                      <span style={{ fontWeight: "600", color: "#838592" }}>
-                        {remainingCharacters}
-                      </span>
-                    </div>
 
                     <div className="popupInput">
                       <input
