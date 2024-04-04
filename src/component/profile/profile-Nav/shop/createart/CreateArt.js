@@ -297,6 +297,13 @@ export default function CreateArt({ onCreate }) {
                       onChange={handleCategoryName}
                       label="Category *"
                       style={{ borderRadius: "10px" }}
+                      MenuProps={{
+                        PaperProps: {
+                          style: {
+                            maxHeight: 250, // Đặt giới hạn chiều cao tại đây
+                          },
+                        },
+                      }}
                     >
                       {categories.map((category) => (
                         <MenuItem value={`${category.name}`}>{category.name}</MenuItem>
@@ -306,7 +313,7 @@ export default function CreateArt({ onCreate }) {
                   <div className="popupInput">
                     <input
                       type="number"
-                      placeholder="Enter price of artwork ($) *"
+                      placeholder="Enter price of artwork ($)"
                       onChange={(e) => handlePrice(e.target.value)}
                       min="0"
                     />
