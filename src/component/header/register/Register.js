@@ -70,31 +70,7 @@ export default function Register() {
       setIsLoading(false);
       return;
     }
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@gmail.com$/;
-    if (!emailPattern.test(email)) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Please enter a valid Gmail email address!",
-      });
-      setIsLoading(false);
-      return;
-    }
 
-    if (
-      password.length < 8 ||
-      !/[A-Z]/.test(password) ||
-      !/[!@#$%^&*(),.?":{}|<>]/.test(password)
-    ) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text:
-          "Password must contain at least 8 characters, including one uppercase letter and one special character!",
-      });
-      setIsLoading(false);
-      return;
-    }
     setIsLoading(true);
     const data = {
       UserName: userName,
@@ -138,53 +114,57 @@ export default function Register() {
           </div>
           <div className="title">Register Now!</div>
           <div className="group-regis">
-            
-              <div className="group-i">
-                <input
-                  type="text"
-                  placeholder="Nick name (*)"
-                  onChange={(e) => handleFullNameChange(e.target.value)}
-                />
-              </div>
-              <div className="group-i">
-                <input
-                  type="text"
-                  placeholder="User name (*)"
-                  onChange={(e) => handleUserNameChange(e.target.value)}
-                />
-              </div>
-              <div className="group-i">
-                <input
-                  type={inputType}
-                  placeholder="Password (*)"
-                  onChange={(e) => handlePasswordChange(e.target.value)}
-                />
-                <button type="button" onClick={togglePasswordVisibility}>
-                  {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
-                </button>
-              </div>
-              <div className="group-i">
-                <input
-                  type="text"
-                  placeholder="Email (*)"
-                  onChange={(e) => handleEmailChange(e.target.value)}
-                />
-              </div>
-              <div className="group-i">
-                <input
-                  type="text"
-                  placeholder="Address"
-                  onChange={(e) => handleAddressChange(e.target.value)}
-                />
-              </div>
-              <div className="group-i">
-                <input
-                  type="tel"
-                  placeholder="Phone number (*)"
-                  onChange={handlePhoneNoChange}
-                />
-              </div>
-            
+            <div className="group-i">
+              <span style={{ fontSize: "15px" }}>Nick name*</span>
+              <input
+                type="text"
+                placeholder="Nick name (*)"
+                onChange={(e) => handleFullNameChange(e.target.value)}
+              />
+            </div>
+            <div className="group-i">
+              <span style={{ fontSize: "15px" }}>Username*</span>
+              <input
+                type="text"
+                placeholder="User name (*)"
+                onChange={(e) => handleUserNameChange(e.target.value)}
+              />
+            </div>
+            <div className="group-i">
+              <span style={{ fontSize: "15px" }}>Password*</span>
+              <input
+                type={inputType}
+                placeholder="Password (*)"
+                onChange={(e) => handlePasswordChange(e.target.value)}
+              />
+              <button type="button" onClick={togglePasswordVisibility}>
+                {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+              </button>
+            </div>
+            <div className="group-i">
+              <span style={{ fontSize: "15px" }}>Email*</span>
+              <input
+                type="text"
+                placeholder="Email (*)"
+                onChange={(e) => handleEmailChange(e.target.value)}
+              />
+            </div>
+            <div className="group-i">
+              <span style={{ fontSize: "15px" }}>Address</span>
+              <input
+                type="text"
+                placeholder="Address"
+                onChange={(e) => handleAddressChange(e.target.value)}
+              />
+            </div>
+            <div className="group-i">
+              <span style={{ fontSize: "15px" }}>Phone number*</span>
+              <input
+                type="tel"
+                placeholder="Phone number (*)"
+                onChange={handlePhoneNoChange}
+              />
+            </div>
           </div>
           <div className="Error" style={{}}>
             {errorMessage && (

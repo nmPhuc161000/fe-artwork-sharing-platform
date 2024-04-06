@@ -66,9 +66,9 @@ export default function Revenue() {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Image</th>
                 <th>Name Seller</th>
                 <th>Name buyer</th>
+                <th>Image</th>
                 <th>Purchase date</th>
                 <th>Price</th>
               </tr>

@@ -140,7 +140,7 @@ function Admin() {
           </div>
           <div className="text-ad">
             <h3>REPORTS</h3>
-            <p>42</p>
+           
           </div>
         </div>
       </div>
