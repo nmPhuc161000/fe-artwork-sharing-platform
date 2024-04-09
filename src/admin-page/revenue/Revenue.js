@@ -5,7 +5,6 @@ import urlApi from "../../configAPI/UrlApi";
 
 export default function Revenue() {
   const [dataRevenues, setDataRevenues] = useState([]);
-
   const token = localStorage.getItem("token");
 
   useEffect(() => {

@@ -94,7 +94,7 @@ export default function Register() {
     } catch (error) {
       Swal.fire({
         icon: "error",
-        title: "Nickname or username already exists...",
+        title: "Please check your input!!!",
         text: error.response.data.message,
       });
       // Xử lý lỗi

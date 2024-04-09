@@ -89,7 +89,7 @@ export default function Login() {
         <h6>please login to your account</h6>
         <form onSubmit={handleSubmit}>
           <div className="group">
-            <span style={{fontSize: "15px"}}>Username*</span>
+            <span style={{ fontSize: "15px" }}>Username*</span>
             <input
               type="text"
               placeholder="Username"
@@ -98,7 +98,7 @@ export default function Login() {
             />
           </div>
           <div className="group">
-            <span style={{fontSize: "15px"}}>Password*</span>
+            <span style={{ fontSize: "15px" }}>Password*</span>
             <input
               type={showPassword ? "text" : "password"}
               placeholder="Password"
